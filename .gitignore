@@ -1,0 +1,58 @@
+# 忽略 bird_data 和 spider_data 下的所有内容
+bird_data/**
+spider_data/**
+
+# 但保留占位符（从而让空目录被跟踪）
+!bird_data/.gitkeep
+!spider_data/.gitkeep
+
+
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+*.egg-info/
+dist/
+build/
+*.egg
+
+# Virtual Environment
+.venv/
+venv/
+ENV/
+env/
+
+# IDEs
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+.DS_Store
+
+# Environment variables
+.env
+.env.local
+
+# Outputs
+outputs/*.sql
+outputs/*.txt
+outputs/*.log
+outputs/*.png
+outputs/*.jpg
+
+# Test outputs
+.pytest_cache/
+.coverage
+htmlcov/
+
+# Logs
+*.log
+logs/
+
+# Temporary files
+*.tmp
+*.bak
+*.cache
