@@ -166,6 +166,29 @@ def run_evaluation():
     print(f"\n✅ 完成！结果已保存到 {config.output_file}")
     print(f"\n💡 提示: 可以使用官方评测脚本进行 EM/EX 评估")
 
+    # ============================================================
+    # 自动聚合指标与报表（report_metrics）
+    # - 若开启了语义闸门且生成了语义报告，则汇总生成 summary.json / details.csv / report.md
+    # - 缺少任一输入（如未开启语义闸门或未有日志）也不报错，尽力输出可用结果
+    # ============================================================
+    try:
+        from src.agent.report_metrics import generate_reports, Args
+        reports_dir = Path("outputs/semantic_reports")
+        logs_file = Path("outputs/logs/semantic_smoke.log")
+        preds_file = Path(config.output_file)
+        out_dir = Path("outputs/reports")
+        summary, _ = generate_reports(Args(
+            reports_dir=reports_dir,
+            log_file=logs_file if logs_file.exists() else None,
+            pred_file=preds_file if preds_file.exists() else None,
+            out_dir=out_dir,
+        ))
+        print("\n[report_metrics] 自动生成汇总完成，产物位于 outputs/reports/")
+        print(json.dumps(summary, ensure_ascii=False, indent=2))
+    except Exception as e:
+        # 聚合失败不影响主流程
+        print(f"\n[report_metrics] 跳过（原因：{str(e)}）")
+
 
 if __name__ == "__main__":
     run_evaluation()

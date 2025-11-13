@@ -12,7 +12,7 @@
       "columns": [],
       "filters": [],
       "agg": [
-        "COUNT(*)"
+        "COUNT"
       ],
       "group_by": [],
       "order_by": [],
@@ -20,6 +20,6 @@
     },
     "score": 1.0,
     "pass": true,
-    "reason": "统计俱乐部数量的意图一致，SQL使用COUNT(*)聚合函数作用于club表，无额外过滤、分组或排序条件，完全匹配原始问题"
+    "reason": "统计意图明确，目标表为club，无过滤条件，使用COUNT聚合函数统计全部行数，与原始问题语义完全一致"
   }
 }

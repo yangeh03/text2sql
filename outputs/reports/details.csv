@@ -1,0 +1,4 @@
+index,db_id,question,sql,semantic_pass,semantic_score,semantic_reason,exec_status,rowcount,revisions
+1,soccer_3,How many clubs are there?,SELECT COUNT(*) FROM club;,True,1.0,完全一致。原始问题要求统计俱乐部总数，SQL描述正确使用COUNT聚合函数作用于club表，无过滤条件、分组或排序需求，与问题语义完全匹配。,ok,1,1
+2,soccer_3,Count the number of clubs.,SELECT COUNT(*) FROM club;,True,1.0,统计意图明确，目标表为club，无过滤条件，使用COUNT聚合函数统计全部行数，与原始问题语义完全一致,ok,1,1
+3,soccer_3,List the name of clubs in ascending alphabetical order.,SELECT Name FROM club ORDER BY Name ASC,True,1.0,语义完全一致，原始问题要求列出俱乐部名称并按字母升序排列，SQL描述中选择了正确的表、列，并应用了正确的排序方式。,ok,9,1
