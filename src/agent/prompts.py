@@ -115,3 +115,40 @@ REVISE_SQL_PROMPT = (
     "- 空结果: 检查WHERE条件是否过严，JOIN是否正确\n\n"
     "只输出修正后的SQL语句（单行格式）。"
 )
+
+# ===============================
+# 反向翻译与语义判定（新增）
+# ===============================
+
+# BACK_TRANSLATE_PROMPT：将 SQL 翻译回自然语言，并以 JSON 结构化输出，便于后续自动对齐
+# 要求：只返回 JSON，不要任何解释性文本
+BACK_TRANSLATE_PROMPT = (
+    "请将下面的 SQL 查询翻译成自然语言的结构化描述，并只用 JSON 格式返回。\n"
+    "请严格使用以下字段：intent(查询意图)、tables(涉及表名数组)、columns(涉及列名数组)、filters(过滤条件数组，原样字符串)、"
+    "agg(聚合函数数组，如COUNT/SUM等)、group_by(分组列数组)、order_by(排序列及方向数组)、limit(限制行数或null)。\n\n"
+    "SQL：{sql}\n\n"
+    "可参考的相关表结构（可能不完整，仅供理解）：\n{schema}\n\n"
+    "注意：\n"
+    "- 只返回一个合法的 JSON，不要任何额外文本。\n"
+    "- 所有字段必须存在，即使为空也要给出空数组或 null。\n"
+)
+
+# SEMANTIC_JUDGE_PROMPT：给定原始问题与反向翻译的 JSON，判断语义是否一致
+# 输出：只返回 JSON，格式为 {"pass": bool, "score": float, "reason": str}
+SEMANTIC_JUDGE_PROMPT = (
+    "请根据原始问题与 SQL 的反向翻译描述，判断两者的语义是否一致。\n"
+    "只返回 JSON，格式为 {\"pass\": bool, \"score\": float, \"reason\": string}，其中：\n"
+    "- pass: 是否通过语义一致性检查（True/False）\n"
+    "- score: 一致性得分（0~1），1表示完全一致\n"
+    "- reason: 若不一致，请给出差异的关键点（如目标表/聚合/过滤条件/分组/排序等）\n\n"
+    "原始问题：{question}\n\n"
+    "SQL反向翻译的描述(JSON)：\n{bt}\n\n"
+    "注意：\n"
+    "- 只返回一个合法的 JSON，不要任何额外文本。\n"
+)
+
+# 在修订阶段提示语义差异的模板（可选拼接）
+SEMANTIC_MISMATCH_HINT = (
+    "\n[语义差异提示] 你的 SQL 当前表达的意图为：{bt_intent}；需要回答的问题是：{question}。\n"
+    "请重点修正以下不一致之处：{reason}\n"
+)

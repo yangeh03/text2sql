@@ -30,6 +30,16 @@ class Settings:
     enable_validation: bool = _to_bool(os.getenv("ENABLE_VALIDATION"), False)
     enable_memory: bool = _to_bool(os.getenv("ENABLE_MEMORY"), False)
 
+    # 语义验证（反向翻译）相关开关与阈值
+    # ENABLE_SEMANTIC_VALIDATE: 是否在执行验证前进行“SQL→自然语言反向翻译 + 语义一致性判定”
+    # SEMANTIC_SCORE_THRESHOLD: 语义判定通过的分数阈值（0~1），仅供实现时参考（当前由 LLM 判定返回 pass/score）
+    # SEMANTIC_GATE_MODE: 语义闸门模式
+    #   - before_exec: 通过后继续走 validate_sql（默认，不改变原有流程）
+    #   - finalize_on_pass: 通过后直接 finalize（课堂 Demo/快速模式，可选）
+    enable_semantic_validate: bool = _to_bool(os.getenv("ENABLE_SEMANTIC_VALIDATE"), False)
+    semantic_score_threshold: float = float(os.getenv("SEMANTIC_SCORE_THRESHOLD", "0.7"))
+    semantic_gate_mode: str = os.getenv("SEMANTIC_GATE_MODE", "before_exec")
+
     # resource/safety
     max_tokens: int = int(os.getenv("MAX_TOKENS", "1024"))
     request_timeout: int = int(os.getenv("REQUEST_TIMEOUT", "60"))

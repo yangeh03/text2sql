@@ -7,13 +7,14 @@
 from __future__ import annotations
 from pathlib import Path
 import sys
+import json  # 持久化语义报告（可选）
 
 # 添加项目根目录到路径
 project_root = Path(__file__).parent.parent.parent
 sys.path.insert(0, str(project_root))
 
 from src.agent.graph import build_graph, AgentState
-from src.agent.config import EVAL_CONFIG
+from src.agent.config import EVAL_CONFIG, SETTINGS  # SETTINGS 用于读取语义闸门开关
 from src.agent.utils import load_dataset, load_schemas
 
 
@@ -60,6 +61,10 @@ def run_evaluation():
     output_path.parent.mkdir(parents=True, exist_ok=True)
     
     results = []
+    # 若开启语义验证，则准备输出语义报告目录
+    report_dir = Path("outputs/semantic_reports")
+    if SETTINGS.enable_semantic_validate:
+        report_dir.mkdir(parents=True, exist_ok=True)
     success_count = 0
     error_count = 0
     
@@ -108,6 +113,27 @@ def run_evaluation():
                 print(f"  ✅ 生成SQL: {final_sql[:100]}...")
             
             results.append(final_sql)
+
+            # 若启用语义闸门，将每个样本的语义信息写入报告（便于课堂演示与排错）
+            if SETTINGS.enable_semantic_validate:
+                try:
+                    semantic_payload = {
+                        "db_id": db_id,
+                        "index": idx,
+                        "question": question,
+                        "sql": final_sql,
+                        "semantic": {
+                            "back_translation": final_state.get("back_translation", {}),
+                            "score": final_state.get("semantic_score", 0.0),
+                            "pass": final_state.get("semantic_pass", False),
+                            "reason": final_state.get("semantic_reason", ""),
+                        },
+                    }
+                    with open(report_dir / f"{idx:04d}_{db_id}.json", "w", encoding="utf-8") as rf:
+                        rf.write(json.dumps(semantic_payload, ensure_ascii=False, indent=2))
+                except Exception:
+                    # 写报告失败不影响主流程
+                    pass
             
             # 显示修订历史
             revision_history = final_state.get("revision_history", [])
