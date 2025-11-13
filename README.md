@@ -96,6 +96,29 @@ PROVIDER=openai_compatible
 OPENAI_API_KEY=your-api-key
 OPENAI_BASE_URL=https://api.openai.com/v1
 MODEL_NAME=gpt-4o-mini
+
+# 消融/扩展（默认保守）
+ENABLE_SQL_TOOL=true
+ENABLE_VIZ_TOOL=true
+ENABLE_REFLECTION=false
+ENABLE_VALIDATION=false
+ENABLE_MEMORY=false
+
+# 资源与安全
+MAX_TOKENS=1024
+REQUEST_TIMEOUT=60
+SQL_MAX_ROWS=200
+SQL_HARD_LIMIT_INJECT=true
+
+# 语义验证（反向翻译）相关开关与阈值
+# ENABLE_SEMANTIC_VALIDATE: 是否在执行验证前进行“SQL→自然语言反向翻译 + 语义一致性判定”
+# SEMANTIC_SCORE_THRESHOLD: 语义判定通过的分数阈值（0~1），仅供实现时参考（当前由 LLM 判定返回 pass/score）
+# SEMANTIC_GATE_MODE: 语义闸门模式
+#   - before_exec: 通过后继续走 validate_sql（默认，不改变原有流程）
+#   - finalize_on_pass: 通过后直接 finalize（课堂 Demo/快速模式，可选）
+ENABLE_SEMANTIC_VALIDATE=true
+SEMANTIC_SCORE_THRESHOLD=0.7
+SEMANTIC_GATE_MODE=before_exec    # 或 finalize_on_pass（演示快速出结果）
 ```
 
 ### 3. 数据准备
