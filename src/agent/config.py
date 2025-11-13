@@ -52,13 +52,16 @@ class EvalConfig:
     dataset_type: str = "spider"
     
     # 数据文件路径
-    data_file: str = "spider_data/train_spider.json"
+    # data_file: str = "spider_data/train_spider.json"
+    data_file: str = "spider_data/test.json"
     # Schema文件路径
-    schema_file: str = "spider_data/tables.json"
+    # schema_file: str = "spider_data/tables.json"
+    schema_file: str = "spider_data/test_tables.json"
     # 输出SQL文件路径
     output_file: str = "outputs/predictions.sql"
     # 数据库文件目录路径
-    database_dir: str = "spider_data/database"
+    # database_dir: str = "spider_data/database"
+    database_dir: str = "spider_data/test_database"
     
     # 最多处理的样本数（None表示全部）
     max_samples: int | None = 3
