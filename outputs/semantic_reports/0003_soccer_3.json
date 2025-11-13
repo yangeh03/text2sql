@@ -1,0 +1,27 @@
+{
+  "db_id": "soccer_3",
+  "index": 3,
+  "question": "List the name of clubs in ascending alphabetical order.",
+  "sql": "SELECT Name FROM club ORDER BY Name ASC",
+  "semantic": {
+    "back_translation": {
+      "intent": "获取俱乐部名称列表",
+      "tables": [
+        "club"
+      ],
+      "columns": [
+        "Name"
+      ],
+      "filters": [],
+      "agg": [],
+      "group_by": [],
+      "order_by": [
+        "Name ASC"
+      ],
+      "limit": null
+    },
+    "score": 0.0,
+    "pass": false,
+    "reason": "语义判定出错: '\"pass\"'"
+  }
+}

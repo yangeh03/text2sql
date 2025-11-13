@@ -1,0 +1,25 @@
+{
+  "db_id": "soccer_3",
+  "index": 2,
+  "question": "Count the number of clubs.",
+  "sql": "SELECT COUNT(*) FROM club;",
+  "semantic": {
+    "back_translation": {
+      "intent": "统计俱乐部总数",
+      "tables": [
+        "club"
+      ],
+      "columns": [],
+      "filters": [],
+      "agg": [
+        "COUNT(*)"
+      ],
+      "group_by": [],
+      "order_by": [],
+      "limit": null
+    },
+    "score": 0.0,
+    "pass": false,
+    "reason": "语义判定出错: '\"pass\"'"
+  }
+}

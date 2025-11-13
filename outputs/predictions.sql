@@ -1,3 +1,3 @@
-SELECT 1;  -- ERROR: Connection error.
-SELECT 1;  -- ERROR: Connection error.
-SELECT 1;  -- ERROR: Connection error.
+SELECT COUNT(*) FROM club;
+SELECT COUNT(*) FROM club;
+SELECT Name FROM club ORDER BY Name ASC
