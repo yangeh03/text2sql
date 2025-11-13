@@ -5,7 +5,7 @@
   "sql": "SELECT COUNT(*) FROM club;",
   "semantic": {
     "back_translation": {
-      "intent": "统计俱乐部总数",
+      "intent": "统计",
       "tables": [
         "club"
       ],
@@ -18,8 +18,8 @@
       "order_by": [],
       "limit": null
     },
-    "score": 0.0,
-    "pass": false,
-    "reason": "语义判定出错: '\"pass\"'"
+    "score": 1.0,
+    "pass": true,
+    "reason": "统计俱乐部数量的意图一致，SQL使用COUNT(*)聚合函数作用于club表，无额外过滤、分组或排序条件，完全匹配原始问题"
   }
 }
