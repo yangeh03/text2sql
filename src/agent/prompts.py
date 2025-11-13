@@ -137,7 +137,7 @@ BACK_TRANSLATE_PROMPT = (
 # 输出：只返回 JSON，格式为 {"pass": bool, "score": float, "reason": str}
 SEMANTIC_JUDGE_PROMPT = (
     "请根据原始问题与 SQL 的反向翻译描述，判断两者的语义是否一致。\n"
-    "只返回 JSON，格式为 {\"pass\": bool, \"score\": float, \"reason\": string}，其中：\n"
+    "只返回 JSON，格式为 {{\"pass\": bool, \"score\": float, \"reason\": string}}，其中：\n"
     "- pass: 是否通过语义一致性检查（True/False）\n"
     "- score: 一致性得分（0~1），1表示完全一致\n"
     "- reason: 若不一致，请给出差异的关键点（如目标表/聚合/过滤条件/分组/排序等）\n\n"
