@@ -74,7 +74,7 @@ class EvalConfig:
     database_dir: str = "spider_data/test_database"
     
     # 最多处理的样本数（None表示全部）
-    max_samples: int | None = 3
+    max_samples: int | None = None
     # 最大修订次数
     max_revisions: int = 3
 

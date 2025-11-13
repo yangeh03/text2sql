@@ -5,7 +5,7 @@
   "sql": "SELECT COUNT(*) FROM club;",
   "semantic": {
     "back_translation": {
-      "intent": "统计",
+      "intent": "Count all records",
       "tables": [
         "club"
       ],
@@ -20,6 +20,6 @@
     },
     "score": 1.0,
     "pass": true,
-    "reason": "统计意图明确，目标表为club，无过滤条件，使用COUNT聚合函数统计全部行数，与原始问题语义完全一致"
+    "reason": "The intent to count all records in the club table matches the original question of counting the number of clubs. No filters, group_by, or order_by clauses are specified, and the aggregation function COUNT is correctly applied."
   }
 }

@@ -5,7 +5,7 @@
   "sql": "SELECT COUNT(*) FROM club;",
   "semantic": {
     "back_translation": {
-      "intent": "统计",
+      "intent": "统计数量",
       "tables": [
         "club"
       ],
@@ -20,6 +20,6 @@
     },
     "score": 1.0,
     "pass": true,
-    "reason": "完全一致。原始问题要求统计俱乐部总数，SQL描述正确使用COUNT聚合函数作用于club表，无过滤条件、分组或排序需求，与问题语义完全匹配。"
+    "reason": "语义完全一致，原始问题询问俱乐部数量，SQL反向翻译描述正确地表达了统计表club中所有行的数量。"
   }
 }
