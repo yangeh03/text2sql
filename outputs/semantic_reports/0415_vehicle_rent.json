@@ -1,0 +1,30 @@
+{
+  "db_id": "vehicle_rent",
+  "index": 415,
+  "question": "What are the types of powertrains for which there are two or more vehicles, and what are their average annual fuel costs?",
+  "sql": "SELECT Type_of_powertrain, AVG(Annual_fuel_cost) AS average_annual_fuel_cost FROM Vehicles GROUP BY Type_of_powertrain HAVING COUNT(*) >= 2;",
+  "semantic": {
+    "back_translation": {
+      "intent": "计算每种动力系统类型的平均年燃料成本，并筛选出至少有两个记录的类型",
+      "tables": [
+        "Vehicles"
+      ],
+      "columns": [
+        "Type_of_powertrain",
+        "Annual_fuel_cost"
+      ],
+      "filters": [],
+      "agg": [
+        "AVG(Annual_fuel_cost)"
+      ],
+      "group_by": [
+        "Type_of_powertrain"
+      ],
+      "order_by": [],
+      "limit": null
+    },
+    "score": 0.5,
+    "pass": false,
+    "reason": "缺少过滤条件（如HAVING COUNT(*) >= 2）来确保动力系统类型对应至少两个车辆记录"
+  }
+}

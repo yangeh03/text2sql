@@ -1,0 +1,29 @@
+{
+  "db_id": "government_shift",
+  "index": 378,
+  "question": "Find the name of all the services which either have been used by customer \"Hardy Kutch\" or have been rated as \"good\" in one of the customer interactions.",
+  "sql": "SELECT DISTINCT Services.Service_Details FROM Services JOIN Customers_and_Services ON Services.Service_ID = Customers_and_Services.Service_ID WHERE Customers_and_Services.Customer_ID = (SELECT Customers.Customer_ID FROM Customers WHERE Customers.Customer_Details = 'Hardy Kutch') UNION SELECT DISTINCT Services.Service_Details FROM Services JOIN Customer_Interactions ON Services.Service_ID = Customer_Interactions.Service_ID WHERE Customer_Interactions.Status_Code = 'good'",
+  "semantic": {
+    "back_translation": {
+      "intent": "获取特定客户关联的所有服务详情",
+      "tables": [
+        "Services",
+        "Customers_and_Services",
+        "Customer_Interactions"
+      ],
+      "columns": [
+        "Service_Details"
+      ],
+      "filters": [
+        "Customer_Details = 'Hardy Kutch'"
+      ],
+      "agg": [],
+      "group_by": [],
+      "order_by": [],
+      "limit": null
+    },
+    "score": 0.5,
+    "pass": false,
+    "reason": "原始问题要求获取所有被客户'Hardy Kutch'使用或在客户互动中被评价为'good'的服务名称，但反向翻译的描述仅提到获取'Hardy Kutch'关联的服务详情，未明确包含'rated as good'的条件，也未明确目标列是服务名称。"
+  }
+}

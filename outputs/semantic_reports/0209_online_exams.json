@@ -1,0 +1,33 @@
+{
+  "db_id": "online_exams",
+  "index": 209,
+  "question": "Sort the student answer texts in descending order of their frequency of occurrence.",
+  "sql": "SELECT Student_Answer_Text, COUNT(*) AS frequency FROM Student_Answers GROUP BY Student_Answer_Text ORDER BY frequency DESC;",
+  "semantic": {
+    "back_translation": {
+      "intent": "统计每个学生答案文本的出现频率",
+      "tables": [
+        "Student_Answers"
+      ],
+      "columns": [
+        "Student_Answer_Text",
+        "frequency"
+      ],
+      "filters": [],
+      "agg": [
+        "COUNT(*)"
+      ],
+      "group_by": [
+        "Student_Answer_Text"
+      ],
+      "order_by": [
+        "frequency",
+        "DESC"
+      ],
+      "limit": null
+    },
+    "score": 1.0,
+    "pass": true,
+    "reason": "语义一致，SQL反向翻译描述准确表达了原始问题中对学生答案文本按出现频率降序排列的意图。"
+  }
+}

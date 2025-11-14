@@ -1,0 +1,28 @@
+{
+  "db_id": "vehicle_driver",
+  "index": 174,
+  "question": "Which car models have total production larger than 100 or top speed higher than 150?",
+  "sql": "SELECT Model FROM vehicle WHERE CAST(Total_Production AS NUMBER) > 100 OR Top_Speed > 150;",
+  "semantic": {
+    "back_translation": {
+      "intent": "查询满足特定条件的车辆模型",
+      "tables": [
+        "vehicle"
+      ],
+      "columns": [
+        "Model"
+      ],
+      "filters": [
+        "CAST(Total_Production AS NUMBER) > 100",
+        "Top_Speed > 150"
+      ],
+      "agg": [],
+      "group_by": [],
+      "order_by": [],
+      "limit": null
+    },
+    "score": 1.0,
+    "pass": true,
+    "reason": "原始问题与SQL反向翻译描述的语义完全一致，均要求查询总产量大于100或最高时速大于150的汽车型号。"
+  }
+}

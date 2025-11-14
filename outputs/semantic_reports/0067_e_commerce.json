@@ -1,0 +1,29 @@
+{
+  "db_id": "e_commerce",
+  "index": 67,
+  "question": "List the names of the products being shipped and the corresponding shipment date.",
+  "sql": "SELECT Products.product_name, Shipments.shipment_date FROM Products JOIN Shipments ON Products.product_id = Shipments.order_id;",
+  "semantic": {
+    "back_translation": {
+      "intent": "获取特定产品及其对应的发货日期",
+      "tables": [
+        "Products",
+        "Shipments"
+      ],
+      "columns": [
+        "product_name",
+        "shipment_date"
+      ],
+      "filters": [
+        "Products.product_name IN ('Dell monitor', 'Dell keyboard', 'iPhone6s', 'iWatch', 'Lenovo keyboard')"
+      ],
+      "agg": [],
+      "group_by": [],
+      "order_by": [],
+      "limit": null
+    },
+    "score": 0.5,
+    "pass": false,
+    "reason": "原始问题未指定具体产品名称过滤条件，而SQL描述中包含硬编码的IN子句限制了产品范围。此外，未明确说明产品表与运输表的关联关系（如通过product_id连接）"
+  }
+}

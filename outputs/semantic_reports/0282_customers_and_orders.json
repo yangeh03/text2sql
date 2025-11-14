@@ -1,0 +1,28 @@
+{
+  "db_id": "customers_and_orders",
+  "index": 282,
+  "question": "What is the payment method and customer number for customer named Jeromy?",
+  "sql": "SELECT payment_method_code, customer_number FROM Customers WHERE customer_name = 'Jeromy';",
+  "semantic": {
+    "back_translation": {
+      "intent": "获取特定客户的支付方式代码和客户编号",
+      "tables": [
+        "Customers"
+      ],
+      "columns": [
+        "payment_method_code",
+        "customer_number"
+      ],
+      "filters": [
+        "customer_name = 'Jeromy'"
+      ],
+      "agg": [],
+      "group_by": [],
+      "order_by": [],
+      "limit": null
+    },
+    "score": 0.5,
+    "pass": false,
+    "reason": "目标表/列可能存在差异，原始问题中的'payment method'可能对应的是payment_method_name字段而非payment_method_code，且未明确说明是否需要返回多个支付方式的情况"
+  }
+}

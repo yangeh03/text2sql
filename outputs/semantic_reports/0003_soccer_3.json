@@ -2,7 +2,7 @@
   "db_id": "soccer_3",
   "index": 3,
   "question": "List the name of clubs in ascending alphabetical order.",
-  "sql": "SELECT Name FROM club ORDER BY Name ASC;",
+  "sql": "SELECT Name FROM club ORDER BY Name ASC",
   "semantic": {
     "back_translation": {
       "intent": "获取数据",
@@ -22,6 +22,6 @@
     },
     "score": 1.0,
     "pass": true,
-    "reason": "两者均要求获取club表的Name列，并按升序排列。原始问题未指定过滤条件、分组或聚合，与SQL描述中的空filters、空agg、空group_by及order_by Name ASC完全一致。"
+    "reason": "语义完全一致，原始问题要求列出俱乐部名称并按字母升序排列，SQL描述中正确选择了'club'表，'Name'列，并使用'Name ASC'进行排序，无过滤、聚合或分组操作，符合原始问题要求。"
   }
 }

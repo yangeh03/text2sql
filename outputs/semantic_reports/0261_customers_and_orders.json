@@ -1,0 +1,29 @@
+{
+  "db_id": "customers_and_orders",
+  "index": 261,
+  "question": "What are the names of all Hardware products, sorted by price ascending?",
+  "sql": "SELECT product_name FROM Products WHERE product_type_code = 'Hardware' ORDER BY product_price ASC;",
+  "semantic": {
+    "back_translation": {
+      "intent": "获取特定类型产品的名称",
+      "tables": [
+        "Products"
+      ],
+      "columns": [
+        "product_name"
+      ],
+      "filters": [
+        "product_type_code = 'Hardware'"
+      ],
+      "agg": [],
+      "group_by": [],
+      "order_by": [
+        "product_price ASC"
+      ],
+      "limit": null
+    },
+    "score": 1.0,
+    "pass": true,
+    "reason": "两者语义完全一致，均要求查询Hardware类型产品的名称并按价格升序排列，涉及的表、列、过滤条件、排序方式均匹配"
+  }
+}

@@ -1,0 +1,28 @@
+{
+  "db_id": "bbc_channels",
+  "index": 131,
+  "question": "Find the number of channels that do not run any program.",
+  "sql": "SELECT COUNT(*) FROM channel WHERE Channel_ID NOT IN (SELECT DISTINCT Channel_ID FROM program);",
+  "semantic": {
+    "back_translation": {
+      "intent": "统计不包含在program表中的频道数量",
+      "tables": [
+        "channel",
+        "program"
+      ],
+      "columns": [],
+      "filters": [
+        "Channel_ID NOT IN (SELECT DISTINCT Channel_ID FROM program)"
+      ],
+      "agg": [
+        "COUNT"
+      ],
+      "group_by": [],
+      "order_by": [],
+      "limit": null
+    },
+    "score": 1.0,
+    "pass": true,
+    "reason": "语义完全一致，原始问题要求统计没有运行任何节目的频道数量，SQL反向翻译描述通过使用NOT IN子查询正确表达了这一逻辑。"
+  }
+}

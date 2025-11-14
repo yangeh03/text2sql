@@ -1,0 +1,31 @@
+{
+  "db_id": "cre_Students_Information_Systems",
+  "index": 461,
+  "question": "Find the most common result in the behavioral monitoring details. What are the count and the details of this result?",
+  "sql": "SELECT behaviour_monitoring_details, COUNT(*) AS count FROM Behaviour_Monitoring GROUP BY behaviour_monitoring_details ORDER BY count DESC LIMIT 1;",
+  "semantic": {
+    "back_translation": {
+      "intent": "统计每个行为监控详情的出现次数并按次数降序排列",
+      "tables": [
+        "Behaviour_Monitoring"
+      ],
+      "columns": [
+        "behaviour_monitoring_details"
+      ],
+      "filters": [],
+      "agg": [
+        "COUNT(*)"
+      ],
+      "group_by": [
+        "behaviour_monitoring_details"
+      ],
+      "order_by": [
+        "count DESC"
+      ],
+      "limit": 1
+    },
+    "score": 1.0,
+    "pass": true,
+    "reason": "原始问题要求找出行为监控详情中最常见的结果及其计数，与SQL的意图（统计每个详情的出现次数并按次数降序排列，取第一条）完全一致。表/列映射正确，无过滤条件，聚合函数COUNT(*)和分组字段符合需求，排序及限制也准确匹配。"
+  }
+}

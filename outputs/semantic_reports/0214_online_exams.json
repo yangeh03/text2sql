@@ -1,0 +1,31 @@
+{
+  "db_id": "online_exams",
+  "index": 214,
+  "question": "Please show the least common assessment for students.",
+  "sql": "SELECT Assessment, COUNT(*) as count FROM Student_Assessments GROUP BY Assessment ORDER BY count ASC LIMIT 1;",
+  "semantic": {
+    "back_translation": {
+      "intent": "统计每个评估的出现次数，并找出出现次数最少的评估",
+      "tables": [
+        "Student_Assessments"
+      ],
+      "columns": [
+        "Assessment"
+      ],
+      "filters": [],
+      "agg": [
+        "COUNT(*)"
+      ],
+      "group_by": [
+        "Assessment"
+      ],
+      "order_by": [
+        "count ASC"
+      ],
+      "limit": 1
+    },
+    "score": 1.0,
+    "pass": true,
+    "reason": "语义完全一致，SQL正确实现了统计每个评估出现次数并找出出现次数最少的评估的逻辑，包含正确的分组、排序和限制条件"
+  }
+}

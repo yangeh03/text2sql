@@ -1,0 +1,33 @@
+{
+  "db_id": "e_commerce",
+  "index": 77,
+  "question": "What are the total cost of all the orders ? List the order id , date , and total cost .",
+  "sql": "SELECT Orders.order_id, Orders.date_order_placed, SUM(Products.price * Order_Items.quantity) AS total_cost FROM Orders JOIN Order_Items ON Orders.order_id = Order_Items.order_id JOIN Products ON Order_Items.product_id = Products.product_id GROUP BY Orders.order_id, Orders.date_order_placed;",
+  "semantic": {
+    "back_translation": {
+      "intent": "计算每个订单的总成本",
+      "tables": [
+        "Orders",
+        "Order_Items"
+      ],
+      "columns": [
+        "order_id",
+        "date_order_placed",
+        "total_cost"
+      ],
+      "filters": [],
+      "agg": [
+        "SUM(price * quantity)"
+      ],
+      "group_by": [
+        "order_id",
+        "date_order_placed"
+      ],
+      "order_by": [],
+      "limit": null
+    },
+    "score": 0.5,
+    "pass": false,
+    "reason": "分组条件不一致。原始问题要求列出每个订单的详细信息（order id, date, total cost），而SQL描述中将order_id和date_order_placed作为分组字段，可能导致每个订单的总成本被错误地按日期拆分。此外，'total cost'的计算方式可能需要明确是否为单个订单的总和或整体总成本。"
+  }
+}

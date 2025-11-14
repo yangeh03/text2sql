@@ -1,0 +1,27 @@
+{
+  "db_id": "region_building",
+  "index": 332,
+  "question": "List the names of the regions with the top 5 largest areas.",
+  "sql": "SELECT Name FROM region ORDER BY Area DESC LIMIT 5;",
+  "semantic": {
+    "back_translation": {
+      "intent": "获取区域名称",
+      "tables": [
+        "region"
+      ],
+      "columns": [
+        "Name"
+      ],
+      "filters": [],
+      "agg": [],
+      "group_by": [],
+      "order_by": [
+        "Area DESC"
+      ],
+      "limit": 5
+    },
+    "score": 1.0,
+    "pass": true,
+    "reason": "语义完全一致，SQL反向翻译描述准确表达了原始问题的意图，即获取面积最大的前5个区域的名称。"
+  }
+}

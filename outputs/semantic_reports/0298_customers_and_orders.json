@@ -1,0 +1,29 @@
+{
+  "db_id": "customers_and_orders",
+  "index": 298,
+  "question": "Show all order status and the number of orders in each status.",
+  "sql": "SELECT order_status_code, COUNT(*) FROM Customer_Orders GROUP BY order_status_code;",
+  "semantic": {
+    "back_translation": {
+      "intent": "统计每个订单状态代码的订单数量",
+      "tables": [
+        "Customer_Orders"
+      ],
+      "columns": [
+        "order_status_code"
+      ],
+      "filters": [],
+      "agg": [
+        "COUNT(*)"
+      ],
+      "group_by": [
+        "order_status_code"
+      ],
+      "order_by": [],
+      "limit": null
+    },
+    "score": 1.0,
+    "pass": true,
+    "reason": "语义完全一致，原始问题要求展示每个订单状态下的订单数量，SQL反向翻译描述正确地使用了COUNT(*)聚合函数并按order_status_code分组，符合原始问题意图。"
+  }
+}

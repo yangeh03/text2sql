@@ -1,0 +1,31 @@
+{
+  "db_id": "cre_Students_Information_Systems",
+  "index": 456,
+  "question": "List the the address details and the biographical information of the students.",
+  "sql": "SELECT Addresses.address_id, Addresses.address_details, Students.student_id, Students.bio_data, Students.student_details FROM Students JOIN Students_Addresses ON Students.student_id = Students_Addresses.student_id JOIN Addresses ON Students_Addresses.address_id = Addresses.address_id;",
+  "semantic": {
+    "back_translation": {
+      "intent": "获取学生及其关联的地址信息",
+      "tables": [
+        "Students",
+        "Students_Addresses",
+        "Addresses"
+      ],
+      "columns": [
+        "Addresses.address_id",
+        "Addresses.address_details",
+        "Students.student_id",
+        "Students.bio_data",
+        "Students.student_details"
+      ],
+      "filters": [],
+      "agg": [],
+      "group_by": [],
+      "order_by": [],
+      "limit": null
+    },
+    "score": 1.0,
+    "pass": true,
+    "reason": "原始问题要求列出学生的地址详情和生物信息，SQL反向翻译描述中的意图、涉及的表和列均准确反映了这一需求，没有过滤、聚合、分组或排序条件，与原始问题语义完全一致。"
+  }
+}

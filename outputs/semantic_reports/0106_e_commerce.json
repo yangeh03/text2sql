@@ -1,0 +1,31 @@
+{
+  "db_id": "e_commerce",
+  "index": 106,
+  "question": "What is the price of all products being ordered on average?",
+  "sql": "SELECT AVG(Products.product_price) FROM Products JOIN Order_Items ON Products.product_id = Order_Items.product_id JOIN Orders ON Order_Items.order_id = Orders.order_id WHERE Orders.order_status_code IS NOT NULL;",
+  "semantic": {
+    "back_translation": {
+      "intent": "计算满足特定订单状态的产品的平均价格",
+      "tables": [
+        "Products",
+        "Order_Items",
+        "Orders"
+      ],
+      "columns": [
+        "product_price"
+      ],
+      "filters": [
+        "Orders.order_status_code IN ('Cancelled', 'Part Completed', 'Delivered')"
+      ],
+      "agg": [
+        "AVG"
+      ],
+      "group_by": [],
+      "order_by": [],
+      "limit": null
+    },
+    "score": 0.5,
+    "pass": false,
+    "reason": "原始问题询问所有被订购产品的平均价格，而SQL反向翻译描述中限定了订单状态过滤条件（'Cancelled', 'Part Completed', 'Delivered'），导致统计范围不一致。"
+  }
+}

@@ -1,0 +1,30 @@
+{
+  "db_id": "cre_Students_Information_Systems",
+  "index": 492,
+  "question": "Which students have a student loan more than the average amount? List the students' biographical data and the details.",
+  "sql": "SELECT Students.student_id, Students.bio_data, Students.student_details FROM Students JOIN Student_Loans ON Students.student_id = Student_Loans.student_id WHERE Student_Loans.amount_of_loan > (SELECT AVG(amount_of_loan) FROM Student_Loans)",
+  "semantic": {
+    "back_translation": {
+      "intent": "查询学生及其生物数据和详细信息，其中他们的贷款金额高于所有贷款的平均金额",
+      "tables": [
+        "Students",
+        "Student_Loans"
+      ],
+      "columns": [
+        "Students.student_id",
+        "Students.bio_data",
+        "Students.student_details"
+      ],
+      "filters": [
+        "Student_Loans.amount_of_loan > (SELECT AVG(amount_of_loan) FROM Student_Loans)"
+      ],
+      "agg": [],
+      "group_by": [],
+      "order_by": [],
+      "limit": null
+    },
+    "score": 1.0,
+    "pass": true,
+    "reason": "语义完全一致，原始问题和SQL反向翻译描述均要求查询贷款金额高于平均值的学生的生物数据和详细信息，且未涉及聚合、分组、排序或限制条件。"
+  }
+}

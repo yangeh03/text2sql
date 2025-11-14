@@ -1,0 +1,28 @@
+{
+  "db_id": "cre_Students_Information_Systems",
+  "index": 496,
+  "question": "Which student has the loan with the minimum value? List the student's biographical information.",
+  "sql": "SELECT s.bio_data, s.student_details FROM Students s JOIN Student_Loans sl ON s.student_id = sl.student_id WHERE sl.amount_of_loan = (SELECT MIN(amount_of_loan) FROM Student_Loans)",
+  "semantic": {
+    "back_translation": {
+      "intent": "查询学生生物数据",
+      "tables": [
+        "Students",
+        "Student_Loans"
+      ],
+      "columns": [
+        "bio_data"
+      ],
+      "filters": [
+        "student_id = (SELECT student_id FROM Student_Loans WHERE amount_of_loan = (SELECT MIN(amount_of_loan) FROM Student_Loans))"
+      ],
+      "agg": [],
+      "group_by": [],
+      "order_by": [],
+      "limit": null
+    },
+    "score": 0.5,
+    "pass": false,
+    "reason": "过滤条件未正确关联Students表与Student_Loans表，应通过JOIN操作连接两个表以获取完整的生物信息。此外，子查询可能返回多个student_id但使用等于符号可能导致结果不全。"
+  }
+}

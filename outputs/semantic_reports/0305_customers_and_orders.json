@@ -1,0 +1,28 @@
+{
+  "db_id": "customers_and_orders",
+  "index": 305,
+  "question": "What are the names of products that have not been ordered?",
+  "sql": "SELECT product_name FROM Products WHERE product_id NOT IN (SELECT product_id FROM Order_Items);",
+  "semantic": {
+    "back_translation": {
+      "intent": "查找未出现在订单项中的产品名称",
+      "tables": [
+        "Products",
+        "Order_Items"
+      ],
+      "columns": [
+        "product_name"
+      ],
+      "filters": [
+        "product_id NOT IN (SELECT product_id FROM Order_Items)"
+      ],
+      "agg": [],
+      "group_by": [],
+      "order_by": [],
+      "limit": null
+    },
+    "score": 1.0,
+    "pass": true,
+    "reason": "语义一致，SQL反向翻译描述准确表达了原始问题'What are the names of products that have not been ordered?'的意图，即查找未出现在订单项中的产品名称。"
+  }
+}

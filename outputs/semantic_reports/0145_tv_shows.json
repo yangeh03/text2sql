@@ -1,0 +1,32 @@
+{
+  "db_id": "tv_shows",
+  "index": 145,
+  "question": "Please show the most common affiliation for city channels.",
+  "sql": "SELECT Affiliation, COUNT(*) AS count FROM city_channel GROUP BY Affiliation ORDER BY count DESC LIMIT 1;",
+  "semantic": {
+    "back_translation": {
+      "intent": "统计每个Affiliation的频道数量并按数量降序排列，取数量最多的前一个",
+      "tables": [
+        "city_channel"
+      ],
+      "columns": [
+        "Affiliation",
+        "count"
+      ],
+      "filters": [],
+      "agg": [
+        "COUNT(*)"
+      ],
+      "group_by": [
+        "Affiliation"
+      ],
+      "order_by": [
+        "count DESC"
+      ],
+      "limit": 1
+    },
+    "score": 1.0,
+    "pass": true,
+    "reason": "语义完全一致。原始问题要求找出城市频道中最常见的归属关系，SQL通过统计每个Affiliation的频道数量（COUNT(*)），按数量降序排序（order_by: count DESC）并限制返回一条记录（limit: 1）实现该需求。"
+  }
+}

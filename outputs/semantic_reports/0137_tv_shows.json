@@ -1,0 +1,25 @@
+{
+  "db_id": "tv_shows",
+  "index": 137,
+  "question": "How many radios are there?",
+  "sql": "SELECT COUNT(*) FROM radio;",
+  "semantic": {
+    "back_translation": {
+      "intent": "统计表中所有记录的数量",
+      "tables": [
+        "radio"
+      ],
+      "columns": [],
+      "filters": [],
+      "agg": [
+        "COUNT(*)"
+      ],
+      "group_by": [],
+      "order_by": [],
+      "limit": null
+    },
+    "score": 1.0,
+    "pass": true,
+    "reason": "语义完全一致，原始问题询问无线电数量，SQL反向翻译描述正确地表达了统计表中所有记录的数量。"
+  }
+}

@@ -1,0 +1,29 @@
+{
+  "db_id": "government_shift",
+  "index": 374,
+  "question": "How many distinct customer and services details are there?",
+  "sql": "SELECT COUNT(DISTINCT Customer_ID) + COUNT(DISTINCT Service_ID) + COUNT(DISTINCT Customers_and_Services_Details) FROM Customers_and_Services;",
+  "semantic": {
+    "back_translation": {
+      "intent": "统计",
+      "tables": [
+        "Customers_and_Services"
+      ],
+      "columns": [
+        "Customer_ID",
+        "Service_ID"
+      ],
+      "filters": [],
+      "agg": [
+        "COUNT(DISTINCT Customer_ID)",
+        "COUNT(DISTINCT Service_ID)"
+      ],
+      "group_by": [],
+      "order_by": [],
+      "limit": null
+    },
+    "score": 0.5,
+    "pass": false,
+    "reason": "原始问题询问的是'How many distinct customer and services details are there?'，即客户和服务的详细信息数量，但SQL反向翻译仅统计了Customer_ID和Service_ID的独立数量，未涵盖其他可能的详细信息字段，因此语义不完全一致。"
+  }
+}

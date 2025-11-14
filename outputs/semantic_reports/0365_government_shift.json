@@ -1,0 +1,28 @@
+{
+  "db_id": "government_shift",
+  "index": 365,
+  "question": "Which services were used by customers by more than 3 times? Give me the service details.",
+  "sql": "SELECT Services.Service_Details FROM Services JOIN Customers_and_Services ON Services.Service_ID = Customers_and_Services.Service_ID GROUP BY Services.Service_ID HAVING COUNT(Customers_and_Services.Customer_ID) > 3;",
+  "semantic": {
+    "back_translation": {
+      "intent": "查询服务详情",
+      "tables": [
+        "Services",
+        "Customers_and_Services"
+      ],
+      "columns": [
+        "Services.Service_Details"
+      ],
+      "filters": [],
+      "agg": [],
+      "group_by": [
+        "Services.Service_ID"
+      ],
+      "order_by": [],
+      "limit": null
+    },
+    "score": 0.5,
+    "pass": false,
+    "reason": "原始问题要求查询被客户使用超过3次的服务，但SQL反向翻译描述中未包含任何过滤条件或聚合函数来限制使用次数，因此无法准确反映原始问题的意图。"
+  }
+}

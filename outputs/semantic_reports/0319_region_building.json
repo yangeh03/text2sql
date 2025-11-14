@@ -1,0 +1,27 @@
+{
+  "db_id": "region_building",
+  "index": 319,
+  "question": "What is the list of building names, sorted by the number of stories of each building in ascending order?",
+  "sql": "SELECT Name FROM building ORDER BY Number_of_Stories ASC",
+  "semantic": {
+    "back_translation": {
+      "intent": "获取建筑物名称并按楼层数升序排列",
+      "tables": [
+        "building"
+      ],
+      "columns": [
+        "Name"
+      ],
+      "filters": [],
+      "agg": [],
+      "group_by": [],
+      "order_by": [
+        "Number_of_Stories ASC"
+      ],
+      "limit": null
+    },
+    "score": 1.0,
+    "pass": true,
+    "reason": "两者语义完全一致，均要求获取建筑物名称并按楼层数升序排列，未涉及过滤、分组或聚合操作"
+  }
+}

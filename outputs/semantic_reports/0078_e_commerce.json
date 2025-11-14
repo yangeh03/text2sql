@@ -1,0 +1,33 @@
+{
+  "db_id": "e_commerce",
+  "index": 78,
+  "question": "For each order, what is its id, date, and total amount paid?",
+  "sql": "SELECT Orders.order_id, Orders.date_order_placed, COUNT(Invoices.invoice_number) AS total_amount_paid FROM Orders JOIN Shipments ON Orders.order_id = Shipments.order_id JOIN Invoices ON Shipments.invoice_number = Invoices.invoice_number WHERE Invoices.invoice_status_code = 'Paid' GROUP BY Orders.order_id;",
+  "semantic": {
+    "back_translation": {
+      "intent": "统计每个订单的已支付发票百分比",
+      "tables": [
+        "Orders",
+        "Shipments",
+        "Invoices"
+      ],
+      "columns": [
+        "Orders.order_id",
+        "Orders.date_order_placed",
+        "total_amount_paid"
+      ],
+      "filters": [],
+      "agg": [
+        "SUM"
+      ],
+      "group_by": [
+        "Orders.order_id"
+      ],
+      "order_by": [],
+      "limit": null
+    },
+    "score": 0.3,
+    "pass": false,
+    "reason": "原始问题要求获取每个订单的id、date和total amount paid，而SQL描述的intent为'统计每个订单的已支付发票百分比'，目标字段和聚合逻辑不一致。同时涉及的表包含Shipments和Invoices，但原始问题未提及需要关联其他表。"
+  }
+}

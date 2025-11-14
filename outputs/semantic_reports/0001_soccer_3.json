@@ -5,14 +5,14 @@
   "sql": "SELECT COUNT(*) FROM club;",
   "semantic": {
     "back_translation": {
-      "intent": "统计数量",
+      "intent": "统计",
       "tables": [
         "club"
       ],
       "columns": [],
       "filters": [],
       "agg": [
-        "COUNT"
+        "COUNT(*)"
       ],
       "group_by": [],
       "order_by": [],
@@ -20,6 +20,6 @@
     },
     "score": 1.0,
     "pass": true,
-    "reason": "语义完全一致，原始问题询问俱乐部数量，SQL反向翻译描述正确地表达了统计表club中所有行的数量。"
+    "reason": "The original question asks for the total number of clubs, which matches the SQL's intent to count all rows in the 'club' table. No filters, groupings, or orderings are specified, and the aggregation function COUNT(*) is appropriate for this purpose."
   }
 }

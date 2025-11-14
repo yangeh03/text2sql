@@ -1,0 +1,26 @@
+{
+  "db_id": "soccer_3",
+  "index": 6,
+  "question": "Return the managers and captains of all clubs.",
+  "sql": "SELECT Club_ID, Manager, Captain FROM club GROUP BY Club_ID;",
+  "semantic": {
+    "back_translation": {
+      "intent": "查询",
+      "tables": [
+        "club"
+      ],
+      "columns": [
+        "Manager",
+        "Captain"
+      ],
+      "filters": [],
+      "agg": [],
+      "group_by": [],
+      "order_by": [],
+      "limit": null
+    },
+    "score": 0.5,
+    "pass": false,
+    "reason": "缺少分组逻辑，可能无法确保每个俱乐部仅返回一次经理和队长信息"
+  }
+}

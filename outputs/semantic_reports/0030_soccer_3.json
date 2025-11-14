@@ -1,0 +1,27 @@
+{
+  "db_id": "soccer_3",
+  "index": 30,
+  "question": "Which manufacturers work for more than 1 club?",
+  "sql": "SELECT Manufacturer FROM club GROUP BY Manufacturer HAVING COUNT(DISTINCT Club_ID) > 1;",
+  "semantic": {
+    "back_translation": {
+      "intent": "查找具有多个俱乐部的制造商",
+      "tables": [
+        "club"
+      ],
+      "columns": [
+        "Manufacturer"
+      ],
+      "filters": [],
+      "agg": [],
+      "group_by": [
+        "Manufacturer"
+      ],
+      "order_by": [],
+      "limit": null
+    },
+    "score": 0.0,
+    "pass": false,
+    "reason": "原始问题询问的是哪些制造商服务于超过一个俱乐部，但SQL反向翻译的描述仅涉及'club'表和'Manufacturer'列，未体现'work for more than 1 club'的逻辑关系，也未包含必要的连接或计数操作。"
+  }
+}

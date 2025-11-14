@@ -1,0 +1,34 @@
+{
+  "db_id": "government_shift",
+  "index": 369,
+  "question": "Which customer has used the most types of services ? Give me the customer details .",
+  "sql": "SELECT Customer_Details FROM Customers WHERE Customer_ID = (SELECT Customer_ID FROM Customers_and_Services GROUP BY Customer_ID ORDER BY COUNT(DISTINCT Service_ID) DESC LIMIT 1)",
+  "semantic": {
+    "back_translation": {
+      "intent": "查找拥有最多不同服务的客户的详细信息",
+      "tables": [
+        "Customers",
+        "Customers_and_Services"
+      ],
+      "columns": [
+        "Customer_Details"
+      ],
+      "filters": [],
+      "agg": [
+        "COUNT(DISTINCT Service_ID)"
+      ],
+      "group_by": [
+        "Customer_ID"
+      ],
+      "order_by": [
+        "COUNT(DISTINCT Service_ID) DESC"
+      ],
+      "limit": [
+        1
+      ]
+    },
+    "score": 1.0,
+    "pass": true,
+    "reason": "语义一致，SQL反向翻译描述准确表达了原始问题的意图，即查找使用最多不同服务类型的客户，并返回其详细信息。"
+  }
+}

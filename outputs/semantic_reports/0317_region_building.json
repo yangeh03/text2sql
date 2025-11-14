@@ -1,0 +1,25 @@
+{
+  "db_id": "region_building",
+  "index": 317,
+  "question": "Count the number of buildings.",
+  "sql": "SELECT COUNT(*) FROM building;",
+  "semantic": {
+    "back_translation": {
+      "intent": "统计所有建筑的数量",
+      "tables": [
+        "building"
+      ],
+      "columns": [],
+      "filters": [],
+      "agg": [
+        "COUNT"
+      ],
+      "group_by": [],
+      "order_by": [],
+      "limit": null
+    },
+    "score": 1.0,
+    "pass": true,
+    "reason": "语义完全一致，SQL意图为统计所有建筑的数量，未涉及过滤、分组、排序等操作，与原始问题匹配。"
+  }
+}

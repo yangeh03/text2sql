@@ -1,0 +1,30 @@
+{
+  "db_id": "government_shift",
+  "index": 379,
+  "question": "Which services are used by the customer \"Hardy Kutch\" or are rated as \"good\" in a customer interaction? Give me the service details.",
+  "sql": "SELECT DISTINCT Services.Service_Details FROM Services JOIN Customers_and_Services ON Services.Service_ID = Customers_and_Services.Service_ID WHERE Customers_and_Services.Customer_ID = (SELECT Customer_ID FROM Customers WHERE Customer_Details = 'Hardy Kutch') UNION SELECT Service_Details FROM Services JOIN Customer_Interactions ON Services.Service_ID = Customer_Interactions.Service_ID WHERE Customer_Interactions.Status_Code = 'good';",
+  "semantic": {
+    "back_translation": {
+      "intent": "获取特定客户关联的服务详情以及状态为'good'的客户互动对应的服务详情，去重后返回",
+      "tables": [
+        "Services",
+        "Customers_and_Services",
+        "Customer_Interactions"
+      ],
+      "columns": [
+        "Services.Service_Details"
+      ],
+      "filters": [
+        "Customers_and_Services.Customer_ID = (SELECT Customer_ID FROM Customers WHERE Customer_Details = 'Hardy Kutch')",
+        "Customer_Interactions.Status_Code = 'good'"
+      ],
+      "agg": [],
+      "group_by": [],
+      "order_by": [],
+      "limit": null
+    },
+    "score": 0.9,
+    "pass": true,
+    "reason": "语义基本一致，但存在细微差异：1. SQL中通过两个独立过滤条件分别获取客户关联服务和好评互动服务，而原始问题中的'或'可能需要使用UNION操作符合并结果集；2. 去重处理在原始问题中未明确要求，但SQL中隐含了该逻辑。"
+  }
+}

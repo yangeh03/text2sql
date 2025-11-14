@@ -1,0 +1,29 @@
+{
+  "db_id": "e_commerce",
+  "index": 100,
+  "question": "What are the first names of all buyers and what products did they buy? List them in pairs.",
+  "sql": "SELECT Customers.customer_last_name, Products.product_name FROM Customers JOIN Orders ON Customers.customer_id = Orders.customer_id JOIN Order_Items ON Orders.order_id = Order_Items.order_id JOIN Products ON Order_Items.product_id = Products.product_id;",
+  "semantic": {
+    "back_translation": {
+      "intent": "获取客户和产品信息",
+      "tables": [
+        "Customers",
+        "Orders",
+        "Order_Items",
+        "Products"
+      ],
+      "columns": [
+        "Customers.customer_first_name",
+        "Products.product_name"
+      ],
+      "filters": [],
+      "agg": [],
+      "group_by": [],
+      "order_by": [],
+      "limit": null
+    },
+    "score": 0.5,
+    "pass": false,
+    "reason": "原始问题要求获取买家与购买产品的配对关系，但SQL描述中未明确关联逻辑（如JOIN条件），且列名可能混淆（customer_first_name通常指名字而非姓氏）"
+  }
+}

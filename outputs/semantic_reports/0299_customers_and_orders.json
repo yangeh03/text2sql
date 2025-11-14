@@ -1,0 +1,30 @@
+{
+  "db_id": "customers_and_orders",
+  "index": 299,
+  "question": "How many orders have each order status code?",
+  "sql": "SELECT order_status_code, COUNT(order_id) FROM Customer_Orders GROUP BY order_status_code;",
+  "semantic": {
+    "back_translation": {
+      "intent": "统计每个订单状态代码的订单数量",
+      "tables": [
+        "Customer_Orders"
+      ],
+      "columns": [
+        "order_status_code",
+        "order_id"
+      ],
+      "filters": [],
+      "agg": [
+        "COUNT(order_id)"
+      ],
+      "group_by": [
+        "order_status_code"
+      ],
+      "order_by": [],
+      "limit": null
+    },
+    "score": 1.0,
+    "pass": true,
+    "reason": "语义完全一致，均要求统计每个订单状态代码对应的订单数量。目标表、列、聚合函数、分组字段均匹配，无过滤条件或排序限制差异。"
+  }
+}

@@ -1,0 +1,30 @@
+{
+  "db_id": "vehicle_driver",
+  "index": 191,
+  "question": "Return the names and citizenships of drivers who have driven the vehicle with the model 'DJ1'.",
+  "sql": "SELECT driver.Name, driver.Citizenship FROM driver JOIN vehicle_driver ON driver.Driver_ID = vehicle_driver.Driver_ID JOIN vehicle ON vehicle_driver.Vehicle_ID = vehicle.Vehicle_ID WHERE vehicle.Model = 'DJ1'",
+  "semantic": {
+    "back_translation": {
+      "intent": "获取特定车型的驾驶员信息",
+      "tables": [
+        "driver",
+        "vehicle_driver",
+        "vehicle"
+      ],
+      "columns": [
+        "driver.Name",
+        "driver.Citizenship"
+      ],
+      "filters": [
+        "vehicle.Model = 'DJ1'"
+      ],
+      "agg": [],
+      "group_by": [],
+      "order_by": [],
+      "limit": null
+    },
+    "score": 1.0,
+    "pass": true,
+    "reason": "语义一致，原始问题要求获取驾驶车型为'DJ1'的驾驶员姓名和国籍，SQL反向翻译描述中的意图、涉及的表、列、过滤条件均与之匹配，无差异。"
+  }
+}

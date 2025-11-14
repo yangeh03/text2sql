@@ -1,0 +1,30 @@
+{
+  "db_id": "vehicle_driver",
+  "index": 162,
+  "question": "What is the top speed and power of the vehicle manufactured in the year of 1996?",
+  "sql": "SELECT Top_Speed, Power FROM vehicle WHERE Build_Year = '1996'",
+  "semantic": {
+    "back_translation": {
+      "intent": "查询特定车辆的Top_Speed和Power",
+      "tables": [
+        "vehicle"
+      ],
+      "columns": [
+        "Top_Speed",
+        "Power"
+      ],
+      "filters": [
+        "Build_Year = '1996'",
+        "Model = 'AC4000'",
+        "Builder IN ('DJ', 'DJ1', 'DJ2', 'Tiansuo')"
+      ],
+      "agg": [],
+      "group_by": [],
+      "order_by": [],
+      "limit": 0
+    },
+    "score": 0.0,
+    "pass": false,
+    "reason": "原始问题未指定具体车型或制造商，而SQL反向翻译的描述中包含了Model和Builder的过滤条件，导致语义不一致。"
+  }
+}

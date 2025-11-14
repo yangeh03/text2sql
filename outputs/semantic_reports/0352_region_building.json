@@ -1,0 +1,25 @@
+{
+  "db_id": "region_building",
+  "index": 352,
+  "question": "Show the distinct addresses of buildings.",
+  "sql": "SELECT DISTINCT Address FROM building;",
+  "semantic": {
+    "back_translation": {
+      "intent": "获取不同的地址",
+      "tables": [
+        "building"
+      ],
+      "columns": [
+        "Address"
+      ],
+      "filters": [],
+      "agg": [],
+      "group_by": [],
+      "order_by": [],
+      "limit": null
+    },
+    "score": 1.0,
+    "pass": true,
+    "reason": "原始问题要求获取建筑物的唯一地址，SQL反向翻译描述准确对应了该意图，包含正确的表和列信息，且未添加额外的过滤、聚合、分组或排序条件。"
+  }
+}

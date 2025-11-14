@@ -1,0 +1,27 @@
+{
+  "db_id": "soccer_3",
+  "index": 13,
+  "question": "What are the distinct countries of players with earnings higher than 1200000?",
+  "sql": "SELECT DISTINCT Country FROM player WHERE Earnings > 1200000;",
+  "semantic": {
+    "back_translation": {
+      "intent": "获取符合条件的国家列表",
+      "tables": [
+        "player"
+      ],
+      "columns": [
+        "Country"
+      ],
+      "filters": [
+        "Earnings > 1200000"
+      ],
+      "agg": [],
+      "group_by": [],
+      "order_by": [],
+      "limit": null
+    },
+    "score": 1.0,
+    "pass": true,
+    "reason": "语义完全一致，原始问题要求获取 earnings 高于 1200000 的玩家的 distinct 国家，与 SQL 反向翻译描述中的意图、表、列、过滤条件一致，无聚合、分组、排序或限制条件。"
+  }
+}

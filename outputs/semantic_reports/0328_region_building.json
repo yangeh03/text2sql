@@ -1,0 +1,27 @@
+{
+  "db_id": "region_building",
+  "index": 328,
+  "question": "What are the capitals of the regions with area bigger than 10000?",
+  "sql": "SELECT Capital FROM region WHERE Area > 10000;",
+  "semantic": {
+    "back_translation": {
+      "intent": "查询数据",
+      "tables": [
+        "region"
+      ],
+      "columns": [
+        "Capital"
+      ],
+      "filters": [
+        "Area > 10000"
+      ],
+      "agg": [],
+      "group_by": [],
+      "order_by": [],
+      "limit": null
+    },
+    "score": 1.0,
+    "pass": true,
+    "reason": "原始问题要求查询面积大于10000的地区的首府，SQL描述准确对应了该意图：目标表为region，选择列Capital，过滤条件Area > 10000，且无其他聚合/分组/排序要求。"
+  }
+}

@@ -1,0 +1,30 @@
+{
+  "db_id": "government_shift",
+  "index": 362,
+  "question": "Find all the services that has been used by the customer with details \"Hardy Kutch\".",
+  "sql": "SELECT DISTINCT Services.Service_ID, Services.Service_Details FROM Customers JOIN Customers_and_Services ON Customers.Customer_ID = Customers_and_Services.Customer_ID JOIN Services ON Customers_and_Services.Service_ID = Services.Service_ID WHERE Customers.Customer_Details = 'Hardy Kutch';",
+  "semantic": {
+    "back_translation": {
+      "intent": "查询特定客户的服务信息",
+      "tables": [
+        "Customers",
+        "Customers_and_Services",
+        "Services"
+      ],
+      "columns": [
+        "Services.Service_ID",
+        "Services.Service_Details"
+      ],
+      "filters": [
+        "Customers.Customer_Details = 'Hardy Kutch'"
+      ],
+      "agg": [],
+      "group_by": [],
+      "order_by": [],
+      "limit": null
+    },
+    "score": 1.0,
+    "pass": true,
+    "reason": "原始问题要求查询客户'Hardy Kutch'使用的所有服务，SQL描述中通过Customers表的Customer_Details字段进行过滤，并关联获取Services表的Service_ID和Service_Details，符合原始问题的意图。"
+  }
+}

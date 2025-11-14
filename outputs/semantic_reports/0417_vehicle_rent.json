@@ -1,0 +1,27 @@
+{
+  "db_id": "vehicle_rent",
+  "index": 417,
+  "question": "What are the names, ages, and membership credits for all customers?",
+  "sql": "SELECT name, age, membership_credit FROM Customers;",
+  "semantic": {
+    "back_translation": {
+      "intent": "查询客户信息",
+      "tables": [
+        "Customers"
+      ],
+      "columns": [
+        "name",
+        "age",
+        "membership_credit"
+      ],
+      "filters": [],
+      "agg": [],
+      "group_by": [],
+      "order_by": [],
+      "limit": null
+    },
+    "score": 1.0,
+    "pass": true,
+    "reason": "语义完全一致，原始问题要求查询所有客户的姓名、年龄和会员积分，与SQL反向翻译描述中的意图、表、列完全匹配，无过滤、聚合、分组或排序条件。"
+  }
+}

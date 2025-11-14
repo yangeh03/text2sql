@@ -1,0 +1,30 @@
+{
+  "db_id": "customers_and_orders",
+  "index": 302,
+  "question": "How many customers do not have an order?",
+  "sql": "SELECT COUNT(*) FROM Customers WHERE customer_id NOT IN (SELECT customer_id FROM Customer_Orders);",
+  "semantic": {
+    "back_translation": {
+      "intent": "统计未在Customer_Orders表中出现的客户数量",
+      "tables": [
+        "Customers",
+        "Customer_Orders"
+      ],
+      "columns": [
+        "*"
+      ],
+      "filters": [
+        "customer_id NOT IN (SELECT customer_id FROM Customer_Orders)"
+      ],
+      "agg": [
+        "COUNT"
+      ],
+      "group_by": [],
+      "order_by": [],
+      "limit": null
+    },
+    "score": 1.0,
+    "pass": true,
+    "reason": "语义完全一致，SQL反向翻译描述准确表达了原始问题'How many customers do not have an order?'的意图，即统计没有订单的客户数量，使用了正确的过滤条件和聚合函数。"
+  }
+}

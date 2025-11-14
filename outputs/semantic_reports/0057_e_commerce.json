@@ -1,0 +1,31 @@
+{
+  "db_id": "e_commerce",
+  "index": 57,
+  "question": "What is the most popular payment method?",
+  "sql": "SELECT payment_method_code FROM Customer_Payment_Methods GROUP BY payment_method_code ORDER BY COUNT(*) DESC LIMIT 1;",
+  "semantic": {
+    "back_translation": {
+      "intent": "查询最常见的支付方式代码",
+      "tables": [
+        "Customer_Payment_Methods"
+      ],
+      "columns": [
+        "payment_method_code"
+      ],
+      "filters": [],
+      "agg": [
+        "COUNT(*)"
+      ],
+      "group_by": [
+        "payment_method_code"
+      ],
+      "order_by": [
+        "COUNT(*) DESC"
+      ],
+      "limit": 1
+    },
+    "score": 1.0,
+    "pass": true,
+    "reason": "语义完全一致，原始问题询问最流行的支付方式，SQL反向翻译描述正确地通过计数、分组和降序排序来找出出现次数最多的支付方式代码。"
+  }
+}

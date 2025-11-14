@@ -1,0 +1,31 @@
+{
+  "db_id": "vehicle_driver",
+  "index": 156,
+  "question": "How many vehicles has a driver driven at most, and what is the driver id of the driver who has driven this many vehicles?",
+  "sql": "SELECT COUNT(Vehicle_ID) AS max_vehicles, Driver_ID FROM vehicle_driver GROUP BY Driver_ID ORDER BY max_vehicles DESC LIMIT 1;",
+  "semantic": {
+    "back_translation": {
+      "intent": "统计每个驾驶员的车辆数量，并找出最多的驾驶员",
+      "tables": [
+        "vehicle_driver"
+      ],
+      "columns": [
+        "Driver_ID"
+      ],
+      "filters": [],
+      "agg": [
+        "COUNT(Vehicle_ID)"
+      ],
+      "group_by": [
+        "Driver_ID"
+      ],
+      "order_by": [
+        "max_vehicles DESC"
+      ],
+      "limit": 1
+    },
+    "score": 1.0,
+    "pass": true,
+    "reason": "语义一致，SQL反向翻译描述准确表达了原始问题中统计每个驾驶员驾驶的车辆数量并找出最多车辆数的驾驶员意图。"
+  }
+}

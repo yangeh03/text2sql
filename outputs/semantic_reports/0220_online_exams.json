@@ -1,0 +1,27 @@
+{
+  "db_id": "online_exams",
+  "index": 220,
+  "question": "List the last names of the students whose gender is not \"M\".",
+  "sql": "SELECT Last_Name FROM Students WHERE Gender_MFU != 'M';",
+  "semantic": {
+    "back_translation": {
+      "intent": "获取特定条件下的学生姓氏",
+      "tables": [
+        "Students"
+      ],
+      "columns": [
+        "Last_Name"
+      ],
+      "filters": [
+        "Gender_MFU != 'M'"
+      ],
+      "agg": [],
+      "group_by": [],
+      "order_by": [],
+      "limit": null
+    },
+    "score": 1.0,
+    "pass": true,
+    "reason": "语义一致，原始问题要求列出性别不是'M'的学生的姓氏，SQL反向翻译描述中的过滤条件'Gender_MFU != 'M''准确表达了这一意图，且未涉及聚合、分组、排序或限制条件，与原始问题一致。"
+  }
+}

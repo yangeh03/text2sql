@@ -1,0 +1,35 @@
+{
+  "db_id": "customers_and_orders",
+  "index": 296,
+  "question": "What is the customer id, name, phone, and email for the customer with most orders?",
+  "sql": "SELECT Customers.customer_id, Customers.customer_name, Customers.customer_phone, Customers.customer_email FROM Customers JOIN (SELECT customer_id FROM Customer_Orders GROUP BY customer_id ORDER BY COUNT(*) DESC LIMIT 1) AS max_orders ON Customers.customer_id = max_orders.customer_id",
+  "semantic": {
+    "back_translation": {
+      "intent": "获取拥有最多订单的客户信息",
+      "tables": [
+        "Customers",
+        "Customer_Orders"
+      ],
+      "columns": [
+        "customer_id",
+        "customer_name",
+        "customer_phone",
+        "customer_email"
+      ],
+      "filters": [
+        "customer_id = (SELECT customer_id FROM Customer_Orders GROUP BY customer_id ORDER BY COUNT(*) DESC LIMIT 1)"
+      ],
+      "agg": [
+        "COUNT(*)"
+      ],
+      "group_by": [
+        "customer_id"
+      ],
+      "order_by": [],
+      "limit": null
+    },
+    "score": 0.5,
+    "pass": false,
+    "reason": "反向翻译描述缺少子查询的排序和限制条件，原SQL需通过ORDER BY COUNT(*) DESC LIMIT 1确定最大订单客户，但描述中order_by为空且limit为null"
+  }
+}

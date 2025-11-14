@@ -1,0 +1,28 @@
+{
+  "db_id": "e_commerce",
+  "index": 85,
+  "question": "What are the login names and passwords of the customers whose phone number have the prefix '+12'?",
+  "sql": "SELECT login_name, login_password FROM Customers WHERE phone_number LIKE '+12%';",
+  "semantic": {
+    "back_translation": {
+      "intent": "查询",
+      "tables": [
+        "Customers"
+      ],
+      "columns": [
+        "login_name",
+        "login_password"
+      ],
+      "filters": [
+        "phone_number LIKE '+12%'"
+      ],
+      "agg": [],
+      "group_by": [],
+      "order_by": [],
+      "limit": null
+    },
+    "score": 1.0,
+    "pass": true,
+    "reason": "The SQL query correctly selects login_name and login_password from the Customers table where phone_number starts with the prefix '+12' using LIKE '+12%'. All elements (intent, tables, columns, filters) match the original question's requirements."
+  }
+}

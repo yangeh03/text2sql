@@ -1,0 +1,32 @@
+{
+  "db_id": "vehicle_rent",
+  "index": 404,
+  "question": "Show types of powertrain with vehicles both from 2014 and 2013.",
+  "sql": "SELECT Type_of_powertrain FROM Vehicles WHERE Model_year IN (2013,2014) GROUP BY Type_of_powertrain HAVING COUNT(DISTINCT Model_year)=2;",
+  "semantic": {
+    "back_translation": {
+      "intent": "查询不同动力类型在2013或2014年模型中的出现情况",
+      "tables": [
+        "Vehicles"
+      ],
+      "columns": [
+        "Type_of_powertrain"
+      ],
+      "filters": [
+        "Model_year = 2013",
+        "Model_year = 2014"
+      ],
+      "agg": [
+        "COUNT(DISTINCT Model_year)"
+      ],
+      "group_by": [
+        "Type_of_powertrain"
+      ],
+      "order_by": [],
+      "limit": null
+    },
+    "score": 0.0,
+    "pass": false,
+    "reason": "原始问题要求显示同时具有2013和2014年车辆的动力类型，而SQL描述中使用了Model_year = 2013和Model_year = 2014的过滤条件，这会导致只显示2013或2014年的车辆，而不是同时包含这两个年份的动力类型。"
+  }
+}

@@ -1,0 +1,27 @@
+{
+  "db_id": "vehicle_driver",
+  "index": 179,
+  "question": "Return the models of vehicles that have never been driven.",
+  "sql": "SELECT Model FROM vehicle WHERE Vehicle_ID NOT IN (SELECT Vehicle_ID FROM vehicle_driver);",
+  "semantic": {
+    "back_translation": {
+      "intent": "查询未被分配给任何驾驶员的车辆型号",
+      "tables": [
+        "vehicle"
+      ],
+      "columns": [
+        "Model"
+      ],
+      "filters": [
+        "Vehicle_ID NOT IN (SELECT Vehicle_ID FROM vehicle_driver)"
+      ],
+      "agg": [],
+      "group_by": [],
+      "order_by": [],
+      "limit": null
+    },
+    "score": 1.0,
+    "pass": true,
+    "reason": "语义完全一致，原始问题与SQL反向翻译描述均表示查询从未被任何驾驶员驾驶过的车辆型号，且使用了相同的逻辑（Vehicle_ID NOT IN 子查询）和数据表（vehicle）"
+  }
+}

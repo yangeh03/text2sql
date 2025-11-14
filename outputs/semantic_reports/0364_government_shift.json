@@ -1,0 +1,29 @@
+{
+  "db_id": "government_shift",
+  "index": 364,
+  "question": "Find the details of the services that have been used by more than 3 times .",
+  "sql": "SELECT Service_ID, Service_Details FROM Services WHERE Service_ID IN (SELECT Service_ID FROM Customer_Interactions GROUP BY Service_ID HAVING COUNT(*) > 3)",
+  "semantic": {
+    "back_translation": {
+      "intent": "查询服务信息",
+      "tables": [
+        "Services",
+        "Customer_Interactions"
+      ],
+      "columns": [
+        "Service_ID",
+        "Service_Details"
+      ],
+      "filters": [
+        "Service_ID IN (SELECT Service_ID FROM Customer_Interactions GROUP BY Service_ID HAVING COUNT(*) > 3)"
+      ],
+      "agg": [],
+      "group_by": [],
+      "order_by": [],
+      "limit": null
+    },
+    "score": 1.0,
+    "pass": true,
+    "reason": "原始问题要求查询使用次数超过3次的服务详情，SQL通过子查询统计Customer_Interactions中Service_ID的出现次数（GROUP BY Service_ID HAVING COUNT(*) > 3），并关联获取Services表中的Service_ID和Service_Details，完全匹配需求。"
+  }
+}

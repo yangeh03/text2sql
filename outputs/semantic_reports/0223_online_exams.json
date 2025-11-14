@@ -1,0 +1,29 @@
+{
+  "db_id": "online_exams",
+  "index": 223,
+  "question": "For each gender, return the gender code and the number of students who identify as that gender.",
+  "sql": "SELECT Gender_MFU, COUNT(*) AS student_count FROM Students GROUP BY Gender_MFU;",
+  "semantic": {
+    "back_translation": {
+      "intent": "统计每个性别的学生数量",
+      "tables": [
+        "Students"
+      ],
+      "columns": [
+        "Gender_MFU"
+      ],
+      "filters": [],
+      "agg": [
+        "COUNT(*)"
+      ],
+      "group_by": [
+        "Gender_MFU"
+      ],
+      "order_by": [],
+      "limit": null
+    },
+    "score": 1.0,
+    "pass": true,
+    "reason": "原始问题要求统计每个性别的学生数量并返回性别代码，SQL描述中包含Students表、Gender_MFU列作为分组字段，使用COUNT(*)聚合函数，符合要求。"
+  }
+}

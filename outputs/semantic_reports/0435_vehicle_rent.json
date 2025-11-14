@@ -1,0 +1,32 @@
+{
+  "db_id": "vehicle_rent",
+  "index": 435,
+  "question": "Return the name of the discount that corresponds to the most rental history records.",
+  "sql": "SELECT D.name FROM Discount D JOIN Renting_history R ON D.id = R.discount_id GROUP BY D.id ORDER BY COUNT(*) DESC LIMIT 1;",
+  "semantic": {
+    "back_translation": {
+      "intent": "查找使用折扣次数最多的折扣名称",
+      "tables": [
+        "Discount",
+        "Renting_history"
+      ],
+      "columns": [
+        "D.name"
+      ],
+      "filters": [],
+      "agg": [
+        "COUNT(*)"
+      ],
+      "group_by": [
+        "D.id"
+      ],
+      "order_by": [
+        "COUNT(*) DESC"
+      ],
+      "limit": 1
+    },
+    "score": 1.0,
+    "pass": true,
+    "reason": "语义完全一致。原始问题要求找出拥有最多租赁记录的折扣名称，SQL描述通过COUNT(*)统计每个折扣的记录数，按COUNT(*) DESC排序后取第一条，且关联了Discount和Renting_history表，符合原始问题意图。"
+  }
+}

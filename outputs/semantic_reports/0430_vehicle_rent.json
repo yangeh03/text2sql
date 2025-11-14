@@ -1,0 +1,34 @@
+{
+  "db_id": "vehicle_rent",
+  "index": 430,
+  "question": "Show the name and model year of the vehicle with most number of renting history records.",
+  "sql": "SELECT v.name, v.Model_year FROM Vehicles v JOIN Renting_history rh ON v.id = rh.vehicles_id GROUP BY v.name, v.Model_year ORDER BY COUNT(rh.id) DESC LIMIT 1;",
+  "semantic": {
+    "back_translation": {
+      "intent": "查找最常被租用的车辆名称和型号年份",
+      "tables": [
+        "Vehicles",
+        "Renting_history"
+      ],
+      "columns": [
+        "v.name",
+        "v.Model_year"
+      ],
+      "filters": [],
+      "agg": [
+        "COUNT"
+      ],
+      "group_by": [
+        "v.name",
+        "v.Model_year"
+      ],
+      "order_by": [
+        "COUNT(rh.id) DESC"
+      ],
+      "limit": 1
+    },
+    "score": 1.0,
+    "pass": true,
+    "reason": "语义一致，原始问题要求显示最常被租用的车辆名称和型号年份，SQL反向翻译描述正确地使用了Vehicles表和Renting_history表，通过COUNT聚合函数统计租车记录数量，并按数量降序排序后取第一条记录。"
+  }
+}

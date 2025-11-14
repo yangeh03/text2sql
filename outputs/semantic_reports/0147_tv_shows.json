@@ -1,0 +1,29 @@
+{
+  "db_id": "tv_shows",
+  "index": 147,
+  "question": "Show the cities and station names of city channels in ascending alphabetical order of station name.",
+  "sql": "SELECT Station_name, City FROM city_channel ORDER BY Station_name ASC;",
+  "semantic": {
+    "back_translation": {
+      "intent": "获取城市频道名称和所属城市，并按频道名称升序排列",
+      "tables": [
+        "city_channel"
+      ],
+      "columns": [
+        "Station_name",
+        "City"
+      ],
+      "filters": [],
+      "agg": [],
+      "group_by": [],
+      "order_by": [
+        "Station_name",
+        "ASC"
+      ],
+      "limit": null
+    },
+    "score": 1.0,
+    "pass": true,
+    "reason": "两者均要求查询城市频道的City和Station_name字段，并按Station_name升序排列。原始问题中的'cities'对应SQL中的City列，'station names'对应Station_name列，排序要求完全一致。"
+  }
+}

@@ -1,0 +1,27 @@
+{
+  "db_id": "e_commerce",
+  "index": 83,
+  "question": "How many different payment methods are there?",
+  "sql": "SELECT COUNT(DISTINCT payment_method_code) FROM Customer_Payment_Methods;",
+  "semantic": {
+    "back_translation": {
+      "intent": "统计",
+      "tables": [
+        "Customer_Payment_Methods"
+      ],
+      "columns": [
+        "payment_method_code"
+      ],
+      "filters": [],
+      "agg": [
+        "COUNT(DISTINCT payment_method_code)"
+      ],
+      "group_by": [],
+      "order_by": [],
+      "limit": null
+    },
+    "score": 1.0,
+    "pass": true,
+    "reason": "语义一致，原始问题询问不同支付方法的数量，SQL反向翻译描述使用COUNT(DISTINCT payment_method_code)对Customer_Payment_Methods表中的payment_method_code列进行统计，符合原始问题的意图。"
+  }
+}

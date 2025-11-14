@@ -1,0 +1,32 @@
+{
+  "db_id": "customers_and_orders",
+  "index": 260,
+  "question": "Show all hardware type products in ascending order of price.",
+  "sql": "SELECT product_id, product_type_code, product_name, product_price FROM Products WHERE product_type_code = 'Hardware' ORDER BY product_price ASC",
+  "semantic": {
+    "back_translation": {
+      "intent": "查询产品信息",
+      "tables": [
+        "Products"
+      ],
+      "columns": [
+        "product_id",
+        "product_type_code",
+        "product_name",
+        "product_price"
+      ],
+      "filters": [
+        "product_type_code = 'Hardware'"
+      ],
+      "agg": [],
+      "group_by": [],
+      "order_by": [
+        "product_price ASC"
+      ],
+      "limit": null
+    },
+    "score": 1.0,
+    "pass": true,
+    "reason": "原始问题要求显示所有硬件类型产品并按价格升序排列，SQL描述中正确选择了Products表，过滤条件为product_type_code='Hardware'，排序为product_price ASC，且未涉及聚合或分组操作，与原始问题语义完全一致。"
+  }
+}

@@ -1,0 +1,27 @@
+{
+  "db_id": "soccer_3",
+  "index": 14,
+  "question": "From which countries are players who make more than 1200000 from?",
+  "sql": "SELECT Country FROM player WHERE Earnings > 1200000",
+  "semantic": {
+    "back_translation": {
+      "intent": "查询球员的国家",
+      "tables": [
+        "player"
+      ],
+      "columns": [
+        "Country"
+      ],
+      "filters": [
+        "Earnings > 1200000"
+      ],
+      "agg": [],
+      "group_by": [],
+      "order_by": [],
+      "limit": null
+    },
+    "score": 1.0,
+    "pass": true,
+    "reason": "语义完全一致，原始问题询问的是收入超过1200000的球员来自哪些国家，SQL反向翻译描述准确地反映了这一意图，包括目标表、列、过滤条件，且无聚合、分组、排序或限制条件。"
+  }
+}

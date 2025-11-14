@@ -1,0 +1,27 @@
+{
+  "db_id": "customers_and_orders",
+  "index": 259,
+  "question": "What are the names of the products, sorted by descending price?",
+  "sql": "SELECT product_name FROM Products ORDER BY product_price DESC;",
+  "semantic": {
+    "back_translation": {
+      "intent": "获取产品名称",
+      "tables": [
+        "Products"
+      ],
+      "columns": [
+        "product_name"
+      ],
+      "filters": [],
+      "agg": [],
+      "group_by": [],
+      "order_by": [
+        "product_price DESC"
+      ],
+      "limit": null
+    },
+    "score": 1.0,
+    "pass": true,
+    "reason": "原始问题要求获取产品名称并按价格降序排列，SQL反向翻译描述中的intent、tables、columns和order_by字段均准确对应。未涉及过滤、分组或聚合操作，与问题语义完全一致。"
+  }
+}

@@ -1,0 +1,27 @@
+{
+  "db_id": "soccer_3",
+  "index": 11,
+  "question": "What is the name of the player with the highest earnings?",
+  "sql": "SELECT Name FROM player ORDER BY Earnings DESC LIMIT 1;",
+  "semantic": {
+    "back_translation": {
+      "intent": "获取最高收入的球员姓名",
+      "tables": [
+        "player"
+      ],
+      "columns": [
+        "Name"
+      ],
+      "filters": [],
+      "agg": [],
+      "group_by": [],
+      "order_by": [
+        "Earnings DESC"
+      ],
+      "limit": 1
+    },
+    "score": 1.0,
+    "pass": true,
+    "reason": "语义完全一致，SQL反向翻译描述准确表达了原始问题的意图，即获取最高收入的球员姓名，且涉及的表、列、排序和限制条件均符合要求。"
+  }
+}

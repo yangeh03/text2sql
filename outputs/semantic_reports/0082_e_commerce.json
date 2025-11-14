@@ -1,0 +1,27 @@
+{
+  "db_id": "e_commerce",
+  "index": 82,
+  "question": "How many different item status codes are there listed in ordered items?",
+  "sql": "SELECT COUNT(DISTINCT order_item_status_code) FROM Order_Items;",
+  "semantic": {
+    "back_translation": {
+      "intent": "统计",
+      "tables": [
+        "Order_Items"
+      ],
+      "columns": [
+        "order_item_status_code"
+      ],
+      "filters": [],
+      "agg": [
+        "COUNT(DISTINCT order_item_status_code)"
+      ],
+      "group_by": [],
+      "order_by": [],
+      "limit": null
+    },
+    "score": 1.0,
+    "pass": true,
+    "reason": "语义一致，原始问题询问的是订单项中不同状态码的数量，SQL反向翻译描述正确地使用了COUNT(DISTINCT order_item_status_code)来统计不同状态码的数量，且涉及的表和列与问题一致。"
+  }
+}

@@ -1,0 +1,27 @@
+{
+  "db_id": "government_shift",
+  "index": 383,
+  "question": "Give me the details of all the services that have interacted with the channel with detail \"15 ij\".",
+  "sql": "SELECT Customer_Interactions.Service_ID, Services.Service_Details FROM Customer_Interactions JOIN Services ON Customer_Interactions.Service_ID = Services.Service_ID WHERE Customer_Interactions.Channel_ID = (SELECT Channel_ID FROM Channels WHERE Channel_Details = '15 ij')",
+  "semantic": {
+    "back_translation": {
+      "intent": "查询",
+      "tables": [
+        "Customer_Interactions"
+      ],
+      "columns": [
+        "*"
+      ],
+      "filters": [
+        "Services_and_Channels_Details = '15 ij'"
+      ],
+      "agg": [],
+      "group_by": [],
+      "order_by": [],
+      "limit": null
+    },
+    "score": 0.5,
+    "pass": false,
+    "reason": "原始问题要求获取与特定渠道互动的服务信息，而SQL描述中过滤条件直接作用于Services_and_Channels_Details字段，可能无法准确区分服务与渠道的关联关系，且未明确表结构中该字段的含义（如是否为联合字段或包含分隔符的复合值）"
+  }
+}

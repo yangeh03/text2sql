@@ -1,0 +1,28 @@
+{
+  "db_id": "region_building",
+  "index": 355,
+  "question": "Sort buildings in descending order of the number of stories, and return their completion years.",
+  "sql": "SELECT Completed_Year FROM building ORDER BY Number_of_Stories DESC;",
+  "semantic": {
+    "back_translation": {
+      "intent": "获取建筑名称和完成年份，并按故事数量降序排序",
+      "tables": [
+        "building"
+      ],
+      "columns": [
+        "Name",
+        "Completed_Year"
+      ],
+      "filters": [],
+      "agg": [],
+      "group_by": [],
+      "order_by": [
+        "Number_of_Stories DESC"
+      ],
+      "limit": null
+    },
+    "score": 0.5,
+    "pass": false,
+    "reason": "原始问题未要求返回建筑名称，但SQL反向翻译描述中包含Name列；目标列应仅为Completion_Year，而描述中列包含Name和Completed_Year"
+  }
+}

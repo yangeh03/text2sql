@@ -1,0 +1,28 @@
+{
+  "db_id": "vehicle_driver",
+  "index": 176,
+  "question": "What are the model names and build year of the cars with 'DJ' in its model name?",
+  "sql": "SELECT Model, Build_Year FROM vehicle WHERE Model LIKE '%DJ%';",
+  "semantic": {
+    "back_translation": {
+      "intent": "查询包含特定模型名称的车辆信息",
+      "tables": [
+        "vehicle"
+      ],
+      "columns": [
+        "Model",
+        "Build_Year"
+      ],
+      "filters": [
+        "Model LIKE '%DJ%'"
+      ],
+      "agg": [],
+      "group_by": [],
+      "order_by": [],
+      "limit": null
+    },
+    "score": 1.0,
+    "pass": true,
+    "reason": "语义完全一致，原始问题要求查询包含'DJ'的车型名称和建造年份，SQL反向翻译描述准确反映了这一意图，涉及的表、列、过滤条件均匹配。"
+  }
+}

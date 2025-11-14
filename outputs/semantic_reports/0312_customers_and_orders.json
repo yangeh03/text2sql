@@ -1,0 +1,28 @@
+{
+  "db_id": "customers_and_orders",
+  "index": 312,
+  "question": "Show all customer ids without an order.",
+  "sql": "SELECT customer_id FROM Customers WHERE customer_id NOT IN (SELECT customer_id FROM Customer_Orders)",
+  "semantic": {
+    "back_translation": {
+      "intent": "查找未下单的客户",
+      "tables": [
+        "Customers",
+        "Customer_Orders"
+      ],
+      "columns": [
+        "customer_id"
+      ],
+      "filters": [
+        "customer_id NOT IN (SELECT customer_id FROM Customer_Orders)"
+      ],
+      "agg": [],
+      "group_by": [],
+      "order_by": [],
+      "limit": null
+    },
+    "score": 1.0,
+    "pass": true,
+    "reason": "语义一致，原始问题要求显示所有没有订单的客户ID，SQL反向翻译描述通过NOT IN子查询正确表达了这一逻辑，且未涉及聚合、分组、排序或限制条件，与原始问题完全匹配。"
+  }
+}

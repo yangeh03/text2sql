@@ -1,0 +1,29 @@
+{
+  "db_id": "bbc_channels",
+  "index": 121,
+  "question": "Return the names of directors who are older than the average age.",
+  "sql": "SELECT Name FROM director WHERE Age > (SELECT AVG(Age) FROM director)",
+  "semantic": {
+    "back_translation": {
+      "intent": "查找年龄高于平均年龄的导演姓名",
+      "tables": [
+        "director"
+      ],
+      "columns": [
+        "Name"
+      ],
+      "filters": [
+        "Age > (SELECT AVG(Age) FROM director)"
+      ],
+      "agg": [
+        "AVG"
+      ],
+      "group_by": [],
+      "order_by": [],
+      "limit": null
+    },
+    "score": 1.0,
+    "pass": true,
+    "reason": ""
+  }
+}

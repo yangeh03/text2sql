@@ -1,0 +1,30 @@
+{
+  "db_id": "vehicle_rent",
+  "index": 429,
+  "question": "What are the names of customers who have two or more records of rental history?",
+  "sql": "SELECT name FROM Customers WHERE id IN (SELECT customer_id FROM Renting_history GROUP BY customer_id HAVING COUNT(*) >= 2);",
+  "semantic": {
+    "back_translation": {
+      "intent": "查找至少租过两次车的客户的姓名",
+      "tables": [
+        "Customers",
+        "Renting_history"
+      ],
+      "columns": [
+        "name"
+      ],
+      "filters": [
+        "id IN (SELECT customer_id FROM Renting_history GROUP BY customer_id HAVING COUNT(*) >= 2)"
+      ],
+      "agg": [],
+      "group_by": [
+        "customer_id"
+      ],
+      "order_by": [],
+      "limit": null
+    },
+    "score": 1.0,
+    "pass": true,
+    "reason": "语义完全一致，原始问题与SQL反向翻译描述均要求找出至少租过两次车的客户姓名，且使用了相同的表、列和过滤条件。"
+  }
+}

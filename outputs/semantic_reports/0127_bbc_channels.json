@@ -1,0 +1,33 @@
+{
+  "db_id": "bbc_channels",
+  "index": 127,
+  "question": "Find the name and age of the director who is in charge of the most programs?",
+  "sql": "SELECT d.Name, d.Age FROM director d JOIN program p ON d.Director_ID = p.Director_ID GROUP BY d.Director_ID ORDER BY COUNT(p.Program_ID) DESC LIMIT 1;",
+  "semantic": {
+    "back_translation": {
+      "intent": "查找拥有最多节目的导演信息",
+      "tables": [
+        "director",
+        "program"
+      ],
+      "columns": [
+        "Name",
+        "Age"
+      ],
+      "filters": [],
+      "agg": [
+        "COUNT(p.Program_ID)"
+      ],
+      "group_by": [
+        "d.Director_ID"
+      ],
+      "order_by": [
+        "COUNT(p.Program_ID) DESC"
+      ],
+      "limit": 1
+    },
+    "score": 1.0,
+    "pass": true,
+    "reason": "语义一致，原始问题要求找到负责最多节目的导演的姓名和年龄，SQL反向翻译描述正确地通过连接director和program表，按导演ID分组统计节目数量，并按数量降序排序取第一条记录实现该意图。"
+  }
+}

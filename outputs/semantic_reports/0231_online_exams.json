@@ -1,0 +1,29 @@
+{
+  "db_id": "online_exams",
+  "index": 231,
+  "question": "Which types of questions have 3 or more questions? Return the questions type code.",
+  "sql": "SELECT q.Type_of_Question_Code FROM Questions q JOIN Questions_in_Exams qie ON q.Question_ID = qie.Question_ID GROUP BY q.Type_of_Question_Code HAVING COUNT(*) >= 3;",
+  "semantic": {
+    "back_translation": {
+      "intent": "统计满足条件的特定类型问题代码",
+      "tables": [
+        "Questions"
+      ],
+      "columns": [
+        "Type_of_Question_Code"
+      ],
+      "filters": [],
+      "agg": [
+        "COUNT(*)"
+      ],
+      "group_by": [
+        "Type_of_Question_Code"
+      ],
+      "order_by": [],
+      "limit": null
+    },
+    "score": 0.0,
+    "pass": false,
+    "reason": "原始问题要求返回具有3或更多问题的类型代码，但SQL反向翻译描述中未包含过滤条件（如COUNT(*) >= 3）和排序/限制条件，无法准确满足原始问题的语义。"
+  }
+}

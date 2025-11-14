@@ -1,0 +1,27 @@
+{
+  "db_id": "soccer_3",
+  "index": 4,
+  "question": "What are the names of clubs, ordered alphabetically?",
+  "sql": "SELECT Name FROM club ORDER BY Name ASC",
+  "semantic": {
+    "back_translation": {
+      "intent": "获取俱乐部名称列表",
+      "tables": [
+        "club"
+      ],
+      "columns": [
+        "Name"
+      ],
+      "filters": [],
+      "agg": [],
+      "group_by": [],
+      "order_by": [
+        "Name ASC"
+      ],
+      "limit": null
+    },
+    "score": 1.0,
+    "pass": true,
+    "reason": "语义完全一致，SQL反向翻译描述准确反映了原始问题的意图，即获取俱乐部名称列表并按字母顺序排序。"
+  }
+}

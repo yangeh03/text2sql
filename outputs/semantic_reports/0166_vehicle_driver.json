@@ -1,0 +1,31 @@
+{
+  "db_id": "vehicle_driver",
+  "index": 166,
+  "question": "How many drivers have driven vehicles built in 2012?",
+  "sql": "SELECT COUNT(DISTINCT driver.Driver_ID) FROM driver JOIN vehicle_driver ON driver.Driver_ID = vehicle_driver.Driver_ID JOIN vehicle ON vehicle_driver.Vehicle_ID = vehicle.Vehicle_ID WHERE vehicle.Build_Year = '2012'",
+  "semantic": {
+    "back_translation": {
+      "intent": "统计满足条件的不同驾驶员数量",
+      "tables": [
+        "driver",
+        "vehicle_driver",
+        "vehicle"
+      ],
+      "columns": [
+        "driver.Driver_ID"
+      ],
+      "filters": [
+        "vehicle.Build_Year = '2012'"
+      ],
+      "agg": [
+        "COUNT"
+      ],
+      "group_by": [],
+      "order_by": [],
+      "limit": null
+    },
+    "score": 1.0,
+    "pass": true,
+    "reason": "语义一致，原始问题询问的是2012年制造的车辆的驾驶员数量，SQL反向翻译描述中的意图、过滤条件和聚合函数均正确对应。"
+  }
+}

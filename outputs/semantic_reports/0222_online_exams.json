@@ -1,0 +1,29 @@
+{
+  "db_id": "online_exams",
+  "index": 222,
+  "question": "List each gender and the corresponding number of students.",
+  "sql": "SELECT Gender_MFU, COUNT(*) AS students FROM Students GROUP BY Gender_MFU;",
+  "semantic": {
+    "back_translation": {
+      "intent": "统计每个性别下的学生数量",
+      "tables": [
+        "Students"
+      ],
+      "columns": [
+        "Gender_MFU"
+      ],
+      "filters": [],
+      "agg": [
+        "COUNT(*)"
+      ],
+      "group_by": [
+        "Gender_MFU"
+      ],
+      "order_by": [],
+      "limit": null
+    },
+    "score": 1.0,
+    "pass": true,
+    "reason": ""
+  }
+}

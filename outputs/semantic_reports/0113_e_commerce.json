@@ -1,0 +1,33 @@
+{
+  "db_id": "e_commerce",
+  "index": 113,
+  "question": "For all the products sold for more than 3 times, list their id and description.",
+  "sql": "SELECT p.product_id, p.product_description FROM Products p JOIN Order_Items oi ON p.product_id = oi.product_id GROUP BY p.product_id HAVING COUNT(DISTINCT oi.order_id) > 3;",
+  "semantic": {
+    "back_translation": {
+      "intent": "查找具有超过3个订单项的产品信息",
+      "tables": [
+        "Products",
+        "Order_Items"
+      ],
+      "columns": [
+        "product_id",
+        "product_description"
+      ],
+      "filters": [
+        "COUNT(oi.order_item_id) > 3"
+      ],
+      "agg": [
+        "COUNT"
+      ],
+      "group_by": [
+        "p.product_id"
+      ],
+      "order_by": [],
+      "limit": null
+    },
+    "score": 0.7,
+    "pass": false,
+    "reason": "过滤条件中的COUNT统计的是订单项数量而非订单数量，可能导致与原始问题中'销售超过3次'的语义不一致"
+  }
+}

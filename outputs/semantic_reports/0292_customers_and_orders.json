@@ -1,0 +1,30 @@
+{
+  "db_id": "customers_and_orders",
+  "index": 292,
+  "question": "Show the order ids, order dates, and order status codes for all orders by customer Jeromy.",
+  "sql": "SELECT Customer_Orders.order_id, Customer_Orders.order_date, Customer_Orders.order_status_code FROM Customers JOIN Customer_Orders ON Customers.customer_id = Customer_Orders.customer_id WHERE Customers.customer_name = 'Jeromy'",
+  "semantic": {
+    "back_translation": {
+      "intent": "获取特定客户的订单信息",
+      "tables": [
+        "Customers",
+        "Customer_Orders"
+      ],
+      "columns": [
+        "order_id",
+        "order_date",
+        "order_status_code"
+      ],
+      "filters": [
+        "Customers.customer_name = 'Jeromy'"
+      ],
+      "agg": [],
+      "group_by": [],
+      "order_by": [],
+      "limit": null
+    },
+    "score": 1.0,
+    "pass": true,
+    "reason": "原始问题要求展示客户Jeromy的所有订单信息，包含order_id、order_date、order_status_code。SQL描述中意图、涉及表、选择列及过滤条件均完全匹配，且未涉及聚合、分组、排序等额外操作，语义一致。"
+  }
+}

@@ -1,0 +1,35 @@
+{
+  "db_id": "government_shift",
+  "index": 388,
+  "question": "List the details of all the customers who are associated with a failed integration platform .",
+  "sql": "SELECT Customers.Customer_ID, Customers.Customer_Details FROM Customers JOIN Customers_and_Services ON Customers.Customer_ID = Customers_and_Services.Customer_ID JOIN Customer_Interactions ON Customers_and_Services.Service_ID = Customer_Interactions.Service_ID JOIN Integration_Platform ON Customer_Interactions.Customer_Interaction_ID = Integration_Platform.Customer_Interaction_ID WHERE Integration_Platform.Status_Code = 'failed';",
+  "semantic": {
+    "back_translation": {
+      "intent": "查询客户及其相关服务、互动和集成平台信息",
+      "tables": [
+        "Customers",
+        "Services",
+        "Customers_and_Services",
+        "Customer_Interactions",
+        "Integration_Platform"
+      ],
+      "columns": [
+        "Customers.Customer_ID",
+        "Customers.Customer_Details",
+        "Services.Service_ID",
+        "Services.Service_Details",
+        "Customers_and_Services.Customers_and_Services_Details"
+      ],
+      "filters": [
+        "Integration_Platform.Integration_Platform_Details IN ('failed integration platform', 'driving license', 'broker license', 'dog license', 'building permit', 'liquor license', 'Amalia Johnston', 'Miss Annamarie Lowe', 'Miss Alexandra Kemmer MD', 'Agustina Stoltenberg')"
+      ],
+      "agg": [],
+      "group_by": [],
+      "order_by": [],
+      "limit": null
+    },
+    "score": 0.3,
+    "pass": false,
+    "reason": "原始问题要求关联'failed integration platform'的客户，但SQL过滤条件包含不相关的许可证名称和人名，且未明确客户与集成平台的关联关系（如缺少JOIN操作或关联字段）"
+  }
+}

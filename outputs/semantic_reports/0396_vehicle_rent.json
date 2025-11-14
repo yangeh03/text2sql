@@ -1,0 +1,27 @@
+{
+  "db_id": "vehicle_rent",
+  "index": 396,
+  "question": "How many vehicles do we have?",
+  "sql": "SELECT COUNT(*) FROM Vehicles;",
+  "semantic": {
+    "back_translation": {
+      "intent": "统计",
+      "tables": [
+        "Vehicles"
+      ],
+      "columns": [
+        "*"
+      ],
+      "filters": [],
+      "agg": [
+        "COUNT"
+      ],
+      "group_by": [],
+      "order_by": [],
+      "limit": null
+    },
+    "score": 1.0,
+    "pass": true,
+    "reason": "语义完全一致。原始问题要求统计车辆总数，SQL描述正确使用COUNT聚合函数作用于Vehicles表的所有行（通过columns: [*]表示），且无任何过滤、分组或排序条件，与问题意图匹配。"
+  }
+}

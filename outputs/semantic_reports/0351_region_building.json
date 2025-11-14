@@ -1,0 +1,28 @@
+{
+  "db_id": "region_building",
+  "index": 351,
+  "question": "In which years did both buildings with more than 20 stories and buildings with less than 15 stories were completed?",
+  "sql": "SELECT Completed_Year FROM building WHERE Number_of_Stories > 20 INTERSECT SELECT Completed_Year FROM building WHERE Number_of_Stories < 15;",
+  "semantic": {
+    "back_translation": {
+      "intent": "查找满足两个条件的Completed_Year的交集",
+      "tables": [
+        "building"
+      ],
+      "columns": [
+        "Completed_Year"
+      ],
+      "filters": [
+        "Number_of_Stories > 20",
+        "Number_of_Stories < 15"
+      ],
+      "agg": [],
+      "group_by": [],
+      "order_by": [],
+      "limit": null
+    },
+    "score": 0.0,
+    "pass": false,
+    "reason": "原始问题要求查找同时具有超过20层和少于15层建筑的年份，而SQL反向翻译的描述中两个过滤条件（Number_of_Stories > 20 和 Number_of_Stories < 15）是互斥的，无法同时满足，因此语义不一致。"
+  }
+}

@@ -1,0 +1,29 @@
+{
+  "db_id": "online_exams",
+  "index": 201,
+  "question": "What are the dates of the exams whose subject code contains the substring \"data\"? Return them in descending order of dates.",
+  "sql": "SELECT Exam_Date FROM Exams WHERE Subject_Code LIKE '%data%' ORDER BY Exam_Date DESC;",
+  "semantic": {
+    "back_translation": {
+      "intent": "查询考试日期",
+      "tables": [
+        "Exams"
+      ],
+      "columns": [
+        "Exam_Date"
+      ],
+      "filters": [
+        "Subject_Code LIKE '%data%'"
+      ],
+      "agg": [],
+      "group_by": [],
+      "order_by": [
+        "Exam_Date DESC"
+      ],
+      "limit": null
+    },
+    "score": 1.0,
+    "pass": true,
+    "reason": "语义完全一致，查询目标为考试日期，过滤条件为Subject_Code包含'data'，排序为降序。"
+  }
+}

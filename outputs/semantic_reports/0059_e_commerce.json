@@ -1,0 +1,32 @@
+{
+  "db_id": "e_commerce",
+  "index": 59,
+  "question": "How many number of products does each gender of customers buy? List the gender and the number",
+  "sql": "SELECT Customers.gender_code, COUNT(Order_Items.order_item_id) AS product_count FROM Customers JOIN Orders ON Customers.customer_id = Orders.customer_id JOIN Order_Items ON Orders.order_id = Order_Items.order_id GROUP BY Customers.gender_code;",
+  "semantic": {
+    "back_translation": {
+      "intent": "统计每个性别代码对应的订单项数量",
+      "tables": [
+        "Customers",
+        "Orders",
+        "Order_Items"
+      ],
+      "columns": [
+        "Customers.gender_code",
+        "Order_Items.order_item_id"
+      ],
+      "filters": [],
+      "agg": [
+        "COUNT(Order_Items.order_item_id)"
+      ],
+      "group_by": [
+        "Customers.gender_code"
+      ],
+      "order_by": [],
+      "limit": null
+    },
+    "score": 1.0,
+    "pass": true,
+    "reason": "语义一致，原始问题询问每个性别的客户购买的产品数量，SQL反向翻译描述统计每个性别代码对应的订单项数量，符合要求。"
+  }
+}

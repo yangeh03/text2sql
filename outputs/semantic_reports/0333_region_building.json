@@ -1,0 +1,27 @@
+{
+  "db_id": "region_building",
+  "index": 333,
+  "question": "What are the names of the 5 largest regions in terms of area?",
+  "sql": "SELECT Name FROM region ORDER BY Area DESC LIMIT 5;",
+  "semantic": {
+    "back_translation": {
+      "intent": "获取按面积降序排列的前五大地区名称",
+      "tables": [
+        "region"
+      ],
+      "columns": [
+        "Name"
+      ],
+      "filters": [],
+      "agg": [],
+      "group_by": [],
+      "order_by": [
+        "Area DESC"
+      ],
+      "limit": 5
+    },
+    "score": 1.0,
+    "pass": true,
+    "reason": "两者均要求获取按面积排序的前五大地区名称，排序方式为降序，且未涉及过滤、分组或聚合操作"
+  }
+}

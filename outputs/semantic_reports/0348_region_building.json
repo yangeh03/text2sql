@@ -1,0 +1,27 @@
+{
+  "db_id": "region_building",
+  "index": 348,
+  "question": "List the names of regions that do not have any buildings.",
+  "sql": "SELECT region.Name FROM region LEFT JOIN building ON region.Region_ID = building.Region_ID WHERE building.Building_ID IS NULL;",
+  "semantic": {
+    "back_translation": {
+      "intent": "查询不在building表中的region名称",
+      "tables": [
+        "region"
+      ],
+      "columns": [
+        "Name"
+      ],
+      "filters": [
+        "Region_ID NOT IN (SELECT DISTINCT Region_ID FROM building)"
+      ],
+      "agg": [],
+      "group_by": [],
+      "order_by": [],
+      "limit": null
+    },
+    "score": 0.5,
+    "pass": false,
+    "reason": "过滤条件存在逻辑错误。原始问题要求查找无任何建筑物的地区，应使用LEFT JOIN结合IS NULL判断关联关系，而反向翻译描述错误地使用Region_ID NOT IN子查询，这会导致当building表无记录时返回空结果，与原始意图不符"
+  }
+}

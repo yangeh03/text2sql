@@ -1,0 +1,31 @@
+{
+  "db_id": "vehicle_rent",
+  "index": 408,
+  "question": "What is the type of powertrain with most number of vehicles.",
+  "sql": "SELECT Type_of_powertrain FROM Vehicles GROUP BY Type_of_powertrain ORDER BY COUNT(*) DESC LIMIT 1;",
+  "semantic": {
+    "back_translation": {
+      "intent": "找出最常见的动力系统类型",
+      "tables": [
+        "Vehicles"
+      ],
+      "columns": [
+        "Type_of_powertrain"
+      ],
+      "filters": [],
+      "agg": [
+        "COUNT(*)"
+      ],
+      "group_by": [
+        "Type_of_powertrain"
+      ],
+      "order_by": [
+        "COUNT(*) DESC"
+      ],
+      "limit": 1
+    },
+    "score": 1.0,
+    "pass": true,
+    "reason": "语义完全一致，SQL查询意图是找出最常见的动力系统类型，与原始问题一致。"
+  }
+}

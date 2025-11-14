@@ -1,0 +1,34 @@
+{
+  "db_id": "e_commerce",
+  "index": 53,
+  "question": "Which product are listed in orders most frequently? List the id, product name and price.",
+  "sql": "SELECT Products.product_id, Products.product_name, Products.product_price FROM Products JOIN Order_Items ON Products.product_id = Order_Items.product_id GROUP BY Products.product_id ORDER BY COUNT(Order_Items.order_item_id) DESC LIMIT 1;",
+  "semantic": {
+    "back_translation": {
+      "intent": "查找最畅销的产品",
+      "tables": [
+        "Products",
+        "Order_Items"
+      ],
+      "columns": [
+        "Products.product_id",
+        "Products.product_name",
+        "Products.product_price"
+      ],
+      "filters": [],
+      "agg": [
+        "COUNT(Order_Items.order_item_id)"
+      ],
+      "group_by": [
+        "Products.product_id"
+      ],
+      "order_by": [
+        "COUNT(Order_Items.order_item_id) DESC"
+      ],
+      "limit": 1
+    },
+    "score": 1.0,
+    "pass": true,
+    "reason": "语义一致。原始问题要求找出在订单中出现频率最高的产品，SQL描述通过统计Order_Items表中每个产品的订单项数量（COUNT(order_item_id)）并按降序排序取第一条，准确实现了该意图。目标字段(id, product_name, price)和分组逻辑均匹配。"
+  }
+}

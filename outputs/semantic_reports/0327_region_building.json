@@ -1,0 +1,27 @@
+{
+  "db_id": "region_building",
+  "index": 327,
+  "question": "List the names of regions in alphabetical order.",
+  "sql": "SELECT Name FROM region ORDER BY Name;",
+  "semantic": {
+    "back_translation": {
+      "intent": "获取地区名称",
+      "tables": [
+        "region"
+      ],
+      "columns": [
+        "Name"
+      ],
+      "filters": [],
+      "agg": [],
+      "group_by": [],
+      "order_by": [
+        "Name ASC"
+      ],
+      "limit": null
+    },
+    "score": 1.0,
+    "pass": true,
+    "reason": "语义完全一致，原始问题要求列出地区名称并按字母顺序排列，SQL反向翻译描述中正确指定了目标表、列、排序方式，无过滤、聚合或分组条件，与原始问题一致。"
+  }
+}

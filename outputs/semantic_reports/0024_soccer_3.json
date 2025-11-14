@@ -1,0 +1,33 @@
+{
+  "db_id": "soccer_3",
+  "index": 24,
+  "question": "What are the names of clubs, ordered descending by the average earnings of players within each?",
+  "sql": "SELECT club.Name, AVG(player.Earnings) AS average_earnings FROM player JOIN club ON player.Club_ID = club.Club_ID GROUP BY club.Club_ID ORDER BY average_earnings DESC;",
+  "semantic": {
+    "back_translation": {
+      "intent": "计算每个俱乐部的平均球员收入",
+      "tables": [
+        "player",
+        "club"
+      ],
+      "columns": [
+        "club.Name",
+        "player.Earnings"
+      ],
+      "filters": [],
+      "agg": [
+        "AVG(player.Earnings)"
+      ],
+      "group_by": [
+        "club.Club_ID"
+      ],
+      "order_by": [
+        "average_earnings DESC"
+      ],
+      "limit": null
+    },
+    "score": 1.0,
+    "pass": true,
+    "reason": "语义一致，原始问题要求列出俱乐部名称并按每个俱乐部球员的平均收入降序排列，SQL反向翻译描述准确反映了这一意图，包括目标表、列、聚合函数、分组和排序条件。"
+  }
+}

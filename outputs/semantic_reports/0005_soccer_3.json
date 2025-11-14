@@ -1,0 +1,28 @@
+{
+  "db_id": "soccer_3",
+  "index": 5,
+  "question": "What are the managers and captains of clubs?",
+  "sql": "SELECT Manager, Captain FROM club",
+  "semantic": {
+    "back_translation": {
+      "intent": "获取特定俱乐部的经理和队长信息",
+      "tables": [
+        "club"
+      ],
+      "columns": [
+        "Manager",
+        "Captain"
+      ],
+      "filters": [
+        "Name IN ('Arsenal', 'Aston Villa', 'Blackburn Rovers', 'Bolton Wanderers', 'Chelsea')"
+      ],
+      "agg": [],
+      "group_by": [],
+      "order_by": [],
+      "limit": null
+    },
+    "score": 0.5,
+    "pass": false,
+    "reason": "原始问题询问所有俱乐部的经理和队长，而SQL描述限定在特定俱乐部名称列表（'Arsenal', 'Aston Villa'等）中，导致过滤条件不一致"
+  }
+}

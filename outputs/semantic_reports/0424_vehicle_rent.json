@@ -1,0 +1,31 @@
+{
+  "db_id": "vehicle_rent",
+  "index": 424,
+  "question": "Show the name and total hours of renting for each vehicle.",
+  "sql": "SELECT Vehicles.name, SUM(Renting_history.total_hours) AS total_hours_of_renting FROM Vehicles JOIN Renting_history ON Vehicles.id = Renting_history.vehicles_id GROUP BY Vehicles.id;",
+  "semantic": {
+    "back_translation": {
+      "intent": "计算每辆车的总租赁时长",
+      "tables": [
+        "Vehicles",
+        "Renting_history"
+      ],
+      "columns": [
+        "Vehicles.name",
+        "Renting_history.total_hours"
+      ],
+      "filters": [],
+      "agg": [
+        "SUM(Renting_history.total_hours)"
+      ],
+      "group_by": [
+        "Vehicles.id"
+      ],
+      "order_by": [],
+      "limit": null
+    },
+    "score": 1.0,
+    "pass": true,
+    "reason": "语义完全一致。原始问题要求显示每辆车的名称和总租赁时长，SQL描述通过SUM(Renting_history.total_hours)聚合函数和Vehicles.id分组实现该需求，且列选择和表关联关系正确。"
+  }
+}

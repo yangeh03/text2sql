@@ -1,0 +1,29 @@
+{
+  "db_id": "government_shift",
+  "index": 385,
+  "question": "Which customers have experienced status \"Stuck\" and service and channel detail \"bad\" in  an interaction? Give me the customer details.",
+  "sql": "SELECT Customers.Customer_Details FROM Customers INNER JOIN Customer_Interactions ON Customers.Customer_ID = Customer_Interactions.Customer_ID WHERE Customer_Interactions.Status_Code = 'Stuck' AND Customer_Interactions.Services_and_Channels_Details = 'bad'",
+  "semantic": {
+    "back_translation": {
+      "intent": "获取特定条件下的客户详细信息",
+      "tables": [
+        "Customers",
+        "Customer_Interactions"
+      ],
+      "columns": [
+        "Customers.Customer_Details"
+      ],
+      "filters": [
+        "Customer_Interactions.Status_Code = 'Stuck'",
+        "Customer_Interactions.Services_and_Channels_Details = 'bad'"
+      ],
+      "agg": [],
+      "group_by": [],
+      "order_by": [],
+      "limit": null
+    },
+    "score": 1.0,
+    "pass": true,
+    "reason": "原始问题要求获取同时满足状态'Stuck'和service/channel detail 'bad'的客户详细信息，SQL描述准确匹配了这两个过滤条件（Status_Code='Stuck'和Services_and_Channels_Details='bad'），且目标列Customers.Customer_Details与问题中的'customer details'完全对应，未涉及聚合、分组等额外操作。"
+  }
+}

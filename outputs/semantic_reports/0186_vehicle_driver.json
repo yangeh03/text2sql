@@ -1,0 +1,27 @@
+{
+  "db_id": "vehicle_driver",
+  "index": 186,
+  "question": "Show all driver names in the alphabetical order.",
+  "sql": "SELECT Name FROM driver ORDER BY Name ASC;",
+  "semantic": {
+    "back_translation": {
+      "intent": "获取驾驶员姓名并按字母顺序排序",
+      "tables": [
+        "driver"
+      ],
+      "columns": [
+        "Name"
+      ],
+      "filters": [],
+      "agg": [],
+      "group_by": [],
+      "order_by": [
+        "Name ASC"
+      ],
+      "limit": null
+    },
+    "score": 1.0,
+    "pass": true,
+    "reason": "两者语义完全一致，均要求获取所有驾驶员姓名并按字母顺序升序排列，未涉及过滤、分组、聚合或限制条件"
+  }
+}

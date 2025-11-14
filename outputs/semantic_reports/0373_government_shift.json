@@ -1,0 +1,33 @@
+{
+  "db_id": "government_shift",
+  "index": 373,
+  "question": "Which customers used the least commonly-used service ? Give me the distinct customer details .",
+  "sql": "SELECT Customers.Customer_Details FROM Customers JOIN Customers_and_Services ON Customers.Customer_ID = Customers_and_Services.Customer_ID GROUP BY Customers.Customer_ID ORDER BY COUNT(Customers_and_Services.Service_ID) ASC LIMIT 1;",
+  "semantic": {
+    "back_translation": {
+      "intent": "获取具有最少服务的客户详细信息",
+      "tables": [
+        "Customers",
+        "Customers_and_Services",
+        "Services"
+      ],
+      "columns": [
+        "Customers.Customer_Details"
+      ],
+      "filters": [],
+      "agg": [
+        "COUNT(Customers_and_Services.Service_ID)"
+      ],
+      "group_by": [
+        "Customers.Customer_Details"
+      ],
+      "order_by": [
+        "COUNT(Customers_and_Services.Service_ID) ASC"
+      ],
+      "limit": 1
+    },
+    "score": 1.0,
+    "pass": true,
+    "reason": "语义一致，SQL反向翻译描述准确表达了原始问题意图，即找出使用最少服务的客户详细信息，并通过COUNT和GROUP BY实现该逻辑，ORDER BY和LIMIT确保结果按使用频率升序排列并仅返回一个客户。"
+  }
+}

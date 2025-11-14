@@ -1,0 +1,26 @@
+{
+  "db_id": "e_commerce",
+  "index": 95,
+  "question": "What are all the order status and all the dates of orders?",
+  "sql": "SELECT order_status_code, date_order_placed FROM Orders;",
+  "semantic": {
+    "back_translation": {
+      "intent": "数据检索",
+      "tables": [
+        "Orders"
+      ],
+      "columns": [
+        "order_status_code",
+        "date_order_placed"
+      ],
+      "filters": [],
+      "agg": [],
+      "group_by": [],
+      "order_by": [],
+      "limit": null
+    },
+    "score": 1.0,
+    "pass": true,
+    "reason": "原始问题要求获取所有订单的状态和日期，SQL描述准确对应了目标表(Orders)和所需列(order_status_code, date_order_placed)，且未添加任何过滤、聚合或排序条件，完全符合'所有'的语义要求。"
+  }
+}

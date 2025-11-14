@@ -1,0 +1,33 @@
+{
+  "db_id": "e_commerce",
+  "index": 43,
+  "question": "For the orders with any produts, how many products does each orders contain ? List the order id, status and the number.",
+  "sql": "SELECT Orders.order_id, Orders.order_status_code, COUNT(Order_Items.order_item_id) FROM Orders INNER JOIN Order_Items ON Orders.order_id = Order_Items.order_id GROUP BY Orders.order_id, Orders.order_status_code;",
+  "semantic": {
+    "back_translation": {
+      "intent": "统计每个订单及其状态下的订单项数量",
+      "tables": [
+        "Orders",
+        "Order_Items"
+      ],
+      "columns": [
+        "Orders.order_id",
+        "Orders.order_status_code",
+        "COUNT(Order_Items.order_item_id)"
+      ],
+      "filters": [],
+      "agg": [
+        "COUNT(Order_Items.order_item_id)"
+      ],
+      "group_by": [
+        "Orders.order_id",
+        "Orders.order_status_code"
+      ],
+      "order_by": [],
+      "limit": null
+    },
+    "score": 1.0,
+    "pass": true,
+    "reason": "语义一致，SQL反向翻译描述准确反映了原始问题中要求统计每个订单及其状态下的产品数量，并列出order_id、status和数量。"
+  }
+}

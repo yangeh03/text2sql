@@ -1,0 +1,32 @@
+{
+  "db_id": "region_building",
+  "index": 339,
+  "question": "Which region has the largest number of buildings? Show me the capital of the region.",
+  "sql": "SELECT r.Capital FROM region r JOIN building b ON r.Region_ID = b.Region_ID GROUP BY r.Region_ID ORDER BY COUNT(b.Building_ID) DESC LIMIT 1;",
+  "semantic": {
+    "back_translation": {
+      "intent": "获取每个地区的首府，按该地区内建筑数量降序排列，并返回建筑数量最多的那个地区的首府",
+      "tables": [
+        "region",
+        "building"
+      ],
+      "columns": [
+        "r.Capital"
+      ],
+      "filters": [],
+      "agg": [
+        "COUNT(b.Building_ID)"
+      ],
+      "group_by": [
+        "r.Region_ID"
+      ],
+      "order_by": [
+        "COUNT(b.Building_ID) DESC"
+      ],
+      "limit": 1
+    },
+    "score": 1.0,
+    "pass": true,
+    "reason": "语义完全一致，SQL反向翻译描述准确表达了原始问题的意图，即找出建筑数量最多的地区并返回其首府。"
+  }
+}

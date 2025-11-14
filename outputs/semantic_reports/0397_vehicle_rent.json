@@ -1,0 +1,25 @@
+{
+  "db_id": "vehicle_rent",
+  "index": 397,
+  "question": "Count the number of vehicles.",
+  "sql": "SELECT COUNT(*) FROM Vehicles;",
+  "semantic": {
+    "back_translation": {
+      "intent": "统计",
+      "tables": [
+        "Vehicles"
+      ],
+      "columns": [],
+      "filters": [],
+      "agg": [
+        "COUNT"
+      ],
+      "group_by": [],
+      "order_by": [],
+      "limit": null
+    },
+    "score": 1.0,
+    "pass": true,
+    "reason": "统计车辆总数的意图明确，SQL描述中目标表为Vehicles，无过滤条件且使用COUNT聚合函数，符合原始问题要求。"
+  }
+}

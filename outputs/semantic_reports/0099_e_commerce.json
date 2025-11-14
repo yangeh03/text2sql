@@ -1,0 +1,29 @@
+{
+  "db_id": "e_commerce",
+  "index": 99,
+  "question": "List all the pairs of buyer first names and product names.",
+  "sql": "SELECT Customers.customer_first_name, Products.product_name FROM Customers JOIN Orders ON Customers.customer_id = Orders.customer_id JOIN Order_Items ON Orders.order_id = Order_Items.order_id JOIN Products ON Order_Items.product_id = Products.product_id;",
+  "semantic": {
+    "back_translation": {
+      "intent": "获取客户及其订单中的产品信息",
+      "tables": [
+        "Customers",
+        "Orders",
+        "Order_Items",
+        "Products"
+      ],
+      "columns": [
+        "Customers.customer_first_name",
+        "Products.product_name"
+      ],
+      "filters": [],
+      "agg": [],
+      "group_by": [],
+      "order_by": [],
+      "limit": null
+    },
+    "score": 1.0,
+    "pass": true,
+    "reason": "原始问题要求列出买家名字和产品名字的配对，SQL反向翻译描述中的意图、涉及的表和列均与之匹配，没有过滤、聚合、分组或排序要求，语义完全一致。"
+  }
+}

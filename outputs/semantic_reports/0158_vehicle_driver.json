@@ -1,0 +1,30 @@
+{
+  "db_id": "vehicle_driver",
+  "index": 158,
+  "question": "What is the maximum and average power for the vehicles manufactured by 'Zhuzhou'?",
+  "sql": "SELECT MAX(Power), AVG(Power) FROM vehicle WHERE Builder = 'Zhuzhou'",
+  "semantic": {
+    "back_translation": {
+      "intent": "获取最大值和平均值",
+      "tables": [
+        "vehicle"
+      ],
+      "columns": [
+        "Power"
+      ],
+      "filters": [
+        "Builder = 'Zhuzhou'"
+      ],
+      "agg": [
+        "MAX",
+        "AVG"
+      ],
+      "group_by": [],
+      "order_by": [],
+      "limit": null
+    },
+    "score": 1.0,
+    "pass": true,
+    "reason": "语义完全一致，原始问题要求获取'Zhuzhou'制造车辆的功率最大值和平均值，SQL反向翻译描述准确反映了这一意图，包括目标表、列、过滤条件和聚合函数。"
+  }
+}

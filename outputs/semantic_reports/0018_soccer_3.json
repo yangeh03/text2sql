@@ -1,0 +1,27 @@
+{
+  "db_id": "soccer_3",
+  "index": 18,
+  "question": "What are the names of players and the corresponding clubs that they are in?",
+  "sql": "SELECT player.Name, club.Name FROM player INNER JOIN club ON player.Club_ID = club.Club_ID;",
+  "semantic": {
+    "back_translation": {
+      "intent": "获取球员和俱乐部的名称",
+      "tables": [
+        "player",
+        "club"
+      ],
+      "columns": [
+        "player.Name",
+        "club.Name"
+      ],
+      "filters": [],
+      "agg": [],
+      "group_by": [],
+      "order_by": [],
+      "limit": null
+    },
+    "score": 0.5,
+    "pass": false,
+    "reason": "缺少关联条件，未明确球员与俱乐部的对应关系"
+  }
+}

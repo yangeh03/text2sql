@@ -1,0 +1,22 @@
+{
+  "db_id": "region_building",
+  "index": 342,
+  "question": "Show the number of stories of buildings in the region with name \"Abruzzo\".",
+  "sql": "SELECT COUNT(Number_of_Stories) FROM building JOIN region ON building.Region_ID = region.Region_ID WHERE region.Name = 'Abruzzo';",
+  "semantic": {
+    "back_translation": {
+      "intent": "",
+      "tables": [],
+      "columns": [],
+      "filters": [],
+      "agg": [],
+      "group_by": [],
+      "order_by": [],
+      "limit": null,
+      "_error": "back-translate failed: Request timed out."
+    },
+    "score": 0.3,
+    "pass": false,
+    "reason": "未正确识别涉及的表（region和buildings）、未识别需要的列（stories）、未应用过滤条件（region name = 'Abruzzo'）、未使用聚合函数（如COUNT）以及可能的分组需求"
+  }
+}

@@ -1,0 +1,36 @@
+{
+  "db_id": "vehicle_driver",
+  "index": 182,
+  "question": "What are the vehicle ids and models which have been driven by more than 2 drivers or been driven by the driver named 'Jeff Gordon'?",
+  "sql": "SELECT v.Vehicle_ID, v.Model FROM vehicle v JOIN vehicle_driver vd ON v.Vehicle_ID = vd.Vehicle_ID WHERE (SELECT COUNT(DISTINCT vd2.Driver_ID) FROM vehicle_driver vd2 WHERE vd2.Vehicle_ID = v.Vehicle_ID) > 2 OR EXISTS (SELECT 1 FROM driver d WHERE d.Driver_ID = vd.Driver_ID AND d.Name = 'Jeff Gordon')",
+  "semantic": {
+    "back_translation": {
+      "intent": "查找具有超过2名驾驶员的车辆及其型号，以及名为Jeff Gordon的驾驶员所驾驶的车辆型号",
+      "tables": [
+        "vehicle_driver",
+        "vehicle",
+        "driver"
+      ],
+      "columns": [
+        "Vehicle_ID",
+        "Model"
+      ],
+      "filters": [
+        "COUNT(Driver_ID) > 2",
+        "d.Name = 'Jeff Gordon'"
+      ],
+      "agg": [
+        "COUNT(Driver_ID)"
+      ],
+      "group_by": [
+        "Vehicle_ID",
+        "Model"
+      ],
+      "order_by": [],
+      "limit": null
+    },
+    "score": 0.5,
+    "pass": false,
+    "reason": "filters逻辑错误，原始问题要求车辆满足'被超过2名驾驶员驾驶'或'被Jeff Gordon驾驶'，但SQL描述中将两者作为独立过滤条件同时应用，导致结果集错误。"
+  }
+}

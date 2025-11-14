@@ -1,0 +1,28 @@
+{
+  "db_id": "soccer_3",
+  "index": 19,
+  "question": "Show names of clubs that have players with more than 2 win counts.",
+  "sql": "SELECT c.Name FROM club c JOIN player p ON c.Club_ID = p.Club_ID GROUP BY c.Club_ID HAVING MAX(p.Wins_count) > 2;",
+  "semantic": {
+    "back_translation": {
+      "intent": "查询具有超过2次胜利的球员所属的俱乐部名称",
+      "tables": [
+        "club",
+        "player"
+      ],
+      "columns": [
+        "c.Name"
+      ],
+      "filters": [
+        "p.Wins_count > 2"
+      ],
+      "agg": [],
+      "group_by": [],
+      "order_by": [],
+      "limit": null
+    },
+    "score": 0.5,
+    "pass": false,
+    "reason": "缺少GROUP BY和HAVING子句，导致无法正确筛选出至少包含一个胜场数超过2的球员的俱乐部"
+  }
+}

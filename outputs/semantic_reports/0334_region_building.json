@@ -1,0 +1,27 @@
+{
+  "db_id": "region_building",
+  "index": 334,
+  "question": "Show the names of buildings and the names of regions they are in.",
+  "sql": "SELECT building.Name, region.Name FROM building INNER JOIN region ON building.Region_ID = region.Region_ID;",
+  "semantic": {
+    "back_translation": {
+      "intent": "获取建筑物和其所属地区的名称列表",
+      "tables": [
+        "building",
+        "region"
+      ],
+      "columns": [
+        "Name",
+        "Name"
+      ],
+      "filters": [],
+      "agg": [],
+      "group_by": [],
+      "order_by": [],
+      "limit": null
+    },
+    "score": 1.0,
+    "pass": true,
+    "reason": "语义一致，原始问题要求展示建筑物和其所属地区的名称，SQL反向翻译描述准确反映了这一意图，涉及的表、列和操作均匹配。"
+  }
+}

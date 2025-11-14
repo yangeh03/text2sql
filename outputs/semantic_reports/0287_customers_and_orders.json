@@ -1,0 +1,28 @@
+{
+  "db_id": "customers_and_orders",
+  "index": 287,
+  "question": "What are the ids and product types for all products, sorted alphabetically by product name?",
+  "sql": "SELECT product_id, product_type_code FROM Products ORDER BY product_name ASC;",
+  "semantic": {
+    "back_translation": {
+      "intent": "查询产品信息",
+      "tables": [
+        "Products"
+      ],
+      "columns": [
+        "product_id",
+        "product_type_code"
+      ],
+      "filters": [],
+      "agg": [],
+      "group_by": [],
+      "order_by": [
+        "product_name ASC"
+      ],
+      "limit": null
+    },
+    "score": 1.0,
+    "pass": true,
+    "reason": "语义一致，原始问题要求获取所有产品的id和产品类型，并按产品名称升序排列，与SQL反向翻译描述中的意图、表、列和排序完全匹配。"
+  }
+}

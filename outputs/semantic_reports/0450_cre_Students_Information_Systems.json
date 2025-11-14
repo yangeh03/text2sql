@@ -1,0 +1,33 @@
+{
+  "db_id": "cre_Students_Information_Systems",
+  "index": 450,
+  "question": "List the detail and id of the teacher who teaches the most courses.",
+  "sql": "SELECT Teachers.teacher_id, Teachers.teacher_details FROM Teachers JOIN Classes ON Teachers.teacher_id = Classes.teacher_id GROUP BY Teachers.teacher_id ORDER BY COUNT(Classes.class_id) DESC LIMIT 1;",
+  "semantic": {
+    "back_translation": {
+      "intent": "查找拥有最多班级的教师及其详细信息",
+      "tables": [
+        "Teachers",
+        "Classes"
+      ],
+      "columns": [
+        "Teachers.teacher_id",
+        "Teachers.teacher_details"
+      ],
+      "filters": [],
+      "agg": [
+        "COUNT(Classes.class_id)"
+      ],
+      "group_by": [
+        "Teachers.teacher_id"
+      ],
+      "order_by": [
+        "COUNT(Classes.class_id) DESC"
+      ],
+      "limit": 1
+    },
+    "score": 1.0,
+    "pass": true,
+    "reason": "语义完全一致，原始问题要求列出教最多课程的教师的详细信息和ID，SQL反向翻译描述正确地使用了Teachers表和Classes表，通过COUNT(Classes.class_id)进行聚合，按teacher_id分组，并按课程数量降序排序，最后取第一条记录。"
+  }
+}

@@ -1,0 +1,28 @@
+{
+  "db_id": "e_commerce",
+  "index": 76,
+  "question": "What are the invoice statuses for all orderes that have not been shipped out yet?",
+  "sql": "SELECT DISTINCT Invoices.invoice_status_code FROM Invoices JOIN Shipments ON Invoices.invoice_number = Shipments.invoice_number JOIN Orders ON Shipments.order_id = Orders.order_id WHERE Shipments.shipment_date IS NULL;",
+  "semantic": {
+    "back_translation": {
+      "intent": "获取所有未安排运输的发票状态代码",
+      "tables": [
+        "Invoices",
+        "Shipments"
+      ],
+      "columns": [
+        "invoice_status_code"
+      ],
+      "filters": [
+        "shipment_date IS NULL"
+      ],
+      "agg": [],
+      "group_by": [],
+      "order_by": [],
+      "limit": null
+    },
+    "score": 0.5,
+    "pass": false,
+    "reason": "原始问题询问的是所有未被运输的订单的发票状态，而SQL反向翻译描述中获取的是未安排运输的发票状态代码，未明确关联到订单表，且未体现订单与发票之间的关系。"
+  }
+}

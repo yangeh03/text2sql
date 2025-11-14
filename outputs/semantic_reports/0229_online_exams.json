@@ -1,0 +1,34 @@
+{
+  "db_id": "online_exams",
+  "index": 229,
+  "question": "Which student answer texts were given both \"Normal\" and \"Absent\" as comments?",
+  "sql": "SELECT Student_Answers.Student_Answer_ID, Student_Answers.Student_Answer_Text FROM Student_Answers WHERE Student_Answers.Comments = 'Normal' OR Student_Answers.Comments = 'Absent' GROUP BY Student_Answers.Student_Answer_ID HAVING COUNT(DISTINCT Student_Answers.Comments) = 2;",
+  "semantic": {
+    "back_translation": {
+      "intent": "查询满足特定条件的学生答案记录",
+      "tables": [
+        "Student_Answers"
+      ],
+      "columns": [
+        "Student_Answer_ID",
+        "Student_ID",
+        "Question_ID",
+        "Comments",
+        "Satisfactory_YN",
+        "Student_Answer_Text"
+      ],
+      "filters": [
+        "Student_Answers.Comments IN ('Normal', 'Absent')"
+      ],
+      "agg": [],
+      "group_by": [
+        "Student_Answers.Student_Answer_ID"
+      ],
+      "order_by": [],
+      "limit": null
+    },
+    "score": 0.5,
+    "pass": false,
+    "reason": "原始问题询问的是哪些学生答案文本同时获得了'Normal'和'Absent'两个评论，而SQL反向翻译的描述仅过滤了Comments为'Normal'或'Absent'的记录，未体现同时存在两个评论的条件。"
+  }
+}

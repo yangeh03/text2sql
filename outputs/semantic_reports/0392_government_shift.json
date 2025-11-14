@@ -1,0 +1,29 @@
+{
+  "db_id": "government_shift",
+  "index": 392,
+  "question": "Find all the layer type codes with their corresponding usage count.",
+  "sql": "SELECT Analytical_Layer_Type_Code, COUNT(*) AS usage_count FROM Analytical_Layer GROUP BY Analytical_Layer_Type_Code;",
+  "semantic": {
+    "back_translation": {
+      "intent": "统计每个分析层类型代码的使用次数",
+      "tables": [
+        "Analytical_Layer"
+      ],
+      "columns": [
+        "Analytical_Layer_Type_Code"
+      ],
+      "filters": [],
+      "agg": [
+        "COUNT(*)"
+      ],
+      "group_by": [
+        "Analytical_Layer_Type_Code"
+      ],
+      "order_by": [],
+      "limit": null
+    },
+    "score": 1.0,
+    "pass": true,
+    "reason": "语义一致，SQL反向翻译描述准确表达了原始问题的意图，即统计每个分析层类型代码的使用次数，且涉及的表、列、聚合、分组等均与原始问题匹配。"
+  }
+}

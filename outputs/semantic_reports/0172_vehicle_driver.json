@@ -1,0 +1,29 @@
+{
+  "db_id": "vehicle_driver",
+  "index": 172,
+  "question": "What are the distinct driver names who have driven vehicles with power more than 5000 ?",
+  "sql": "SELECT DISTINCT driver.Name FROM driver JOIN vehicle_driver ON driver.Driver_ID = vehicle_driver.Driver_ID JOIN vehicle ON vehicle_driver.Vehicle_ID = vehicle.Vehicle_ID WHERE vehicle.Power > 5000;",
+  "semantic": {
+    "back_translation": {
+      "intent": "获取驾驶员姓名，其中他们驾驶的车辆功率超过5000",
+      "tables": [
+        "driver",
+        "vehicle_driver",
+        "vehicle"
+      ],
+      "columns": [
+        "driver.Name"
+      ],
+      "filters": [
+        "vehicle.Power > 5000"
+      ],
+      "agg": [],
+      "group_by": [],
+      "order_by": [],
+      "limit": null
+    },
+    "score": 1.0,
+    "pass": true,
+    "reason": "语义一致，原始问题和SQL反向翻译描述均要求获取驾驶功率超过5000的驾驶员姓名，且未涉及聚合、分组、排序或限制条件。"
+  }
+}

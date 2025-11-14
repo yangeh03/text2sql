@@ -1,0 +1,31 @@
+{
+  "db_id": "tv_shows",
+  "index": 149,
+  "question": "Show the transmitters of radios and the station names of the channels they are associated with in descending order of the ERP of the radios.",
+  "sql": "SELECT radio.Transmitter, city_channel.Station_name FROM radio JOIN city_channel_radio ON radio.Radio_ID = city_channel_radio.Radio_ID JOIN city_channel ON city_channel_radio.City_channel_ID = city_channel.ID ORDER BY radio.ERP_kW DESC;",
+  "semantic": {
+    "back_translation": {
+      "intent": "获取与电台和频道相关的传输信息和频道名称",
+      "tables": [
+        "radio",
+        "city_channel_radio",
+        "city_channel"
+      ],
+      "columns": [
+        "radio.Transmitter",
+        "city_channel.Station_name"
+      ],
+      "filters": [],
+      "agg": [],
+      "group_by": [],
+      "order_by": [
+        "radio.ERP_kW",
+        "DESC"
+      ],
+      "limit": null
+    },
+    "score": 1.0,
+    "pass": true,
+    "reason": "完全一致。原始问题要求显示radio表的Transmitter和关联的city_channel表的Station_name，并按radio.ERP_kW降序排序，与SQL反向翻译描述中的intent、columns和order_by完全匹配。"
+  }
+}

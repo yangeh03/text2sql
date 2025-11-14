@@ -1,0 +1,30 @@
+{
+  "db_id": "cre_Students_Information_Systems",
+  "index": 500,
+  "question": "Which teachers have taught the student with the earliest transcript issuance? List the teacher details.",
+  "sql": "SELECT Teachers.teacher_id, Teachers.teacher_details FROM Teachers JOIN Classes ON Teachers.teacher_id = Classes.teacher_id WHERE Classes.student_id IN (SELECT student_id FROM Transcripts WHERE date_of_transcript = (SELECT MIN(date_of_transcript) FROM Transcripts))",
+  "semantic": {
+    "back_translation": {
+      "intent": "查询教师及其详细信息，这些教师教授了在Transcripts表中最早日期的课程",
+      "tables": [
+        "Teachers",
+        "Classes",
+        "Transcripts"
+      ],
+      "columns": [
+        "Teachers.teacher_id",
+        "Teachers.teacher_details"
+      ],
+      "filters": [
+        "Transcripts.date_of_transcript = (SELECT MIN(date_of_transcript) FROM Transcripts)"
+      ],
+      "agg": [],
+      "group_by": [],
+      "order_by": [],
+      "limit": null
+    },
+    "score": 0.5,
+    "pass": false,
+    "reason": "原始问题询问的是哪些教师教授了最早发放成绩单的学生，而SQL反向翻译描述中仅筛选出最早日期的Transcripts记录，但未明确关联到具体学生，因此无法准确判断哪些教师教授了该学生。"
+  }
+}

@@ -1,0 +1,28 @@
+{
+  "db_id": "soccer_3",
+  "index": 36,
+  "question": "Which country has produced both players with earnings over 1400000 and players with earnings below 1100000?",
+  "sql": "SELECT Country FROM player WHERE Earnings > 1400000 GROUP BY Country HAVING COUNT(*) > 0 INTERSECT SELECT Country FROM player WHERE Earnings < 1100000 GROUP BY Country HAVING COUNT(*) > 0;",
+  "semantic": {
+    "back_translation": {
+      "intent": "查找同时满足两个条件的国家",
+      "tables": [
+        "player"
+      ],
+      "columns": [
+        "Country"
+      ],
+      "filters": [
+        "Earnings > 1400000",
+        "Earnings < 1100000"
+      ],
+      "agg": [],
+      "group_by": [],
+      "order_by": [],
+      "limit": null
+    },
+    "score": 0.3,
+    "pass": false,
+    "reason": "过滤条件存在逻辑矛盾（Earnings >1400000 与 Earnings <1100000 无法同时成立），实际应通过 GROUP BY 和 HAVING 检查国家是否同时包含满足两个条件的球员"
+  }
+}

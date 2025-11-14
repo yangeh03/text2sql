@@ -1,0 +1,27 @@
+{
+  "db_id": "government_shift",
+  "index": 356,
+  "question": "List details of all the channel in alphabetical order .",
+  "sql": "SELECT * FROM Channels ORDER BY Channel_ID ASC;",
+  "semantic": {
+    "back_translation": {
+      "intent": "查询所有频道信息并按频道详情升序排列",
+      "tables": [
+        "Channels"
+      ],
+      "columns": [
+        "*"
+      ],
+      "filters": [],
+      "agg": [],
+      "group_by": [],
+      "order_by": [
+        "Channel_Details ASC"
+      ],
+      "limit": null
+    },
+    "score": 0.5,
+    "pass": false,
+    "reason": "排序字段不一致。原始问题要求按频道名称（alphabetical order）排序，而SQL反向翻译描述中使用了'Channel_Details'作为排序字段，可能指代不明确或与实际列名不符。"
+  }
+}

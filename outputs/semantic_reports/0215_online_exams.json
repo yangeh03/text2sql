@@ -1,0 +1,31 @@
+{
+  "db_id": "online_exams",
+  "index": 215,
+  "question": "Which assessment has the smallest frequency count?",
+  "sql": "SELECT Assessment FROM Student_Assessments GROUP BY Assessment ORDER BY COUNT(*) ASC LIMIT 1;",
+  "semantic": {
+    "back_translation": {
+      "intent": "查找评估次数最少的评估类型",
+      "tables": [
+        "Student_Assessments"
+      ],
+      "columns": [
+        "Assessment"
+      ],
+      "filters": [],
+      "agg": [
+        "COUNT(*)"
+      ],
+      "group_by": [
+        "Assessment"
+      ],
+      "order_by": [
+        "COUNT(*) ASC"
+      ],
+      "limit": 1
+    },
+    "score": 1.0,
+    "pass": true,
+    "reason": "语义完全一致。原始问题要求找出评估次数最少的评估类型，SQL反向翻译描述通过以下方式实现：1. 对Student_Assessments表的Assessment列进行COUNT(*)聚合 2. 按Assessment分组 3. 以计数结果升序排序 4. 取第一条记录。所有操作均准确对应原始问题的意图，且无额外过滤条件或限制。"
+  }
+}

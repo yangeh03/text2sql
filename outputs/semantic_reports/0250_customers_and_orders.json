@@ -1,0 +1,27 @@
+{
+  "db_id": "customers_and_orders",
+  "index": 250,
+  "question": "Show all product names with price higher than the average.",
+  "sql": "SELECT product_name FROM Products WHERE product_price > (SELECT AVG(product_price) FROM Products);",
+  "semantic": {
+    "back_translation": {
+      "intent": "获取价格高于平均价格的产品名称",
+      "tables": [
+        "Products"
+      ],
+      "columns": [
+        "product_name"
+      ],
+      "filters": [
+        "product_price > (SELECT AVG(product_price) FROM Products)"
+      ],
+      "agg": [],
+      "group_by": [],
+      "order_by": [],
+      "limit": null
+    },
+    "score": 1.0,
+    "pass": true,
+    "reason": "语义完全一致，原始问题要求显示所有价格高于平均价格的产品名称，SQL反向翻译描述正确地使用了子查询计算平均价格并过滤出符合条件的产品名称。"
+  }
+}

@@ -1,0 +1,27 @@
+{
+  "db_id": "vehicle_rent",
+  "index": 401,
+  "question": "What are the different types of powertrains?",
+  "sql": "SELECT DISTINCT Type_of_powertrain FROM Vehicles WHERE name IN ('Chevrolet Spark EV', 'Honda Fit EV', 'Fiat 500e', 'Nissan Leaf', 'Mitsubishi i');",
+  "semantic": {
+    "back_translation": {
+      "intent": "获取不同的动力系统类型",
+      "tables": [
+        "Vehicles"
+      ],
+      "columns": [
+        "Type_of_powertrain"
+      ],
+      "filters": [
+        "name IN ('Chevrolet Spark EV', 'Honda Fit EV', 'Fiat 500e', 'Nissan Leaf', 'Mitsubishi i')"
+      ],
+      "agg": [],
+      "group_by": [],
+      "order_by": [],
+      "limit": null
+    },
+    "score": 1.0,
+    "pass": true,
+    "reason": "语义一致，原始问题询问不同动力系统类型，SQL反向翻译描述意图明确，目标表和列正确，且过滤条件与问题相关。"
+  }
+}

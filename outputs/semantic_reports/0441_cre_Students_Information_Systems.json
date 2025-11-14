@@ -1,0 +1,27 @@
+{
+  "db_id": "cre_Students_Information_Systems",
+  "index": 441,
+  "question": "Compute the average amount of student loans.",
+  "sql": "SELECT AVG(amount_of_loan) FROM Student_Loans",
+  "semantic": {
+    "back_translation": {
+      "intent": "计算平均贷款金额",
+      "tables": [
+        "Student_Loans"
+      ],
+      "columns": [
+        "amount_of_loan"
+      ],
+      "filters": [],
+      "agg": [
+        "AVG"
+      ],
+      "group_by": [],
+      "order_by": [],
+      "limit": null
+    },
+    "score": 1.0,
+    "pass": true,
+    "reason": "语义完全一致，SQL反向翻译描述准确表达了原始问题'Compute the average amount of student loans'的意图，涉及的表、列、聚合函数和操作均匹配。"
+  }
+}

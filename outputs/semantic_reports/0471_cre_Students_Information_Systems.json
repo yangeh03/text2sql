@@ -1,0 +1,27 @@
+{
+  "db_id": "cre_Students_Information_Systems",
+  "index": 471,
+  "question": "What are the achievement detail and the type description of each achievements?",
+  "sql": "SELECT Achievements.achievement_details, Ref_Achievement_Type.achievement_type_description FROM Achievements JOIN Ref_Achievement_Type ON Achievements.achievement_type_code = Ref_Achievement_Type.achievement_type_code;",
+  "semantic": {
+    "back_translation": {
+      "intent": "获取相关数据",
+      "tables": [
+        "Achievements",
+        "Ref_Achievement_Type"
+      ],
+      "columns": [
+        "achievement_details",
+        "achievement_type_description"
+      ],
+      "filters": [],
+      "agg": [],
+      "group_by": [],
+      "order_by": [],
+      "limit": null
+    },
+    "score": 1.0,
+    "pass": true,
+    "reason": "语义完全一致。原始问题询问每个成就的成就详情和成就类型描述，SQL反向翻译的描述正确地指定了从Achievements和Ref_Achievement_Type表中获取achievement_details和achievement_type_description列，且没有过滤、聚合、分组或排序条件，符合原始问题的意图。"
+  }
+}

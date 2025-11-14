@@ -1,0 +1,31 @@
+{
+  "db_id": "customers_and_orders",
+  "index": 278,
+  "question": "What is the payment method code used by most number of customers?",
+  "sql": "SELECT payment_method_code FROM Customers GROUP BY payment_method_code ORDER BY COUNT(*) DESC LIMIT 1;",
+  "semantic": {
+    "back_translation": {
+      "intent": "找出最常见的支付方式代码",
+      "tables": [
+        "Customers"
+      ],
+      "columns": [
+        "payment_method_code"
+      ],
+      "filters": [],
+      "agg": [
+        "COUNT(*)"
+      ],
+      "group_by": [
+        "payment_method_code"
+      ],
+      "order_by": [
+        "COUNT(*) DESC"
+      ],
+      "limit": 1
+    },
+    "score": 1.0,
+    "pass": true,
+    "reason": ""
+  }
+}

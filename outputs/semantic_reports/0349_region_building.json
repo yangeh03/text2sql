@@ -1,0 +1,28 @@
+{
+  "db_id": "region_building",
+  "index": 349,
+  "question": "What are the names of regions in which there are no buildings?",
+  "sql": "SELECT r.Name FROM region r LEFT JOIN building b ON r.Region_ID = b.Region_ID WHERE b.Building_ID IS NULL;",
+  "semantic": {
+    "back_translation": {
+      "intent": "查找没有建筑物的地区",
+      "tables": [
+        "region",
+        "building"
+      ],
+      "columns": [
+        "r.Name"
+      ],
+      "filters": [
+        "b.Building_ID IS NULL"
+      ],
+      "agg": [],
+      "group_by": [],
+      "order_by": [],
+      "limit": null
+    },
+    "score": 1.0,
+    "pass": true,
+    "reason": "语义完全一致，正确关联region和building表，通过b.Building_ID IS NULL过滤条件筛选无建筑物的地区，选择列r.Name与问题要求一致，无聚合、分组、排序等额外操作"
+  }
+}

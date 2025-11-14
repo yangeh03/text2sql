@@ -1,0 +1,30 @@
+{
+  "db_id": "e_commerce",
+  "index": 62,
+  "question": "How many orders has each gender placed?",
+  "sql": "SELECT COUNT(*) AS order_count, Customers.gender_code FROM Orders JOIN Customers ON Orders.customer_id = Customers.customer_id GROUP BY Customers.gender_code;",
+  "semantic": {
+    "back_translation": {
+      "intent": "统计每个性别的订单数量",
+      "tables": [
+        "Orders",
+        "Customers"
+      ],
+      "columns": [
+        "gender_code"
+      ],
+      "filters": [],
+      "agg": [
+        "COUNT"
+      ],
+      "group_by": [
+        "gender_code"
+      ],
+      "order_by": [],
+      "limit": null
+    },
+    "score": 1.0,
+    "pass": true,
+    "reason": "语义完全一致，均要求统计每个性别的订单数量，涉及Orders和Customers表，按gender_code分组，使用COUNT聚合函数，无过滤条件、排序或限制。"
+  }
+}

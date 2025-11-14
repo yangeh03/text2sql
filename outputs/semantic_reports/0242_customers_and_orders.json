@@ -1,0 +1,27 @@
+{
+  "db_id": "customers_and_orders",
+  "index": 242,
+  "question": "What is the price for the product with name Monitor?",
+  "sql": "SELECT product_price FROM Products WHERE product_name = 'Monitor';",
+  "semantic": {
+    "back_translation": {
+      "intent": "查询特定产品的价格",
+      "tables": [
+        "Products"
+      ],
+      "columns": [
+        "product_price"
+      ],
+      "filters": [
+        "product_name = 'Monitor'"
+      ],
+      "agg": [],
+      "group_by": [],
+      "order_by": [],
+      "limit": null
+    },
+    "score": 1.0,
+    "pass": true,
+    "reason": "语义完全一致，SQL反向翻译描述准确反映了原始问题的意图、目标表、列和过滤条件。"
+  }
+}

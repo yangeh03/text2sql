@@ -1,0 +1,33 @@
+{
+  "db_id": "online_exams",
+  "index": 232,
+  "question": "Show all information on students.",
+  "sql": "SELECT * FROM Students;",
+  "semantic": {
+    "back_translation": {
+      "intent": "获取所有学生信息",
+      "tables": [
+        "Students"
+      ],
+      "columns": [
+        "Student_ID",
+        "First_Name",
+        "Middle_Name",
+        "Last_Name",
+        "Gender_MFU",
+        "Student_Address",
+        "Email_Adress",
+        "Cell_Mobile_Phone",
+        "Home_Phone"
+      ],
+      "filters": [],
+      "agg": [],
+      "group_by": [],
+      "order_by": [],
+      "limit": null
+    },
+    "score": 1.0,
+    "pass": true,
+    "reason": "原始问题要求显示所有学生信息，SQL描述中表为Students，列完整包含所有字段且无过滤、聚合、分组、排序等限制条件，与原始问题语义完全一致。"
+  }
+}

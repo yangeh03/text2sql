@@ -1,0 +1,25 @@
+{
+  "db_id": "government_shift",
+  "index": 358,
+  "question": "How many services are there?",
+  "sql": "SELECT COUNT(*) FROM Services;",
+  "semantic": {
+    "back_translation": {
+      "intent": "统计记录数量",
+      "tables": [
+        "Services"
+      ],
+      "columns": [],
+      "filters": [],
+      "agg": [
+        "COUNT(*)"
+      ],
+      "group_by": [],
+      "order_by": [],
+      "limit": null
+    },
+    "score": 1.0,
+    "pass": true,
+    "reason": "语义完全一致，SQL正确统计了Services表中所有记录的数量，无过滤、分组、排序等额外条件"
+  }
+}

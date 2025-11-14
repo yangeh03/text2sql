@@ -1,0 +1,27 @@
+{
+  "db_id": "online_exams",
+  "index": 205,
+  "question": "List all the distinct student answer texts to which comments \"Normal\" were given?",
+  "sql": "SELECT DISTINCT Student_Answers.Student_Answer_Text FROM Student_Answers WHERE Student_Answers.Comments = 'Normal'",
+  "semantic": {
+    "back_translation": {
+      "intent": "获取不同学生的答案文本",
+      "tables": [
+        "Student_Answers"
+      ],
+      "columns": [
+        "Student_Answer_Text"
+      ],
+      "filters": [
+        "Comments = 'Normal'"
+      ],
+      "agg": [],
+      "group_by": [],
+      "order_by": [],
+      "limit": null
+    },
+    "score": 0.5,
+    "pass": false,
+    "reason": "意图描述中的'不同'可能被误解为不同学生而非不同答案文本，原始问题明确要求答案文本的distinct性，但SQL反向翻译未体现该逻辑"
+  }
+}

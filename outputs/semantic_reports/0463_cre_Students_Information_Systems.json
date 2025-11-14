@@ -1,0 +1,33 @@
+{
+  "db_id": "cre_Students_Information_Systems",
+  "index": 463,
+  "question": "Find the biographical data and details of students who got not only the most common result but also a result that is obtained by 3 students in behaviour monitoring.",
+  "sql": "SELECT s.student_id, s.bio_data, s.student_details FROM Students s JOIN Behaviour_Monitoring bm ON s.student_id = bm.student_id WHERE bm.behaviour_monitoring_details = (SELECT behaviour_monitoring_details FROM Behaviour_Monitoring GROUP BY behaviour_monitoring_details ORDER BY COUNT(*) DESC LIMIT 1) AND bm.behaviour_monitoring_details IN (SELECT behaviour_monitoring_details FROM Behaviour_Monitoring GROUP BY behaviour_monitoring_details HAVING COUNT(*) = 3) ORDER BY s.student_id;",
+  "semantic": {
+    "back_translation": {
+      "intent": "获取满足特定行为监控条件的学生信息",
+      "tables": [
+        "Students",
+        "Behaviour_Monitoring"
+      ],
+      "columns": [
+        "s.student_id",
+        "s.bio_data",
+        "s.student_details"
+      ],
+      "filters": [
+        "bm.behaviour_monitoring_details IN (SELECT behaviour_monitoring_details FROM Behaviour_Monitoring GROUP BY behaviour_monitoring_details HAVING COUNT(*) = 3)"
+      ],
+      "agg": [],
+      "group_by": [],
+      "order_by": [
+        "s.student_id",
+        "ASC"
+      ],
+      "limit": null
+    },
+    "score": 0.5,
+    "pass": false,
+    "reason": "原始问题要求获取同时获得最常见结果和恰好有3名学生获得该结果的行为监控数据的学生信息，而SQL反向翻译仅过滤了行为监控结果被恰好3名学生获得的情况，未体现'最常见结果'的条件，导致语义不一致。"
+  }
+}

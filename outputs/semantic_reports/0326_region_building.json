@@ -1,0 +1,27 @@
+{
+  "db_id": "region_building",
+  "index": 326,
+  "question": "What are the names of regions in ascending alphabetical order?",
+  "sql": "SELECT Name FROM region ORDER BY Name ASC;",
+  "semantic": {
+    "back_translation": {
+      "intent": "获取数据",
+      "tables": [
+        "region"
+      ],
+      "columns": [
+        "Name"
+      ],
+      "filters": [],
+      "agg": [],
+      "group_by": [],
+      "order_by": [
+        "Name ASC"
+      ],
+      "limit": null
+    },
+    "score": 1.0,
+    "pass": true,
+    "reason": "原始问题要求获取所有地区名称并按字母升序排列，SQL反向翻译描述中表为region，列Name无过滤条件，按Name ASC排序，完全匹配需求。"
+  }
+}

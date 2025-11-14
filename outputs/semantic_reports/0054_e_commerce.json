@@ -1,0 +1,34 @@
+{
+  "db_id": "e_commerce",
+  "index": 54,
+  "question": "What are the ids, names, and prices of all products that are ordered most frequently?",
+  "sql": "SELECT p.product_id, p.product_name, p.product_price FROM Products p JOIN (SELECT product_id, COUNT(*) AS order_count FROM Order_Items GROUP BY product_id) oi ON p.product_id = oi.product_id WHERE oi.order_count = (SELECT MAX(order_count) FROM (SELECT COUNT(*) AS order_count FROM Order_Items GROUP BY product_id) sub)",
+  "semantic": {
+    "back_translation": {
+      "intent": "查找订购次数最多的商品信息",
+      "tables": [
+        "Products",
+        "Order_Items"
+      ],
+      "columns": [
+        "product_id",
+        "product_name",
+        "product_price"
+      ],
+      "filters": [
+        "oi.order_count = (SELECT MAX(order_count) FROM (SELECT COUNT(*) AS order_count FROM Order_Items GROUP BY product_id) sub)"
+      ],
+      "agg": [
+        "COUNT(*)"
+      ],
+      "group_by": [
+        "product_id"
+      ],
+      "order_by": [],
+      "limit": null
+    },
+    "score": 1.0,
+    "pass": true,
+    "reason": "语义一致，SQL反向翻译描述准确表达了原始问题中查找订购次数最多的商品信息的意图，涉及正确的表、列、聚合和分组逻辑。"
+  }
+}

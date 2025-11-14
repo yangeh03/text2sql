@@ -1,0 +1,28 @@
+{
+  "db_id": "government_shift",
+  "index": 376,
+  "question": "Find all the customers whose name contains \"Kutch\".",
+  "sql": "SELECT Customer_ID, Customer_Details FROM Customers WHERE Customer_Details LIKE '%Kutch%'",
+  "semantic": {
+    "back_translation": {
+      "intent": "查询包含特定关键词的客户信息",
+      "tables": [
+        "Customers"
+      ],
+      "columns": [
+        "Customer_ID",
+        "Customer_Details"
+      ],
+      "filters": [
+        "Customer_Details LIKE '%Kutch%'"
+      ],
+      "agg": [],
+      "group_by": [],
+      "order_by": [],
+      "limit": null
+    },
+    "score": 1.0,
+    "pass": true,
+    "reason": "原始问题要求查找名字包含'Kutch'的客户，SQL描述中通过Customer_Details LIKE '%Kutch%'实现该过滤条件，且目标表和列选择与问题匹配。"
+  }
+}

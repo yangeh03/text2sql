@@ -1,0 +1,31 @@
+{
+  "db_id": "customers_and_orders",
+  "index": 256,
+  "question": "What is the product id and product name for the cheapest Hardware type product?",
+  "sql": "SELECT product_id, product_name FROM Products WHERE product_type_code = 'Hardware' ORDER BY product_price ASC LIMIT 1;",
+  "semantic": {
+    "back_translation": {
+      "intent": "获取类型为Hardware的产品ID和名称",
+      "tables": [
+        "Products"
+      ],
+      "columns": [
+        "product_id",
+        "product_name"
+      ],
+      "filters": [
+        "product_type_code = 'Hardware'"
+      ],
+      "agg": [],
+      "group_by": [],
+      "order_by": [
+        "product_price",
+        "ASC"
+      ],
+      "limit": 1
+    },
+    "score": 1.0,
+    "pass": true,
+    "reason": "语义完全一致，SQL反向翻译描述准确反映了原始问题中要求获取Hardware类型产品中最便宜的记录的product_id和product_name。"
+  }
+}

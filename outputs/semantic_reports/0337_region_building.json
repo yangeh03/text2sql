@@ -1,0 +1,30 @@
+{
+  "db_id": "region_building",
+  "index": 337,
+  "question": "Which regions have more than one building? Give me the names of the regions.",
+  "sql": "SELECT r.Name FROM building b JOIN region r ON b.Region_ID = r.Region_ID GROUP BY r.Region_ID HAVING COUNT(b.Building_ID) > 1;",
+  "semantic": {
+    "back_translation": {
+      "intent": "查找具有多个建筑的地区名称",
+      "tables": [
+        "building",
+        "region"
+      ],
+      "columns": [
+        "Name"
+      ],
+      "filters": [],
+      "agg": [
+        "COUNT"
+      ],
+      "group_by": [
+        "Name"
+      ],
+      "order_by": [],
+      "limit": null
+    },
+    "score": 1.0,
+    "pass": true,
+    "reason": "语义完全一致，SQL反向翻译描述准确表达了原始问题的意图，即查找具有多个建筑的地区名称，且涉及的表、列、聚合和分组逻辑与原始问题匹配。"
+  }
+}

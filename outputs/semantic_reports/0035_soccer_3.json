@@ -1,0 +1,28 @@
+{
+  "db_id": "soccer_3",
+  "index": 35,
+  "question": "Show the country of players with earnings more than 1400000 and players with earnings less than 1100000.",
+  "sql": "SELECT Country FROM player WHERE Earnings > 1400000 OR Earnings < 1100000;",
+  "semantic": {
+    "back_translation": {
+      "intent": "查询满足特定条件的国家",
+      "tables": [
+        "player"
+      ],
+      "columns": [
+        "Country"
+      ],
+      "filters": [
+        "Earnings > 1400000",
+        "Earnings < 1100000"
+      ],
+      "agg": [],
+      "group_by": [],
+      "order_by": [],
+      "limit": null
+    },
+    "score": 0.0,
+    "pass": false,
+    "reason": "原始问题要求显示同时满足 earnings > 1400000 和 earnings < 1100000 的玩家的国家，但 SQL 反向翻译的描述中两个过滤条件是互斥的，无法同时满足，因此语义不一致。"
+  }
+}

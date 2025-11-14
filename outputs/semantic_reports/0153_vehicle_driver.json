@@ -1,0 +1,29 @@
+{
+  "db_id": "vehicle_driver",
+  "index": 153,
+  "question": "Of vehicles with power over 6000, return the model of the vehicle with the greatest top speed.",
+  "sql": "SELECT Model FROM vehicle WHERE Power > 6000 ORDER BY Top_Speed DESC LIMIT 1;",
+  "semantic": {
+    "back_translation": {
+      "intent": "查询具有最高Top_Speed的车辆模型",
+      "tables": [
+        "vehicle"
+      ],
+      "columns": [
+        "Model"
+      ],
+      "filters": [
+        "Power > 6000"
+      ],
+      "agg": [],
+      "group_by": [],
+      "order_by": [
+        "Top_Speed DESC"
+      ],
+      "limit": 1
+    },
+    "score": 1.0,
+    "pass": true,
+    "reason": "语义完全一致，SQL反向翻译描述准确表达了原始问题的意图，即在Power大于6000的车辆中查询Top_Speed最高的车辆模型。"
+  }
+}

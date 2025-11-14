@@ -1,0 +1,31 @@
+{
+  "db_id": "online_exams",
+  "index": 213,
+  "question": "For each student answer, find the email address of the student and the date of the answer. Sort them in descending order of dates.",
+  "sql": "SELECT Students.Email_Adress, Student_Answers.Date_of_Answer FROM Students JOIN Student_Answers ON Students.Student_ID = Student_Answers.Student_ID ORDER BY Student_Answers.Date_of_Answer DESC;",
+  "semantic": {
+    "back_translation": {
+      "intent": "获取学生及其答案的电子邮件地址和回答日期",
+      "tables": [
+        "Students",
+        "Student_Answers"
+      ],
+      "columns": [
+        "Email_Adress",
+        "Date_of_Answer"
+      ],
+      "filters": [
+        "Students.Student_ID = Student_Answers.Student_ID"
+      ],
+      "agg": [],
+      "group_by": [],
+      "order_by": [
+        "Date_of_Answer DESC"
+      ],
+      "limit": null
+    },
+    "score": 1.0,
+    "pass": true,
+    "reason": "语义一致，原始问题要求获取每个学生答案的电子邮件地址和回答日期，并按日期降序排列，与SQL反向翻译描述中的意图、涉及的表、列、过滤条件和排序方式完全匹配。"
+  }
+}

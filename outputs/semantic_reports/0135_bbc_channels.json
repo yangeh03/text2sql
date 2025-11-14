@@ -1,0 +1,30 @@
+{
+  "db_id": "bbc_channels",
+  "index": 135,
+  "question": "give me the name of channels that have both a director younger than 40 and a director older than 60.",
+  "sql": "SELECT DISTINCT c.Name FROM channel c JOIN director_admin da ON c.Channel_ID = da.Channel_ID JOIN director d ON da.Director_ID = d.Director_ID WHERE EXISTS (SELECT 1 FROM director d1 WHERE d1.Channel_ID = c.Channel_ID AND d1.Age < 40) AND EXISTS (SELECT 1 FROM director d2 WHERE d2.Channel_ID = c.Channel_ID AND d2.Age > 60);",
+  "semantic": {
+    "back_translation": {
+      "intent": "获取年龄小于40或大于60的导演名称",
+      "tables": [
+        "channel",
+        "director_admin",
+        "director"
+      ],
+      "columns": [
+        "Name"
+      ],
+      "filters": [
+        "d.Age < 40",
+        "d.Age > 60"
+      ],
+      "agg": [],
+      "group_by": [],
+      "order_by": [],
+      "limit": null
+    },
+    "score": 0.5,
+    "pass": false,
+    "reason": "原始问题要求获取同时拥有年龄小于40和年龄大于60的导演的频道名称，而SQL反向翻译描述中的过滤条件为'年龄小于40或大于60'，逻辑条件不一致。"
+  }
+}

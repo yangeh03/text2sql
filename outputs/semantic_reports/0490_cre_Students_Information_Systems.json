@@ -1,0 +1,32 @@
+{
+  "db_id": "cre_Students_Information_Systems",
+  "index": 490,
+  "question": "What is the least common detention type? Show the type code and the description.",
+  "sql": "SELECT detention_type_code, detention_type_description FROM Ref_Detention_Type GROUP BY detention_type_code ORDER BY COUNT(*) ASC LIMIT 1;",
+  "semantic": {
+    "back_translation": {
+      "intent": "查找 detention_type_code 和 detention_type_description 的组合，按出现次数升序排列，取出现次数最少的一个",
+      "tables": [
+        "Ref_Detention_Type"
+      ],
+      "columns": [
+        "detention_type_code",
+        "detention_type_description"
+      ],
+      "filters": [],
+      "agg": [
+        "COUNT(*)"
+      ],
+      "group_by": [
+        "detention_type_code"
+      ],
+      "order_by": [
+        "COUNT(*) ASC"
+      ],
+      "limit": 1
+    },
+    "score": 1.0,
+    "pass": true,
+    "reason": "语义完全一致，SQL正确实现了查找最少见的detention类型（按次数升序取第一条），且包含所需字段和操作"
+  }
+}

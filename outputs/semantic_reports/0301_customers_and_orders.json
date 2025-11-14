@@ -1,0 +1,31 @@
+{
+  "db_id": "customers_and_orders",
+  "index": 301,
+  "question": "Give the order status code that is most frequent across customer orders.",
+  "sql": "SELECT order_status_code FROM Customer_Orders GROUP BY order_status_code ORDER BY COUNT(*) DESC LIMIT 1;",
+  "semantic": {
+    "back_translation": {
+      "intent": "查询最常见的订单状态代码",
+      "tables": [
+        "Customer_Orders"
+      ],
+      "columns": [
+        "order_status_code"
+      ],
+      "filters": [],
+      "agg": [
+        "COUNT(*)"
+      ],
+      "group_by": [
+        "order_status_code"
+      ],
+      "order_by": [
+        "COUNT(*) DESC"
+      ],
+      "limit": 1
+    },
+    "score": 1.0,
+    "pass": true,
+    "reason": "语义完全一致，SQL反向翻译描述准确表达了原始问题的意图，即找出最常见的订单状态代码。"
+  }
+}

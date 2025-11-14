@@ -1,0 +1,29 @@
+{
+  "db_id": "cre_Students_Information_Systems",
+  "index": 444,
+  "question": "List the details of the teachers who teach some class whose detail has the substring 'data' but do not teach a class whose detail contains the prefix 'net'",
+  "sql": "SELECT teacher_details FROM Teachers WHERE teacher_id IN (SELECT teacher_id FROM Classes WHERE class_details LIKE '%data%') AND teacher_id NOT IN (SELECT teacher_id FROM Classes WHERE class_details LIKE 'net%')",
+  "semantic": {
+    "back_translation": {
+      "intent": "查询教师详情",
+      "tables": [
+        "Teachers",
+        "Classes"
+      ],
+      "columns": [
+        "teacher_details"
+      ],
+      "filters": [
+        "teacher_id IN (SELECT teacher_id FROM Classes WHERE class_details LIKE '%data%')",
+        "teacher_id NOT IN (SELECT teacher_id FROM Classes WHERE class_details LIKE 'net%')"
+      ],
+      "agg": [],
+      "group_by": [],
+      "order_by": [],
+      "limit": null
+    },
+    "score": 1.0,
+    "pass": true,
+    "reason": "语义完全一致。SQL通过两个子查询准确实现了原始问题中的包含子串'数据'和排除前缀'net'的条件，且正确关联了Teachers与Classes表。"
+  }
+}

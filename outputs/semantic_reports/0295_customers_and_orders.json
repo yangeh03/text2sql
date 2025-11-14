@@ -1,0 +1,32 @@
+{
+  "db_id": "customers_and_orders",
+  "index": 295,
+  "question": "What are the names, ids, and number of orders made for each customer?",
+  "sql": "SELECT Customers.customer_name, Customers.customer_id, COUNT(Customer_Orders.order_id) AS number_of_orders FROM Customers LEFT JOIN Customer_Orders ON Customers.customer_id = Customer_Orders.customer_id GROUP BY Customers.customer_id;",
+  "semantic": {
+    "back_translation": {
+      "intent": "统计每个客户的订单数量",
+      "tables": [
+        "Customers",
+        "Customer_Orders"
+      ],
+      "columns": [
+        "Customers.customer_name",
+        "Customers.customer_id",
+        "COUNT(Customer_Orders.order_id) AS number_of_orders"
+      ],
+      "filters": [],
+      "agg": [
+        "COUNT(Customer_Orders.order_id)"
+      ],
+      "group_by": [
+        "Customers.customer_id"
+      ],
+      "order_by": [],
+      "limit": null
+    },
+    "score": 1.0,
+    "pass": true,
+    "reason": "语义一致，原始问题要求每个客户的名称、ID和订单数量，SQL反向翻译描述正确地选择了相关列并使用COUNT函数统计订单数量，按客户ID分组，符合原始问题意图。"
+  }
+}

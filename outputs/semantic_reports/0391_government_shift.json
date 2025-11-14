@@ -1,0 +1,30 @@
+{
+  "db_id": "government_shift",
+  "index": 391,
+  "question": "Find details of the services that no customer has ever used . Return the service details .",
+  "sql": "SELECT Service_ID, Service_Details FROM Services WHERE Service_ID NOT IN (SELECT DISTINCT Service_ID FROM Customers_and_Services UNION SELECT Service_ID FROM Customer_Interactions);",
+  "semantic": {
+    "back_translation": {
+      "intent": "查找未被关联或交互的服务信息",
+      "tables": [
+        "Services",
+        "Customers_and_Services",
+        "Customer_Interactions"
+      ],
+      "columns": [
+        "Service_ID",
+        "Service_Details"
+      ],
+      "filters": [
+        "Service_ID NOT IN (SELECT DISTINCT Service_ID FROM Customers_and_Services UNION SELECT Service_ID FROM Customer_Interactions)"
+      ],
+      "agg": [],
+      "group_by": [],
+      "order_by": [],
+      "limit": null
+    },
+    "score": 1.0,
+    "pass": true,
+    "reason": "原始问题要求查找未被任何客户关联或使用的服务信息，SQL通过Service_ID NOT IN (子查询)实现该逻辑，子查询联合了两个来源（Customers_and_Services和Customer_Interactions）的Service_ID，最终从Services表获取对应服务的详细信息，完全匹配需求。"
+  }
+}

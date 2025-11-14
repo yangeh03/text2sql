@@ -1,0 +1,28 @@
+{
+  "db_id": "vehicle_rent",
+  "index": 412,
+  "question": "Show name and model year for vehicles with city fuel economy rate less than or equal to highway fuel economy rate.",
+  "sql": "SELECT name, Model_year FROM Vehicles WHERE City_fuel_economy_rate <= Highway_fuel_economy_rate;",
+  "semantic": {
+    "back_translation": {
+      "intent": "查询车辆信息",
+      "tables": [
+        "Vehicles"
+      ],
+      "columns": [
+        "name",
+        "Model_year"
+      ],
+      "filters": [
+        "City_fuel_economy_rate <= Highway_fuel_economy_rate"
+      ],
+      "agg": [],
+      "group_by": [],
+      "order_by": [],
+      "limit": null
+    },
+    "score": 1.0,
+    "pass": true,
+    "reason": "语义完全一致，原始问题要求显示车辆名称和型号年份，且筛选条件为城市燃油经济率小于等于高速公路燃油经济率，与SQL反向翻译描述一致。"
+  }
+}

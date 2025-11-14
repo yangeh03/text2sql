@@ -1,0 +1,31 @@
+{
+  "db_id": "cre_Students_Information_Systems",
+  "index": 466,
+  "question": "Which students have gone through any event? List the students' biographical data and event date.",
+  "sql": "SELECT Students.student_id, Students.bio_data, Students.student_details, Student_Events.event_date FROM Students JOIN Student_Events ON Students.student_id = Student_Events.student_id;",
+  "semantic": {
+    "back_translation": {
+      "intent": "查询学生及其相关事件信息",
+      "tables": [
+        "Students",
+        "Student_Events"
+      ],
+      "columns": [
+        "Students.student_id",
+        "Students.bio_data",
+        "Students.student_details",
+        "Student_Events.event_date"
+      ],
+      "filters": [
+        "Students.student_id IN (123, 456, 789, 1011, 1213, 1415)"
+      ],
+      "agg": [],
+      "group_by": [],
+      "order_by": [],
+      "limit": null
+    },
+    "score": 0.5,
+    "pass": false,
+    "reason": "过滤条件未体现事件关联性，student_id列表硬编码可能包含无事件记录的学生，且bio_data与student_details字段存在重复选取问题"
+  }
+}

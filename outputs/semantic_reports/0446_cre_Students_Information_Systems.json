@@ -1,0 +1,30 @@
+{
+  "db_id": "cre_Students_Information_Systems",
+  "index": 446,
+  "question": "List the biographical data of the students who never had a detention or student loan .",
+  "sql": "SELECT bio_data FROM Students WHERE student_id NOT IN (SELECT student_id FROM Detention UNION SELECT student_id FROM Student_Loans)",
+  "semantic": {
+    "back_translation": {
+      "intent": "获取没有被留校或贷款的学生的生物数据",
+      "tables": [
+        "Students",
+        "Detention",
+        "Student_Loans"
+      ],
+      "columns": [
+        "bio_data"
+      ],
+      "filters": [
+        "SELECT 1 FROM Detention WHERE Detention.student_id = Students.student_id",
+        "SELECT 1 FROM Student_Loans WHERE Student_Loans.student_id = Students.student_id"
+      ],
+      "agg": [],
+      "group_by": [],
+      "order_by": [],
+      "limit": null
+    },
+    "score": 0.5,
+    "pass": false,
+    "reason": "过滤条件逻辑错误。原始问题要求学生既没有被留校记录也没有贷款记录（AND关系），但SQL反向翻译描述中使用了两个独立的SELECT过滤条件，可能隐含OR关系，导致结果相反。"
+  }
+}

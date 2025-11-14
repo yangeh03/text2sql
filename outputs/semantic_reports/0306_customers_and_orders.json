@@ -1,0 +1,30 @@
+{
+  "db_id": "customers_and_orders",
+  "index": 306,
+  "question": "How many products named Monitor have been ordered?",
+  "sql": "SELECT SUM(CAST(order_quantity AS INTEGER)) FROM Order_Items JOIN Products ON Order_Items.product_id = Products.product_id WHERE product_name = 'Monitor'",
+  "semantic": {
+    "back_translation": {
+      "intent": "计算特定产品的总订单数量",
+      "tables": [
+        "Order_Items",
+        "Products"
+      ],
+      "columns": [
+        "order_quantity"
+      ],
+      "filters": [
+        "product_name = 'Monitor'"
+      ],
+      "agg": [
+        "SUM"
+      ],
+      "group_by": [],
+      "order_by": [],
+      "limit": null
+    },
+    "score": 1.0,
+    "pass": true,
+    "reason": "语义一致，SQL反向翻译描述准确反映了原始问题'How many products named Monitor have been ordered?'，即计算名为Monitor的产品的总订单数量。"
+  }
+}

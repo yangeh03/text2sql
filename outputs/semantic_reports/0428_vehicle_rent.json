@@ -1,0 +1,28 @@
+{
+  "db_id": "vehicle_rent",
+  "index": 428,
+  "question": "Show the name of customer with at least two renting history records.",
+  "sql": "SELECT name FROM Customers WHERE id IN (SELECT customer_id FROM Renting_history GROUP BY customer_id HAVING COUNT(*) >= 2);",
+  "semantic": {
+    "back_translation": {
+      "intent": "查询满足特定条件的客户姓名",
+      "tables": [
+        "Customers",
+        "Renting_history"
+      ],
+      "columns": [
+        "name"
+      ],
+      "filters": [
+        "id IN (SELECT customer_id FROM Renting_history GROUP BY customer_id HAVING COUNT(*) >= 2)"
+      ],
+      "agg": [],
+      "group_by": [],
+      "order_by": [],
+      "limit": null
+    },
+    "score": 1.0,
+    "pass": true,
+    "reason": "语义完全一致，原始问题要求显示至少有两次租借记录的客户姓名，SQL反向翻译描述通过关联Renting_history表并使用GROUP BY和HAVING子句正确实现了这一逻辑。"
+  }
+}

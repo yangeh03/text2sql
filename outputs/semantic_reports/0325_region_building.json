@@ -1,0 +1,29 @@
+{
+  "db_id": "region_building",
+  "index": 325,
+  "question": "Compute the average population of a region.",
+  "sql": "SELECT AVG(Population) FROM region WHERE Name IN ('Abruzzo','Aosta Valley','Apulia','Basilicata','Calabria')",
+  "semantic": {
+    "back_translation": {
+      "intent": "计算特定地区的人口平均值",
+      "tables": [
+        "region"
+      ],
+      "columns": [
+        "Population"
+      ],
+      "filters": [
+        "Name IN ('Abruzzo','Aosta Valley','Apulia','Basilicata','Calabria')"
+      ],
+      "agg": [
+        "AVG"
+      ],
+      "group_by": [],
+      "order_by": [],
+      "limit": null
+    },
+    "score": 1.0,
+    "pass": true,
+    "reason": "语义一致，原始问题要求计算特定地区的人口平均值，SQL反向翻译描述中正确指定了意图、表、列、聚合函数且无过滤条件、分组或排序，符合计算所有指定地区人口平均值的需求。"
+  }
+}

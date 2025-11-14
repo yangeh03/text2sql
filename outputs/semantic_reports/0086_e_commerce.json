@@ -1,0 +1,28 @@
+{
+  "db_id": "e_commerce",
+  "index": 86,
+  "question": "What are the usernames and passwords of all customers whose phone number starts with '+12'?",
+  "sql": "SELECT login_name, login_password FROM Customers WHERE phone_number LIKE '+12%';",
+  "semantic": {
+    "back_translation": {
+      "intent": "查询",
+      "tables": [
+        "Customers"
+      ],
+      "columns": [
+        "login_name",
+        "login_password"
+      ],
+      "filters": [
+        "phone_number LIKE '+12%'"
+      ],
+      "agg": [],
+      "group_by": [],
+      "order_by": [],
+      "limit": null
+    },
+    "score": 1.0,
+    "pass": true,
+    "reason": "完全一致。原始问题要求查询手机号以'+12'开头的客户用户名和密码，SQL描述准确对应了Customers表的login_name和login_password列，并通过phone_number LIKE '+12%'实现了相同过滤条件。"
+  }
+}

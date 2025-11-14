@@ -1,0 +1,27 @@
+{
+  "db_id": "soccer_3",
+  "index": 34,
+  "question": "What are the names of clubs that do not have any players?",
+  "sql": "SELECT Name FROM club WHERE Club_ID NOT IN (SELECT DISTINCT Club_ID FROM player);",
+  "semantic": {
+    "back_translation": {
+      "intent": "查询不在player表中的俱乐部名称",
+      "tables": [
+        "club"
+      ],
+      "columns": [
+        "Name"
+      ],
+      "filters": [
+        "Club_ID NOT IN (SELECT DISTINCT Club_ID FROM player)"
+      ],
+      "agg": [],
+      "group_by": [],
+      "order_by": [],
+      "limit": null
+    },
+    "score": 1.0,
+    "pass": true,
+    "reason": "语义完全一致。原始问题要求找出无球员的俱乐部名称，SQL通过子查询排除所有在player表中存在的Club_ID，正确实现了该逻辑。"
+  }
+}

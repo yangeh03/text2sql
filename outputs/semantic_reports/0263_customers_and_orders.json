@@ -1,0 +1,29 @@
+{
+  "db_id": "customers_and_orders",
+  "index": 263,
+  "question": "How many products are there for each product type?",
+  "sql": "SELECT product_type_code, COUNT(*) FROM Products GROUP BY product_type_code;",
+  "semantic": {
+    "back_translation": {
+      "intent": "统计每个产品类型代码的数量",
+      "tables": [
+        "Products"
+      ],
+      "columns": [
+        "product_type_code"
+      ],
+      "filters": [],
+      "agg": [
+        "COUNT(*)"
+      ],
+      "group_by": [
+        "product_type_code"
+      ],
+      "order_by": [],
+      "limit": null
+    },
+    "score": 1.0,
+    "pass": true,
+    "reason": "语义完全一致。原始问题要求统计每个产品类型的产品数量，SQL反向翻译描述通过COUNT(*)聚合函数和GROUP BY product_type_code实现了该需求，且涉及的表和字段均匹配。"
+  }
+}

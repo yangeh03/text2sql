@@ -1,0 +1,30 @@
+{
+  "db_id": "customers_and_orders",
+  "index": 264,
+  "question": "Show all product type codes and the average price for each type.",
+  "sql": "SELECT product_type_code, AVG(product_price) AS average_price FROM Products GROUP BY product_type_code;",
+  "semantic": {
+    "back_translation": {
+      "intent": "计算每个产品类型的平均价格",
+      "tables": [
+        "Products"
+      ],
+      "columns": [
+        "product_type_code",
+        "average_price"
+      ],
+      "filters": [],
+      "agg": [
+        "AVG(product_price)"
+      ],
+      "group_by": [
+        "product_type_code"
+      ],
+      "order_by": [],
+      "limit": null
+    },
+    "score": 1.0,
+    "pass": true,
+    "reason": "原始问题要求展示所有产品类型代码及每个类型的平均价格，SQL描述中包含正确的表、列（product_type_code和average_price）、聚合函数（AVG）和分组条件（group_by product_type_code），完全覆盖原始问题需求。"
+  }
+}

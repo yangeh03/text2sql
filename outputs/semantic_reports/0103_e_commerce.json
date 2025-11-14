@@ -1,0 +1,27 @@
+{
+  "db_id": "e_commerce",
+  "index": 103,
+  "question": "What is the product average price?",
+  "sql": "SELECT AVG(product_price) FROM Products;",
+  "semantic": {
+    "back_translation": {
+      "intent": "计算平均价格",
+      "tables": [
+        "Products"
+      ],
+      "columns": [
+        "product_price"
+      ],
+      "filters": [],
+      "agg": [
+        "AVG"
+      ],
+      "group_by": [],
+      "order_by": [],
+      "limit": null
+    },
+    "score": 1.0,
+    "pass": true,
+    "reason": "语义完全一致，原始问题询问产品平均价格，SQL反向翻译描述正确地指定了计算平均值的意图、目标表和列。"
+  }
+}

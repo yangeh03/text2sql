@@ -1,0 +1,28 @@
+{
+  "db_id": "cre_Students_Information_Systems",
+  "index": 497,
+  "question": "Find the biographical information of the student with the smallest student loan.",
+  "sql": "SELECT bio_data FROM Students WHERE student_id = (SELECT student_id FROM Student_Loans ORDER BY amount_of_loan ASC LIMIT 1)",
+  "semantic": {
+    "back_translation": {
+      "intent": "获取学生生物数据",
+      "tables": [
+        "Students",
+        "Student_Loans"
+      ],
+      "columns": [
+        "bio_data"
+      ],
+      "filters": [
+        "student_id = (SELECT student_id FROM Student_Loans ORDER BY amount_of_loan ASC LIMIT 1)"
+      ],
+      "agg": [],
+      "group_by": [],
+      "order_by": [],
+      "limit": null
+    },
+    "score": 1.0,
+    "pass": true,
+    "reason": "语义完全一致。原始问题要求获取贷款金额最小的学生的生物信息，SQL通过子查询找到Student_Loans中最小贷款的student_id，并关联Students表的bio_data列实现该需求。"
+  }
+}

@@ -1,0 +1,29 @@
+{
+  "db_id": "tv_shows",
+  "index": 146,
+  "question": "List the affiliations shared by more than three city channels.",
+  "sql": "SELECT Affiliation FROM city_channel GROUP BY Affiliation HAVING COUNT(*) > 3;",
+  "semantic": {
+    "back_translation": {
+      "intent": "统计每个Affiliation的出现次数，并筛选出出现次数超过3次的Affiliation",
+      "tables": [
+        "city_channel"
+      ],
+      "columns": [
+        "Affiliation"
+      ],
+      "filters": [],
+      "agg": [
+        "COUNT(*)"
+      ],
+      "group_by": [
+        "Affiliation"
+      ],
+      "order_by": [],
+      "limit": null
+    },
+    "score": 1.0,
+    "pass": true,
+    "reason": "语义一致，原始问题要求列出被超过三个城市频道共享的隶属关系，SQL反向翻译描述正确地表达了统计每个Affiliation出现次数并筛选出超过3次的意图。"
+  }
+}

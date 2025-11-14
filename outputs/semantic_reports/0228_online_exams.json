@@ -1,0 +1,28 @@
+{
+  "db_id": "online_exams",
+  "index": 228,
+  "question": "Show the student answer texts that received both \"Normal\" and \"Absent\" as comments.",
+  "sql": "SELECT Student_Answer_Text FROM Student_Answers WHERE Student_Answer_ID IN (SELECT Student_Answer_ID FROM Student_Answers WHERE Comments = 'Normal' INTERSECT SELECT Student_Answer_ID FROM Student_Answers WHERE Comments = 'Absent') AND Satisfactory_YN = 'Y'",
+  "semantic": {
+    "back_translation": {
+      "intent": "查询学生答案文本",
+      "tables": [
+        "Student_Answers"
+      ],
+      "columns": [
+        "Student_Answer_Text"
+      ],
+      "filters": [
+        "Comments IN ('Normal', 'Absent')",
+        "Satisfactory_YN = 'Y'"
+      ],
+      "agg": [],
+      "group_by": [],
+      "order_by": [],
+      "limit": null
+    },
+    "score": 0.5,
+    "pass": false,
+    "reason": "原始问题要求显示同时收到'Normal'和'Absent'评论的学生答案文本，而SQL反向翻译的描述中仅过滤了Comments为'Normal'或'Absent'且Satisfactory_YN='Y'的记录，未体现同时包含两种评论的条件。"
+  }
+}

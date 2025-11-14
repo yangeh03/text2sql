@@ -1,0 +1,30 @@
+{
+  "db_id": "e_commerce",
+  "index": 70,
+  "question": "What is the status code of the items have been ordered and shipped, and also what are their shipment tracking numbers?",
+  "sql": "SELECT Order_Items.order_item_status_code, Shipments.shipment_tracking_number FROM Order_Items JOIN Shipments ON Order_Items.order_id = Shipments.order_id WHERE Order_Items.order_item_status_code IN ('Delivered', 'Out of Stock')",
+  "semantic": {
+    "back_translation": {
+      "intent": "查询订单项状态和运输跟踪号",
+      "tables": [
+        "Order_Items",
+        "Shipments"
+      ],
+      "columns": [
+        "order_item_status_code",
+        "shipment_tracking_number"
+      ],
+      "filters": [
+        "order_item_status_code IN ('Delivered', 'Out of Stock')",
+        "shipment_tracking_number IN ('6900', '3499', '5617', '6074', '3848')"
+      ],
+      "agg": [],
+      "group_by": [],
+      "order_by": [],
+      "limit": null
+    },
+    "score": 0.5,
+    "pass": false,
+    "reason": "原始问题未指定具体的shipment tracking numbers数值范围，而SQL描述中将shipment_tracking_number限制在特定数值集合内，存在过滤条件不匹配的问题"
+  }
+}

@@ -1,0 +1,33 @@
+{
+  "db_id": "online_exams",
+  "index": 233,
+  "question": "What is al the available information of each student?",
+  "sql": "SELECT * FROM Students;",
+  "semantic": {
+    "back_translation": {
+      "intent": "查询所有学生数据",
+      "tables": [
+        "Students"
+      ],
+      "columns": [
+        "Student_ID",
+        "First_Name",
+        "Middle_Name",
+        "Last_Name",
+        "Gender_MFU",
+        "Student_Address",
+        "Email_Adress",
+        "Cell_Mobile_Phone",
+        "Home_Phone"
+      ],
+      "filters": [],
+      "agg": [],
+      "group_by": [],
+      "order_by": [],
+      "limit": null
+    },
+    "score": 1.0,
+    "pass": true,
+    "reason": "原始问题和SQL反向翻译描述的语义完全一致，均表示查询所有学生表中的所有列数据，无过滤、聚合、分组或排序要求。"
+  }
+}

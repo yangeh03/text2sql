@@ -1,0 +1,33 @@
+{
+  "db_id": "tv_shows",
+  "index": 150,
+  "question": "Show the transmitters of the radios and the number of city channels they are associated with.",
+  "sql": "SELECT radio.Transmitter, COUNT(city_channel_radio.City_channel_ID) AS num_city_channels FROM radio JOIN city_channel_radio ON radio.Radio_ID = city_channel_radio.Radio_ID GROUP BY radio.Transmitter;",
+  "semantic": {
+    "back_translation": {
+      "intent": "统计每个发射机对应的城市场道数量",
+      "tables": [
+        "radio",
+        "city_channel_radio"
+      ],
+      "columns": [
+        "radio.Transmitter",
+        "city_channel_radio.City_channel_ID"
+      ],
+      "filters": [
+        "radio.Radio_ID = city_channel_radio.Radio_ID"
+      ],
+      "agg": [
+        "COUNT"
+      ],
+      "group_by": [
+        "radio.Transmitter"
+      ],
+      "order_by": [],
+      "limit": null
+    },
+    "score": 1.0,
+    "pass": true,
+    "reason": "语义一致，原始问题要求展示发射机和其关联的城市场道数量，SQL反向翻译描述通过连接radio和city_channel_radio表，按发射机分组并统计城市场道数量，准确表达了这一意图。"
+  }
+}

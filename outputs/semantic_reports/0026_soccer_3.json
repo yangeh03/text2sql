@@ -1,0 +1,30 @@
+{
+  "db_id": "soccer_3",
+  "index": 26,
+  "question": "How many clubs use each manufacturer?",
+  "sql": "SELECT Manufacturer, COUNT(DISTINCT Club_ID) FROM club GROUP BY Manufacturer;",
+  "semantic": {
+    "back_translation": {
+      "intent": "统计每个制造商的俱乐部数量",
+      "tables": [
+        "club"
+      ],
+      "columns": [
+        "Manufacturer",
+        "COUNT(DISTINCT Club_ID)"
+      ],
+      "filters": [],
+      "agg": [
+        "COUNT(DISTINCT Club_ID)"
+      ],
+      "group_by": [
+        "Manufacturer"
+      ],
+      "order_by": [],
+      "limit": null
+    },
+    "score": 1.0,
+    "pass": true,
+    "reason": "语义完全一致。原始问题要求统计每个制造商的俱乐部数量，SQL描述中通过COUNT(DISTINCT Club_ID)聚合函数和Manufacturer分组实现了该意图，且未添加额外过滤条件或排序限制。"
+  }
+}

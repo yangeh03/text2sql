@@ -1,0 +1,26 @@
+{
+  "db_id": "cre_Students_Information_Systems",
+  "index": 475,
+  "question": "What are the date and detail of each transcript?",
+  "sql": "SELECT date_of_transcript, transcript_details FROM Transcripts;",
+  "semantic": {
+    "back_translation": {
+      "intent": "查询",
+      "tables": [
+        "Transcripts"
+      ],
+      "columns": [
+        "date_of_transcript",
+        "transcript_details"
+      ],
+      "filters": [],
+      "agg": [],
+      "group_by": [],
+      "order_by": [],
+      "limit": null
+    },
+    "score": 1.0,
+    "pass": true,
+    "reason": "语义一致，原始问题询问的是每份transcript的日期和详情，SQL反向翻译描述准确地选择了Transcripts表中的date_of_transcript和transcript_details列，且无过滤、聚合、分组或排序要求，与原始问题完全匹配。"
+  }
+}

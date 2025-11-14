@@ -1,0 +1,30 @@
+{
+  "db_id": "online_exams",
+  "index": 216,
+  "question": "Please show the first names of the students that have at least two answer records.",
+  "sql": "SELECT First_Name FROM Students WHERE Student_ID IN (SELECT Student_ID FROM Student_Answers GROUP BY Student_ID HAVING COUNT(*) >= 2) ORDER BY First_Name;",
+  "semantic": {
+    "back_translation": {
+      "intent": "查询满足特定条件的学生姓名",
+      "tables": [
+        "Students",
+        "Student_Answers"
+      ],
+      "columns": [
+        "First_Name"
+      ],
+      "filters": [
+        "Student_ID IN (SELECT Student_ID FROM Student_Answers GROUP BY Student_ID HAVING COUNT(*) >= 2)"
+      ],
+      "agg": [],
+      "group_by": [],
+      "order_by": [
+        "First_Name"
+      ],
+      "limit": null
+    },
+    "score": 1.0,
+    "pass": true,
+    "reason": "语义完全一致。原始问题要求获取至少有两个回答记录的学生姓名，SQL描述通过子查询筛选出满足条件的Student_ID，并从Students表中获取对应的First_Name。排序字段order_by可能为额外要求，但未影响核心逻辑。"
+  }
+}

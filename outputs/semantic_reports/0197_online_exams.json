@@ -1,0 +1,28 @@
+{
+  "db_id": "online_exams",
+  "index": 197,
+  "question": "Give me an alphabetically ordered list of the distinct subject code for exams.",
+  "sql": "SELECT DISTINCT Subject_Code FROM Exams ORDER BY Subject_Code ASC",
+  "semantic": {
+    "back_translation": {
+      "intent": "获取不重复的科目代码列表",
+      "tables": [
+        "Exams"
+      ],
+      "columns": [
+        "Subject_Code"
+      ],
+      "filters": [],
+      "agg": [],
+      "group_by": [],
+      "order_by": [
+        "Subject_Code",
+        "ASC"
+      ],
+      "limit": null
+    },
+    "score": 1.0,
+    "pass": true,
+    "reason": "语义完全一致，原始问题要求获取按字母顺序排列的不重复科目代码列表，与SQL反向翻译描述中的意图、表、列、排序方式一致。"
+  }
+}

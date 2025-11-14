@@ -1,0 +1,33 @@
+{
+  "db_id": "cre_Students_Information_Systems",
+  "index": 451,
+  "question": "What are the detail and id of the teacher who teaches the largest number of courses?",
+  "sql": "SELECT t.teacher_id, t.teacher_details FROM Teachers t JOIN Classes c ON t.teacher_id = c.teacher_id GROUP BY t.teacher_id ORDER BY COUNT(*) DESC LIMIT 1;",
+  "semantic": {
+    "back_translation": {
+      "intent": "查找每个教师关联的班级数量，并显示最多班级数的教师信息",
+      "tables": [
+        "Teachers",
+        "Classes"
+      ],
+      "columns": [
+        "teacher_id",
+        "teacher_details"
+      ],
+      "filters": [],
+      "agg": [
+        "COUNT(*)"
+      ],
+      "group_by": [
+        "teacher_id"
+      ],
+      "order_by": [
+        "COUNT(*) DESC"
+      ],
+      "limit": 1
+    },
+    "score": 1.0,
+    "pass": true,
+    "reason": ""
+  }
+}

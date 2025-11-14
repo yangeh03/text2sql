@@ -1,0 +1,28 @@
+{
+  "db_id": "soccer_3",
+  "index": 21,
+  "question": "Show names of players from the club with manager \"Sam Allardyce\".",
+  "sql": "SELECT player.Name FROM player JOIN club ON player.Club_ID = club.Club_ID WHERE club.Manager = 'Sam Allardyce';",
+  "semantic": {
+    "back_translation": {
+      "intent": "查找球员信息",
+      "tables": [
+        "player",
+        "club"
+      ],
+      "columns": [
+        "player.Name"
+      ],
+      "filters": [
+        "club.Manager = 'Sam Allardyce'"
+      ],
+      "agg": [],
+      "group_by": [],
+      "order_by": [],
+      "limit": null
+    },
+    "score": 0.5,
+    "pass": false,
+    "reason": "缺少关联player和club表的JOIN条件，导致无法明确筛选出属于特定俱乐部的球员"
+  }
+}

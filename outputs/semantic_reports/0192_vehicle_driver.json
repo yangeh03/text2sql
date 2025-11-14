@@ -1,0 +1,28 @@
+{
+  "db_id": "vehicle_driver",
+  "index": 192,
+  "question": "How many drivers have not driven any cars?",
+  "sql": "SELECT COUNT(*) FROM driver WHERE Driver_ID NOT IN (SELECT Driver_ID FROM vehicle_driver)",
+  "semantic": {
+    "back_translation": {
+      "intent": "统计不包含在某个关联表中的记录数量",
+      "tables": [
+        "driver",
+        "vehicle_driver"
+      ],
+      "columns": [],
+      "filters": [
+        "Driver_ID NOT IN (SELECT Driver_ID FROM vehicle_driver)"
+      ],
+      "agg": [
+        "COUNT"
+      ],
+      "group_by": [],
+      "order_by": [],
+      "limit": null
+    },
+    "score": 1.0,
+    "pass": true,
+    "reason": "语义一致，原始问题询问的是没有驾驶任何车辆的司机数量，SQL反向翻译描述通过Driver_ID NOT IN子查询准确表达了这一意图。"
+  }
+}

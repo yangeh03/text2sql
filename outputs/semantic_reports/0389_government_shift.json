@@ -1,0 +1,29 @@
+{
+  "db_id": "government_shift",
+  "index": 389,
+  "question": "Which customers have integration platform details \"Fail\" in interactions? Give me the customer details.",
+  "sql": "SELECT Customers.Customer_Details FROM Customers JOIN Customer_Interactions ON Customers.Customer_ID = Customer_Interactions.Customer_ID JOIN Integration_Platform ON Customer_Interactions.Customer_Interaction_ID = Integration_Platform.Customer_Interaction_ID WHERE Integration_Platform.Integration_Platform_Details = 'Fail'",
+  "semantic": {
+    "back_translation": {
+      "intent": "查询客户详细信息",
+      "tables": [
+        "Customers",
+        "Customer_Interactions",
+        "Integration_Platform"
+      ],
+      "columns": [
+        "Customers.Customer_Details"
+      ],
+      "filters": [
+        "Integration_Platform.Integration_Platform_Details = 'Fail'"
+      ],
+      "agg": [],
+      "group_by": [],
+      "order_by": [],
+      "limit": null
+    },
+    "score": 0.5,
+    "pass": false,
+    "reason": "过滤条件应作用于Customer_Interactions表的Integration_Platform_Details字段而非独立表Integration_Platform，且未体现表关联逻辑"
+  }
+}

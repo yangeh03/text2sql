@@ -1,0 +1,32 @@
+{
+  "db_id": "government_shift",
+  "index": 361,
+  "question": "Find the analytical layer type code that appears most often.",
+  "sql": "SELECT Analytical_Layer_Type_Code FROM Analytical_Layer GROUP BY Analytical_Layer_Type_Code ORDER BY COUNT(*) DESC LIMIT 1;",
+  "semantic": {
+    "back_translation": {
+      "intent": "找出出现次数最多的分析层类型代码",
+      "tables": [
+        "Analytical_Layer"
+      ],
+      "columns": [
+        "Analytical_Layer_Type_Code"
+      ],
+      "filters": [],
+      "agg": [
+        "COUNT(*)"
+      ],
+      "group_by": [
+        "Analytical_Layer_Type_Code"
+      ],
+      "order_by": [
+        "COUNT(*)",
+        "DESC"
+      ],
+      "limit": 1
+    },
+    "score": 1.0,
+    "pass": true,
+    "reason": "语义完全一致，SQL描述准确地实现了原始问题中'找出出现次数最多的分析层类型代码'的意图，包括目标表、列、聚合函数、分组和排序方式。"
+  }
+}

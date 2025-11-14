@@ -1,0 +1,29 @@
+{
+  "db_id": "vehicle_rent",
+  "index": 406,
+  "question": "Show all types of powertrain and the number of vehicles in each type.",
+  "sql": "SELECT Type_of_powertrain, COUNT(*) AS vehicle_count FROM Vehicles GROUP BY Type_of_powertrain;",
+  "semantic": {
+    "back_translation": {
+      "intent": "统计不同动力类型车辆的数量",
+      "tables": [
+        "Vehicles"
+      ],
+      "columns": [
+        "Type_of_powertrain"
+      ],
+      "filters": [],
+      "agg": [
+        "COUNT(*)"
+      ],
+      "group_by": [
+        "Type_of_powertrain"
+      ],
+      "order_by": [],
+      "limit": null
+    },
+    "score": 1.0,
+    "pass": true,
+    "reason": "原始问题要求展示动力类型及对应车辆数量，SQL描述包含统计不同动力类型车辆数量的意图，使用Vehicles表，按Type_of_powertrain分组统计COUNT(*)，与问题语义完全一致。"
+  }
+}

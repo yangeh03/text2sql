@@ -1,0 +1,27 @@
+{
+  "db_id": "soccer_3",
+  "index": 37,
+  "question": "What is the number of distinct countries of all players?",
+  "sql": "SELECT COUNT(DISTINCT Country) FROM player;",
+  "semantic": {
+    "back_translation": {
+      "intent": "统计不同国家的数量",
+      "tables": [
+        "player"
+      ],
+      "columns": [
+        "Country"
+      ],
+      "filters": [],
+      "agg": [
+        "COUNT(DISTINCT Country)"
+      ],
+      "group_by": [],
+      "order_by": [],
+      "limit": null
+    },
+    "score": 1.0,
+    "pass": true,
+    "reason": ""
+  }
+}

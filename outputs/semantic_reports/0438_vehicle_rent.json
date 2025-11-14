@@ -1,0 +1,31 @@
+{
+  "db_id": "vehicle_rent",
+  "index": 438,
+  "question": "Find the average city and highway fuel rates for cars with different powertrain types.",
+  "sql": "SELECT AVG(City_fuel_economy_rate) AS avg_city, AVG(Highway_fuel_economy_rate) AS avg_highway FROM Vehicles GROUP BY Type_of_powertrain;",
+  "semantic": {
+    "back_translation": {
+      "intent": "计算不同动力类型车辆的平均城市燃油经济性和平均高速公路燃油经济性",
+      "tables": [
+        "Vehicles"
+      ],
+      "columns": [
+        "City_fuel_economy_rate",
+        "Highway_fuel_economy_rate"
+      ],
+      "filters": [],
+      "agg": [
+        "AVG(City_fuel_economy_rate)",
+        "AVG(Highway_fuel_economy_rate)"
+      ],
+      "group_by": [
+        "Type_of_powertrain"
+      ],
+      "order_by": [],
+      "limit": null
+    },
+    "score": 1.0,
+    "pass": true,
+    "reason": "语义完全一致。原始问题要求计算不同动力类型车辆的平均城市和高速公路燃油经济性，SQL描述准确对应了目标表(Vehicles)、聚合函数(AVG)、分组字段(Type_of_powertrain)及目标列(City/Highway fuel economy rate)，无任何差异。"
+  }
+}

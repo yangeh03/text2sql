@@ -1,0 +1,33 @@
+{
+  "db_id": "cre_Students_Information_Systems",
+  "index": 468,
+  "question": "How many students have joined in the most common type of event? List the number, the event type and description.",
+  "sql": "SELECT COUNT(*) AS number_of_students, e.event_type_code, e.event_type_description FROM Student_Events se JOIN Ref_Event_Types e ON se.event_type_code = e.event_type_code GROUP BY e.event_type_code ORDER BY number_of_students DESC LIMIT 1;",
+  "semantic": {
+    "back_translation": {
+      "intent": "统计每个事件类型的参与学生数量并找出最多的学生事件类型",
+      "tables": [
+        "Student_Events",
+        "Ref_Event_Types"
+      ],
+      "columns": [
+        "e.event_type_code",
+        "e.event_type_description"
+      ],
+      "filters": [],
+      "agg": [
+        "COUNT(*)"
+      ],
+      "group_by": [
+        "e.event_type_code"
+      ],
+      "order_by": [
+        "number_of_students DESC"
+      ],
+      "limit": 1
+    },
+    "score": 1.0,
+    "pass": true,
+    "reason": "语义一致，SQL反向翻译描述准确地反映了原始问题的意图，即统计每个事件类型的参与学生数量，并找出参与人数最多的事件类型，同时列出数量、类型和描述。"
+  }
+}

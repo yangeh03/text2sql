@@ -1,0 +1,37 @@
+{
+  "db_id": "cre_Students_Information_Systems",
+  "index": 469,
+  "question": "What is the type of event the most students joined? Give me the number of students, and the event type code and description.",
+  "sql": "SELECT COUNT(*) AS student_count, se.event_type_code, ret.event_type_description FROM Student_Events se JOIN Ref_Event_Types ret ON se.event_type_code = ret.event_type_code GROUP BY se.event_type_code, ret.event_type_description ORDER BY student_count DESC LIMIT 1;",
+  "semantic": {
+    "back_translation": {
+      "intent": "统计每个事件类型的学生数量，并按数量降序排列，取最大的事件类型",
+      "tables": [
+        "Student_Events",
+        "Ref_Event_Types"
+      ],
+      "columns": [
+        "event_type_code",
+        "event_type_description"
+      ],
+      "filters": [
+        "se.event_type_code = ret.event_type_code"
+      ],
+      "agg": [
+        "COUNT"
+      ],
+      "group_by": [
+        "se.event_type_code",
+        "ret.event_type_description"
+      ],
+      "order_by": [
+        "student_count",
+        "DESC"
+      ],
+      "limit": 1
+    },
+    "score": 1.0,
+    "pass": true,
+    "reason": "语义完全一致，SQL反向翻译描述准确反映了原始问题的意图，包括统计每个事件类型的学生数量、按数量降序排列并取最大值。"
+  }
+}

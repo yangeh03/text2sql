@@ -1,0 +1,29 @@
+{
+  "db_id": "cre_Students_Information_Systems",
+  "index": 470,
+  "question": "How are all the achievements described? List the achievement detail and the type description.",
+  "sql": "SELECT Achievements.achievement_details, Ref_Achievement_Type.achievement_type_description FROM Achievements JOIN Ref_Achievement_Type ON Achievements.achievement_type_code = Ref_Achievement_Type.achievement_type_code",
+  "semantic": {
+    "back_translation": {
+      "intent": "获取数据",
+      "tables": [
+        "Achievements",
+        "Ref_Achievement_Type"
+      ],
+      "columns": [
+        "achievement_details",
+        "achievement_type_description"
+      ],
+      "filters": [
+        "Ref_Achievement_Type.achievement_type_description IN ('Athletic', 'Scholastic')"
+      ],
+      "agg": [],
+      "group_by": [],
+      "order_by": [],
+      "limit": null
+    },
+    "score": 0.5,
+    "pass": false,
+    "reason": "原始问题要求获取所有成就的描述，但SQL包含过滤条件限制achievement_type_description只能为'Athletic'或'Scholastic'，导致数据范围缩小"
+  }
+}

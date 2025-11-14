@@ -1,0 +1,32 @@
+{
+  "db_id": "e_commerce",
+  "index": 58,
+  "question": "What is the payment method that most customers use?",
+  "sql": "SELECT payment_method_code, COUNT(*) AS count FROM Customer_Payment_Methods GROUP BY payment_method_code ORDER BY count DESC LIMIT 1;",
+  "semantic": {
+    "back_translation": {
+      "intent": "统计每个支付方式的使用次数，并找出使用最多的支付方式",
+      "tables": [
+        "Customer_Payment_Methods"
+      ],
+      "columns": [
+        "payment_method_code"
+      ],
+      "filters": [],
+      "agg": [
+        "COUNT(*)"
+      ],
+      "group_by": [
+        "payment_method_code"
+      ],
+      "order_by": [
+        "count",
+        "DESC"
+      ],
+      "limit": 1
+    },
+    "score": 1.0,
+    "pass": true,
+    "reason": "语义完全一致，SQL准确统计了各支付方式的使用次数并通过排序和限制条件找到最常用的支付方式"
+  }
+}

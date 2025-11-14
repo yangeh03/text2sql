@@ -1,0 +1,27 @@
+{
+  "db_id": "cre_Students_Information_Systems",
+  "index": 459,
+  "question": "What are the biographical data and the date of transcript issuance of each student?",
+  "sql": "SELECT Students.bio_data, Transcripts.date_of_transcript FROM Students JOIN Transcripts ON Students.student_id = Transcripts.student_id;",
+  "semantic": {
+    "back_translation": {
+      "intent": "获取学生及其成绩单的生物数据和成绩单日期",
+      "tables": [
+        "Students",
+        "Transcripts"
+      ],
+      "columns": [
+        "Students.bio_data",
+        "Transcripts.date_of_transcript"
+      ],
+      "filters": [],
+      "agg": [],
+      "group_by": [],
+      "order_by": [],
+      "limit": null
+    },
+    "score": 1.0,
+    "pass": true,
+    "reason": "原始问题要求获取每个学生的生物数据和成绩单发放日期，SQL反向翻译描述正确关联了Students表的bio_data列和Transcripts表的date_of_transcript列，且未添加过滤、分组或排序条件，符合'each student'的语义要求。"
+  }
+}

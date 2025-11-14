@@ -1,0 +1,27 @@
+{
+  "db_id": "online_exams",
+  "index": 221,
+  "question": "What are the last names of the students with gender other than \"M\"?",
+  "sql": "SELECT Last_Name FROM Students WHERE Gender_MFU != 'M';",
+  "semantic": {
+    "back_translation": {
+      "intent": "获取女性学生的姓氏",
+      "tables": [
+        "Students"
+      ],
+      "columns": [
+        "Last_Name"
+      ],
+      "filters": [
+        "Gender_MFU != 'M'"
+      ],
+      "agg": [],
+      "group_by": [],
+      "order_by": [],
+      "limit": null
+    },
+    "score": 0.5,
+    "pass": false,
+    "reason": "原始问题询问的是性别非'M'的学生的姓氏，而反向翻译描述中意图是获取女性学生的姓氏，存在性别判断不一致的问题。"
+  }
+}

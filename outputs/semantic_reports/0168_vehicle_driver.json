@@ -1,0 +1,29 @@
+{
+  "db_id": "vehicle_driver",
+  "index": 168,
+  "question": "How many drivers have raced in 'NASCAR'?",
+  "sql": "SELECT COUNT(DISTINCT driver.Driver_ID) FROM driver WHERE driver.Racing_Series = 'NASCAR'",
+  "semantic": {
+    "back_translation": {
+      "intent": "统计满足条件的驾驶员数量",
+      "tables": [
+        "driver"
+      ],
+      "columns": [
+        "driver.Driver_ID"
+      ],
+      "filters": [
+        "driver.Racing_Series = 'NASCAR'"
+      ],
+      "agg": [
+        "COUNT"
+      ],
+      "group_by": [],
+      "order_by": [],
+      "limit": null
+    },
+    "score": 1.0,
+    "pass": true,
+    "reason": "原始问题要求统计参加过NASCAR比赛的驾驶员数量，SQL描述中通过过滤条件driver.Racing_Series = 'NASCAR'和COUNT聚合函数实现了相同目标，且未涉及分组、排序等额外操作。"
+  }
+}

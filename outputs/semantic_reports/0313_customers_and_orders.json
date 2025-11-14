@@ -1,0 +1,28 @@
+{
+  "db_id": "customers_and_orders",
+  "index": 313,
+  "question": "What are the ids of customers who have not made an order?",
+  "sql": "SELECT customer_id FROM Customers WHERE customer_id NOT IN (SELECT customer_id FROM Customer_Orders);",
+  "semantic": {
+    "back_translation": {
+      "intent": "查找未在Customer_Orders表中出现的Customers表中的客户ID",
+      "tables": [
+        "Customers",
+        "Customer_Orders"
+      ],
+      "columns": [
+        "customer_id"
+      ],
+      "filters": [
+        "customer_id NOT IN (SELECT customer_id FROM Customer_Orders)"
+      ],
+      "agg": [],
+      "group_by": [],
+      "order_by": [],
+      "limit": null
+    },
+    "score": 1.0,
+    "pass": true,
+    "reason": "语义完全一致，原始问题要求找出没有下过订单的客户ID，SQL反向翻译描述正确使用NOT IN子查询来实现该逻辑，且未涉及聚合、分组、排序或限制条件，与问题一致。"
+  }
+}

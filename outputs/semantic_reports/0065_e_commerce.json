@@ -1,0 +1,30 @@
+{
+  "db_id": "e_commerce",
+  "index": 65,
+  "question": "List the invoices' status, date and the date of shipment.",
+  "sql": "SELECT Invoices.invoice_status_code, Invoices.invoice_date, Shipments.shipment_date FROM Invoices JOIN Shipments ON Invoices.invoice_number = Shipments.invoice_number;",
+  "semantic": {
+    "back_translation": {
+      "intent": "查询发票和发货信息",
+      "tables": [
+        "Invoices",
+        "Shipments"
+      ],
+      "columns": [
+        "Invoices.invoice_status_code",
+        "Invoices.invoice_date",
+        "Shipments.shipment_date"
+      ],
+      "filters": [
+        "Invoices.invoice_number IN (6900, 3499, 5617, 6074, 3848)"
+      ],
+      "agg": [],
+      "group_by": [],
+      "order_by": [],
+      "limit": null
+    },
+    "score": 0.0,
+    "pass": false,
+    "reason": "原始问题未指定特定发票编号的过滤条件，但SQL反向翻译的描述中包含了Invoices.invoice_number的过滤条件，导致语义不一致。"
+  }
+}

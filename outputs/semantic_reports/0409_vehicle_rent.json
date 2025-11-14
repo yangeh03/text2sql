@@ -1,0 +1,33 @@
+{
+  "db_id": "vehicle_rent",
+  "index": 409,
+  "question": "Which type of powertrain is most common?",
+  "sql": "SELECT Type_of_powertrain FROM Vehicles GROUP BY Type_of_powertrain ORDER BY COUNT(*) DESC LIMIT 1;",
+  "semantic": {
+    "back_translation": {
+      "intent": "查询具有最高数量的电力传动类型",
+      "tables": [
+        "Vehicles"
+      ],
+      "columns": [
+        "Type_of_powertrain"
+      ],
+      "filters": [
+        "name IN ('Chevrolet Spark EV', 'Honda Fit EV', 'Fiat 500e', 'Nissan Leaf', 'Mitsubishi i')"
+      ],
+      "agg": [
+        "COUNT(*)"
+      ],
+      "group_by": [
+        "Type_of_powertrain"
+      ],
+      "order_by": [
+        "COUNT(*) DESC"
+      ],
+      "limit": 1
+    },
+    "score": 0.5,
+    "pass": false,
+    "reason": "过滤条件错误，原始问题未限定特定车型，但SQL中包含name IN列表，导致查询范围被不恰当地缩小"
+  }
+}

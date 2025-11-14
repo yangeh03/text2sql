@@ -1,0 +1,27 @@
+{
+  "db_id": "bbc_channels",
+  "index": 122,
+  "question": "Find the the name of the oldest director.",
+  "sql": "SELECT Name FROM director ORDER BY Age DESC LIMIT 1;",
+  "semantic": {
+    "back_translation": {
+      "intent": "获取数据",
+      "tables": [
+        "director"
+      ],
+      "columns": [
+        "Name"
+      ],
+      "filters": [],
+      "agg": [],
+      "group_by": [],
+      "order_by": [
+        "Age ASC"
+      ],
+      "limit": 1
+    },
+    "score": 0.5,
+    "pass": false,
+    "reason": "order_by 的排序方向错误，应为 Age DESC 而非 Age ASC"
+  }
+}

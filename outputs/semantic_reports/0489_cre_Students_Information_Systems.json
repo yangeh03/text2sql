@@ -1,0 +1,31 @@
+{
+  "db_id": "cre_Students_Information_Systems",
+  "index": 489,
+  "question": "What are the ids and details of the students who take 2 courses?",
+  "sql": "SELECT Students.student_id, Students.student_details FROM Students JOIN Classes ON Students.student_id = Classes.student_id GROUP BY Students.student_id HAVING COUNT(Classes.class_id) = 2;",
+  "semantic": {
+    "back_translation": {
+      "intent": "查询具有两个班级的学生信息",
+      "tables": [
+        "Students",
+        "Classes"
+      ],
+      "columns": [
+        "Students.student_id",
+        "Students.student_details"
+      ],
+      "filters": [],
+      "agg": [
+        "COUNT(Classes.class_id)"
+      ],
+      "group_by": [
+        "Students.student_id"
+      ],
+      "order_by": [],
+      "limit": null
+    },
+    "score": 0.5,
+    "pass": false,
+    "reason": "原始问题询问的是'take 2 courses'的学生的id和details，而SQL反向翻译的描述中没有明确的过滤条件来限定学生必须选修两个课程，仅通过COUNT(Classes.class_id)和GROUP BY Students.student_id可能无法准确确保每个学生恰好选修了两个课程，存在歧义。"
+  }
+}

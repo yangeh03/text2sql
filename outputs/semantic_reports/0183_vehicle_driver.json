@@ -1,0 +1,31 @@
+{
+  "db_id": "vehicle_driver",
+  "index": 183,
+  "question": "Return the ids and models of vehicles that have been driven by more than 2 drivers or been driven by the Jeff Gordon.",
+  "sql": "SELECT Vehicle_ID, Model FROM vehicle WHERE Vehicle_ID IN (SELECT Vehicle_ID FROM vehicle_driver GROUP BY Vehicle_ID HAVING COUNT(Driver_ID) > 2) OR Vehicle_ID IN (SELECT Vehicle_ID FROM vehicle_driver WHERE Driver_ID = (SELECT Driver_ID FROM driver WHERE Name = 'Jeff Gordon'));",
+  "semantic": {
+    "back_translation": {
+      "intent": "查询车辆信息",
+      "tables": [
+        "vehicle",
+        "vehicle_driver",
+        "driver"
+      ],
+      "columns": [
+        "Vehicle_ID",
+        "Model"
+      ],
+      "filters": [
+        "Vehicle_ID IN (SELECT Vehicle_ID FROM vehicle_driver GROUP BY Vehicle_ID HAVING COUNT(Driver_ID) > 2)",
+        "Vehicle_ID IN (SELECT Vehicle_ID FROM vehicle_driver WHERE Driver_ID = (SELECT Driver_ID FROM driver WHERE Name = 'Jeff Gordon'))"
+      ],
+      "agg": [],
+      "group_by": [],
+      "order_by": [],
+      "limit": null
+    },
+    "score": 1.0,
+    "pass": true,
+    "reason": "语义完全一致。SQL通过两个子查询分别实现'被超过2个司机驾驶'和'被Jeff Gordon驾驶'的条件，使用IN逻辑或组合，最终返回符合条件的Vehicle_ID和Model，与原始问题要求完全匹配。"
+  }
+}

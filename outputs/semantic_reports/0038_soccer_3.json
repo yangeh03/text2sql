@@ -1,0 +1,27 @@
+{
+  "db_id": "soccer_3",
+  "index": 38,
+  "question": "How many different countries are players from?",
+  "sql": "SELECT COUNT(DISTINCT Country) FROM player;",
+  "semantic": {
+    "back_translation": {
+      "intent": "统计不同国家的数量",
+      "tables": [
+        "player"
+      ],
+      "columns": [
+        "Country"
+      ],
+      "filters": [],
+      "agg": [
+        "COUNT(DISTINCT Country)"
+      ],
+      "group_by": [],
+      "order_by": [],
+      "limit": null
+    },
+    "score": 1.0,
+    "pass": true,
+    "reason": "语义一致，SQL反向翻译描述准确表达了原始问题'How many different countries are players from?'的意图，即统计不同国家的数量，且未添加额外过滤或分组条件。"
+  }
+}

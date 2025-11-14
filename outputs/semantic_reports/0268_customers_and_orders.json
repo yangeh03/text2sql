@@ -1,0 +1,31 @@
+{
+  "db_id": "customers_and_orders",
+  "index": 268,
+  "question": "What is the product type code with most number of products?",
+  "sql": "SELECT product_type_code FROM Products GROUP BY product_type_code ORDER BY COUNT(*) DESC LIMIT 1;",
+  "semantic": {
+    "back_translation": {
+      "intent": "找到出现次数最多的商品类型代码",
+      "tables": [
+        "Products"
+      ],
+      "columns": [
+        "product_type_code"
+      ],
+      "filters": [],
+      "agg": [
+        "COUNT"
+      ],
+      "group_by": [
+        "product_type_code"
+      ],
+      "order_by": [
+        "COUNT(*) DESC"
+      ],
+      "limit": 1
+    },
+    "score": 1.0,
+    "pass": true,
+    "reason": "语义完全一致，SQL反向翻译描述准确表达了原始问题的意图，即统计每个商品类型代码出现的次数并找出出现次数最多的那个。"
+  }
+}

@@ -1,0 +1,27 @@
+{
+  "db_id": "soccer_3",
+  "index": 32,
+  "question": "Which countries have produced more than one player?",
+  "sql": "SELECT Country FROM player GROUP BY Country HAVING COUNT(*) > 1;",
+  "semantic": {
+    "back_translation": {
+      "intent": "查询具有多个球员的国家",
+      "tables": [
+        "player"
+      ],
+      "columns": [
+        "Country"
+      ],
+      "filters": [],
+      "agg": [],
+      "group_by": [
+        "Country"
+      ],
+      "order_by": [],
+      "limit": null
+    },
+    "score": 1.0,
+    "pass": true,
+    "reason": "语义一致，原始问题询问哪些国家有超过一名球员，SQL反向翻译描述意图为查询具有多个球员的国家，且表、分组字段与问题一致。"
+  }
+}

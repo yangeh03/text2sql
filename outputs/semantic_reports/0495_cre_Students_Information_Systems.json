@@ -1,0 +1,27 @@
+{
+  "db_id": "cre_Students_Information_Systems",
+  "index": 495,
+  "question": "Return the earliest date of loan in the record.",
+  "sql": "SELECT MIN(date_of_loan) FROM Student_Loans",
+  "semantic": {
+    "back_translation": {
+      "intent": "查找最小值",
+      "tables": [
+        "Student_Loans"
+      ],
+      "columns": [
+        "date_of_loan"
+      ],
+      "filters": [],
+      "agg": [
+        "MIN"
+      ],
+      "group_by": [],
+      "order_by": [],
+      "limit": null
+    },
+    "score": 1.0,
+    "pass": true,
+    "reason": "语义一致，原始问题要求返回贷款记录的最早日期，SQL反向翻译描述正确使用了MIN函数对date_of_loan列进行聚合，符合原始问题意图。"
+  }
+}

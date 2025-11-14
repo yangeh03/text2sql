@@ -1,0 +1,25 @@
+{
+  "db_id": "government_shift",
+  "index": 375,
+  "question": "Count the total number of available customers and services details.",
+  "sql": "SELECT COUNT(*) FROM Customers_and_Services;",
+  "semantic": {
+    "back_translation": {
+      "intent": "统计客户数量",
+      "tables": [
+        "Customers"
+      ],
+      "columns": [],
+      "filters": [],
+      "agg": [
+        "COUNT(*)"
+      ],
+      "group_by": [],
+      "order_by": [],
+      "limit": null
+    },
+    "score": 0.5,
+    "pass": false,
+    "reason": "目标表不一致（原始问题涉及Customers和Services，SQL仅针对Customers）且过滤条件不完整（未体现'available'状态筛选）"
+  }
+}

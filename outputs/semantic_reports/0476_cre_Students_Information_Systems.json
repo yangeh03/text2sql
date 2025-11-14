@@ -1,0 +1,29 @@
+{
+  "db_id": "cre_Students_Information_Systems",
+  "index": 476,
+  "question": "List the achievement type code, achievement details and the date of the achievements.",
+  "sql": "SELECT achievement_type_code, achievement_details, date_achievement FROM Achievements",
+  "semantic": {
+    "back_translation": {
+      "intent": "获取特定类型成就的信息",
+      "tables": [
+        "Achievements"
+      ],
+      "columns": [
+        "achievement_type_code",
+        "achievement_details",
+        "date_achievement"
+      ],
+      "filters": [
+        "achievement_type_code IN ('Athletic', 'Scholastic')"
+      ],
+      "agg": [],
+      "group_by": [],
+      "order_by": [],
+      "limit": null
+    },
+    "score": 0.5,
+    "pass": false,
+    "reason": "原始问题未指定成就类型，而SQL反向翻译的描述中包含了过滤条件achievement_type_code IN ('Athletic', 'Scholastic')，导致语义不一致。"
+  }
+}

@@ -1,0 +1,34 @@
+{
+  "db_id": "cre_Students_Information_Systems",
+  "index": 464,
+  "question": "Which students only got the most common result for his or her all behaviour monitoring details? List the students' biographical information.",
+  "sql": "SELECT s.student_id, s.bio_data, s.student_details FROM Students s JOIN Behaviour_Monitoring bm ON s.student_id = bm.student_id WHERE bm.behaviour_monitoring_details = (SELECT behaviour_monitoring_details FROM Behaviour_Monitoring GROUP BY behaviour_monitoring_details ORDER BY COUNT(*) DESC LIMIT 1) AND s.student_id NOT IN (SELECT student_id FROM Behaviour_Monitoring WHERE behaviour_monitoring_details != (SELECT behaviour_monitoring_details FROM Behaviour_Monitoring GROUP BY behaviour_monitoring_details ORDER BY COUNT(*) DESC LIMIT 1))",
+  "semantic": {
+    "back_translation": {
+      "intent": "获取具有最常见行为监控详情的学生信息",
+      "tables": [
+        "Students",
+        "Behaviour_Monitoring"
+      ],
+      "columns": [
+        "student_id",
+        "bio_data",
+        "student_details"
+      ],
+      "filters": [
+        "bm.behaviour_monitoring_details = (SELECT behaviour_monitoring_details FROM Behaviour_Monitoring GROUP BY behaviour_monitoring_details ORDER BY COUNT(*) DESC LIMIT 1)"
+      ],
+      "agg": [
+        "COUNT"
+      ],
+      "group_by": [
+        "behaviour_monitoring_details"
+      ],
+      "order_by": [],
+      "limit": null
+    },
+    "score": 0.5,
+    "pass": false,
+    "reason": "原始问题要求列出只获得其所有行为监控详情中最常见结果的学生的生物信息，而SQL反向翻译的描述仅过滤了行为监控详情等于最常见结果的记录，但未明确确保学生只获得该最常见结果，且未正确关联学生表与行为监控表以获取生物信息。"
+  }
+}

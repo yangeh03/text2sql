@@ -1,0 +1,28 @@
+{
+  "db_id": "vehicle_driver",
+  "index": 178,
+  "question": "What are the models which have not been driven by any drivers?",
+  "sql": "SELECT Model FROM vehicle LEFT JOIN vehicle_driver ON vehicle.Vehicle_ID = vehicle_driver.Vehicle_ID WHERE vehicle_driver.Vehicle_ID IS NULL;",
+  "semantic": {
+    "back_translation": {
+      "intent": "查找没有关联驾驶员的车辆模型",
+      "tables": [
+        "vehicle",
+        "vehicle_driver"
+      ],
+      "columns": [
+        "Model"
+      ],
+      "filters": [
+        "vehicle_driver.Vehicle_ID IS NULL"
+      ],
+      "agg": [],
+      "group_by": [],
+      "order_by": [],
+      "limit": null
+    },
+    "score": 1.0,
+    "pass": true,
+    "reason": "两者均指向查找未与任何驾驶员关联的车辆模型。原始问题询问未被驾驶的车型，SQL描述通过vehicle_driver.Vehicle_ID IS NULL条件实现该逻辑，表结构和字段引用一致。"
+  }
+}

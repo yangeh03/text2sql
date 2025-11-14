@@ -1,0 +1,27 @@
+{
+  "db_id": "vehicle_driver",
+  "index": 187,
+  "question": "What are the names of drivers, returned in alphbetical order?",
+  "sql": "SELECT Name FROM driver ORDER BY Name ASC;",
+  "semantic": {
+    "back_translation": {
+      "intent": "获取驾驶员名称",
+      "tables": [
+        "driver"
+      ],
+      "columns": [
+        "Name"
+      ],
+      "filters": [],
+      "agg": [],
+      "group_by": [],
+      "order_by": [
+        "Name ASC"
+      ],
+      "limit": null
+    },
+    "score": 1.0,
+    "pass": true,
+    "reason": "语义完全一致，原始问题要求获取驾驶员名称并按字母顺序排列，SQL反向翻译描述正确地指定了目标表、列、排序方式，无过滤、聚合或分组条件，与原始问题一致。"
+  }
+}

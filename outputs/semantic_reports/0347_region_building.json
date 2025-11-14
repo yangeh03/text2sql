@@ -1,0 +1,31 @@
+{
+  "db_id": "region_building",
+  "index": 347,
+  "question": "In which year did the most building constructions complete?",
+  "sql": "SELECT Completed_Year FROM building GROUP BY Completed_Year ORDER BY COUNT(*) DESC LIMIT 1;",
+  "semantic": {
+    "back_translation": {
+      "intent": "查询完成年份最多的建筑",
+      "tables": [
+        "building"
+      ],
+      "columns": [
+        "Completed_Year"
+      ],
+      "filters": [],
+      "agg": [
+        "COUNT(*)"
+      ],
+      "group_by": [
+        "Completed_Year"
+      ],
+      "order_by": [
+        "COUNT(*) DESC"
+      ],
+      "limit": 1
+    },
+    "score": 1.0,
+    "pass": true,
+    "reason": "语义一致，SQL反向翻译准确表达了原始问题的意图，即统计每个完成年份的建筑数量并找出数量最多的年份。"
+  }
+}
