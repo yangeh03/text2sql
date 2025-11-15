@@ -1,0 +1,32 @@
+{
+  "db_id": "address_1",
+  "index": 801,
+  "question": "Give the country with the fewest students.",
+  "sql": "SELECT country FROM City JOIN Student ON City.city_code = Student.city_code GROUP BY country ORDER BY COUNT(Student.StuID) ASC LIMIT 1;",
+  "semantic": {
+    "back_translation": {
+      "intent": "查找拥有最少学生的国家",
+      "tables": [
+        "City",
+        "Student"
+      ],
+      "columns": [
+        "country"
+      ],
+      "filters": [],
+      "agg": [
+        "COUNT(Student.StuID)"
+      ],
+      "group_by": [
+        "country"
+      ],
+      "order_by": [
+        "COUNT(Student.StuID) ASC"
+      ],
+      "limit": 1
+    },
+    "score": 1.0,
+    "pass": true,
+    "reason": "语义完全一致，SQL查询意图是查找拥有最少学生的国家，正确使用了COUNT聚合函数、GROUP BY国家、ORDER BY升序排列并限制结果为1。"
+  }
+}

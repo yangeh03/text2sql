@@ -1,0 +1,27 @@
+{
+  "db_id": "cre_Doc_and_collections",
+  "index": 691,
+  "question": "What are the names of all parent collections of the collection named Nice?",
+  "sql": "SELECT DISTINCT Parent_Collection_ID FROM Collections WHERE Collection_Name = 'Nice';",
+  "semantic": {
+    "back_translation": {
+      "intent": "获取名为 'Nice' 的集合的父集合 ID",
+      "tables": [
+        "Collections"
+      ],
+      "columns": [
+        "Parent_Collection_ID"
+      ],
+      "filters": [
+        "Collection_Name = 'Nice'"
+      ],
+      "agg": [],
+      "group_by": [],
+      "order_by": [],
+      "limit": null
+    },
+    "score": 0.5,
+    "pass": false,
+    "reason": "意图不一致（原始问题要求父集合名称，SQL描述获取父集合ID）；列不匹配（缺少Parent_Collection_Name字段）"
+  }
+}

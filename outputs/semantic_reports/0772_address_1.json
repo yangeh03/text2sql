@@ -1,0 +1,27 @@
+{
+  "db_id": "address_1",
+  "index": 772,
+  "question": "Show names for all cities in state PA.",
+  "sql": "SELECT city_name FROM City WHERE state = 'PA';",
+  "semantic": {
+    "back_translation": {
+      "intent": "获取数据",
+      "tables": [
+        "City"
+      ],
+      "columns": [
+        "city_name"
+      ],
+      "filters": [
+        "state = 'PA'"
+      ],
+      "agg": [],
+      "group_by": [],
+      "order_by": [],
+      "limit": null
+    },
+    "score": 1.0,
+    "pass": true,
+    "reason": "语义完全一致。原始问题要求获取宾夕法尼亚州所有城市的名称，SQL描述正确指定了City表、city_name列和state='PA'过滤条件，无聚合、分组、排序或限制需求。"
+  }
+}

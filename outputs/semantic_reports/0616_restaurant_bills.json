@@ -1,0 +1,25 @@
+{
+  "db_id": "restaurant_bills",
+  "index": 616,
+  "question": "Count the number of customers.",
+  "sql": "SELECT COUNT(*) FROM customer;",
+  "semantic": {
+    "back_translation": {
+      "intent": "统计客户数量",
+      "tables": [
+        "customer"
+      ],
+      "columns": [],
+      "filters": [],
+      "agg": [
+        "COUNT(*)"
+      ],
+      "group_by": [],
+      "order_by": [],
+      "limit": null
+    },
+    "score": 1.0,
+    "pass": true,
+    "reason": "语义完全一致，SQL意图为统计客户表中的总记录数，与原始问题'Count the number of customers'相符。"
+  }
+}

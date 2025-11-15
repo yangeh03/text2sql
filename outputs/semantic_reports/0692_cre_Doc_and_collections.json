@@ -1,0 +1,27 @@
+{
+  "db_id": "cre_Doc_and_collections",
+  "index": 692,
+  "question": "Which collection is not the parent of other collection? List the collection's name.",
+  "sql": "SELECT Collection_Name FROM Collections WHERE Collection_ID NOT IN (SELECT Parent_Collection_ID FROM Collections WHERE Parent_Collection_ID IS NOT NULL)",
+  "semantic": {
+    "back_translation": {
+      "intent": "查询没有父级集合的集合名称",
+      "tables": [
+        "Collections"
+      ],
+      "columns": [
+        "Collection_Name"
+      ],
+      "filters": [
+        "Collection_ID NOT IN (SELECT Parent_Collection_ID FROM Collections WHERE Parent_Collection_ID IS NOT NULL)"
+      ],
+      "agg": [],
+      "group_by": [],
+      "order_by": [],
+      "limit": null
+    },
+    "score": 1.0,
+    "pass": true,
+    "reason": "SQL查询正确识别了原始问题中'没有父级集合的集合'，通过检查Collection_ID是否不在其他集合的Parent_Collection_ID中，与原始问题的意图完全一致。"
+  }
+}

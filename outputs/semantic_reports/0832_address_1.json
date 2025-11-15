@@ -1,0 +1,30 @@
+{
+  "db_id": "address_1",
+  "index": 832,
+  "question": "Show all city codes and the total distance to all other cities.",
+  "sql": "SELECT city1_code, SUM(distance) AS total_distance FROM Direct_distance GROUP BY city1_code;",
+  "semantic": {
+    "back_translation": {
+      "intent": "计算每个城市代码的总距离",
+      "tables": [
+        "Direct_distance"
+      ],
+      "columns": [
+        "city1_code",
+        "distance"
+      ],
+      "filters": [],
+      "agg": [
+        "SUM"
+      ],
+      "group_by": [
+        "city1_code"
+      ],
+      "order_by": [],
+      "limit": null
+    },
+    "score": 1.0,
+    "pass": true,
+    "reason": "原始问题要求显示所有城市代码及其到其他城市的总距离，SQL描述通过SUM(distance)按city1_code分组实现了该意图。表结构和字段选择与问题需求一致，未涉及额外过滤或排序要求。"
+  }
+}

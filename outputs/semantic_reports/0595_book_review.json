@@ -1,0 +1,27 @@
+{
+  "db_id": "book_review",
+  "index": 595,
+  "question": "List the titles of books in ascending alphabetical order.",
+  "sql": "SELECT Title FROM book ORDER BY Title ASC;",
+  "semantic": {
+    "back_translation": {
+      "intent": "获取数据",
+      "tables": [
+        "book"
+      ],
+      "columns": [
+        "Title"
+      ],
+      "filters": [],
+      "agg": [],
+      "group_by": [],
+      "order_by": [
+        "Title ASC"
+      ],
+      "limit": null
+    },
+    "score": 1.0,
+    "pass": true,
+    "reason": "语义完全一致，原始问题要求列出书籍标题并按字母升序排列，SQL描述中选择了正确的表、列，并应用了正确的排序方式。"
+  }
+}

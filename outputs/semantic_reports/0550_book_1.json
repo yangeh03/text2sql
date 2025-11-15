@@ -1,0 +1,34 @@
+{
+  "db_id": "book_1",
+  "index": 550,
+  "question": "What is the name of the client with the most number of orders?",
+  "sql": "SELECT Name FROM Client WHERE IdClient = (SELECT IdClient FROM Orders GROUP BY IdClient ORDER BY COUNT(*) DESC LIMIT 1)",
+  "semantic": {
+    "back_translation": {
+      "intent": "查找订购次数最多的客户姓名",
+      "tables": [
+        "Client",
+        "Orders"
+      ],
+      "columns": [
+        "Name"
+      ],
+      "filters": [
+        "IdClient = (SELECT IdClient FROM Orders GROUP BY IdClient ORDER BY COUNT(*) DESC LIMIT 1)"
+      ],
+      "agg": [
+        "COUNT(*)"
+      ],
+      "group_by": [
+        "IdClient"
+      ],
+      "order_by": [
+        "COUNT(*) DESC"
+      ],
+      "limit": 1
+    },
+    "score": 1.0,
+    "pass": true,
+    "reason": "语义完全一致，SQL反向翻译描述准确表达了原始问题的意图，即查找订购次数最多的客户姓名，涉及正确的表、列、聚合、分组、排序和限制条件。"
+  }
+}

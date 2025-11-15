@@ -1,0 +1,27 @@
+{
+  "db_id": "restaurant_bills",
+  "index": 621,
+  "question": "Show the names of customers with nationality \"England\" or \"Australia\".",
+  "sql": "SELECT Name FROM customer WHERE Nationality IN ('England', 'Australia');",
+  "semantic": {
+    "back_translation": {
+      "intent": "获取具有特定国籍的客户姓名",
+      "tables": [
+        "customer"
+      ],
+      "columns": [
+        "Name"
+      ],
+      "filters": [
+        "Nationality IN ('England', 'Australia')"
+      ],
+      "agg": [],
+      "group_by": [],
+      "order_by": [],
+      "limit": null
+    },
+    "score": 1.0,
+    "pass": true,
+    "reason": "语义完全一致，原始问题要求显示国籍为England或Australia的客户姓名，SQL反向翻译描述准确反映了这一意图，包括目标表、列、过滤条件，且无聚合、分组、排序或限制。"
+  }
+}

@@ -1,0 +1,30 @@
+{
+  "db_id": "address_1",
+  "index": 803,
+  "question": "What are the names of cities with at least three students?",
+  "sql": "SELECT City.city_name FROM Student JOIN City ON Student.city_code = City.city_code GROUP BY Student.city_code HAVING COUNT(*) >= 3;",
+  "semantic": {
+    "back_translation": {
+      "intent": "查找具有至少三个学生的城市名称",
+      "tables": [
+        "Student",
+        "City"
+      ],
+      "columns": [
+        "City.city_name"
+      ],
+      "filters": [],
+      "agg": [
+        "COUNT(*)"
+      ],
+      "group_by": [
+        "Student.city_code"
+      ],
+      "order_by": [],
+      "limit": null
+    },
+    "score": 1.0,
+    "pass": true,
+    "reason": "语义完全一致，原始问题和SQL反向翻译描述均要求查找至少有三个学生的城市名称，且涉及的表、列、分组和聚合逻辑一致。"
+  }
+}

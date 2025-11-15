@@ -1,0 +1,29 @@
+{
+  "db_id": "address_1",
+  "index": 831,
+  "question": "Give the city name of the city with greatest distance from Boston.",
+  "sql": "SELECT city_name FROM City WHERE city_code = (SELECT city2_code FROM Direct_distance WHERE city1_code = (SELECT city_code FROM City WHERE city_name = 'Boston') ORDER BY distance DESC LIMIT 1);",
+  "semantic": {
+    "back_translation": {
+      "intent": "获取城市名称",
+      "tables": [
+        "City",
+        "Direct_distance"
+      ],
+      "columns": [
+        "city_name",
+        "city1_code"
+      ],
+      "filters": [
+        "city_code = (SELECT city1_code FROM Direct_distance ORDER BY distance DESC LIMIT 1)"
+      ],
+      "agg": [],
+      "group_by": [],
+      "order_by": [],
+      "limit": null
+    },
+    "score": 0.5,
+    "pass": false,
+    "reason": "过滤条件缺少将Boston作为参考点的关联，未明确指定city_code应与Boston的代码匹配，导致可能选取非波士顿相关距离的最大值"
+  }
+}

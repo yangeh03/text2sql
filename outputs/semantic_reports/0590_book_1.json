@@ -1,0 +1,30 @@
+{
+  "db_id": "book_1",
+  "index": 590,
+  "question": "Find the title of books which are ordered by client Peter Doe but not client James Smith.",
+  "sql": "SELECT Title FROM Book WHERE ISBN IN (SELECT ISBN FROM Books_Order WHERE IdOrder IN (SELECT IdOrder FROM Orders WHERE IdClient = '0000001P')) AND ISBN NOT IN (SELECT ISBN FROM Books_Order WHERE IdOrder IN (SELECT IdOrder FROM Orders WHERE IdClient = '0000002P'));",
+  "semantic": {
+    "back_translation": {
+      "intent": "查询特定客户未订购的书籍标题",
+      "tables": [
+        "Book",
+        "Orders",
+        "Books_Order"
+      ],
+      "columns": [
+        "Title"
+      ],
+      "filters": [
+        "ISBN IN (SELECT ISBN FROM Books_Order WHERE IdOrder IN (SELECT IdOrder FROM Orders WHERE IdClient = '0000001P'))",
+        "ISBN NOT IN (SELECT ISBN FROM Books_Order WHERE IdOrder IN (SELECT IdOrder FROM Orders WHERE IdClient = '0000002P'))"
+      ],
+      "agg": [],
+      "group_by": [],
+      "order_by": [],
+      "limit": null
+    },
+    "score": 1.0,
+    "pass": true,
+    "reason": "语义一致，SQL反向翻译描述准确表达了原始问题中'客户Peter Doe订购的书籍但James Smith未订购'的意图，且涉及的表、列和过滤条件均符合要求。"
+  }
+}

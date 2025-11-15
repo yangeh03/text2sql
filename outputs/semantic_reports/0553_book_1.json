@@ -1,0 +1,32 @@
+{
+  "db_id": "book_1",
+  "index": 553,
+  "question": "What are the names of all the clients, and the total amount of books ordered by each?",
+  "sql": "SELECT Client.Name, SUM(Books_Order.amount) AS total_amount FROM Client JOIN Orders ON Client.IdClient = Orders.IdClient JOIN Books_Order ON Orders.IdOrder = Books_Order.IdOrder GROUP BY Client.Name;",
+  "semantic": {
+    "back_translation": {
+      "intent": "计算每个客户的订单总金额",
+      "tables": [
+        "Client",
+        "Orders",
+        "Books_Order"
+      ],
+      "columns": [
+        "Client.Name",
+        "Books_Order.amount"
+      ],
+      "filters": [],
+      "agg": [
+        "SUM(Books_Order.amount)"
+      ],
+      "group_by": [
+        "Client.Name"
+      ],
+      "order_by": [],
+      "limit": null
+    },
+    "score": 0.5,
+    "pass": false,
+    "reason": "目标表不一致，原始问题涉及Client和Orders表，而SQL描述包含Books_Order表（可能为冗余或错误表名），且未体现订单与客户之间的关联逻辑"
+  }
+}

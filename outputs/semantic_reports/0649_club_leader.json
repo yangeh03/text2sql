@@ -1,0 +1,27 @@
+{
+  "db_id": "club_leader",
+  "index": 649,
+  "question": "Show the names of members whose age is either 19 or 20.",
+  "sql": "SELECT Name FROM member WHERE Age IN (19,20)",
+  "semantic": {
+    "back_translation": {
+      "intent": "查询符合条件的记录",
+      "tables": [
+        "member"
+      ],
+      "columns": [
+        "Name"
+      ],
+      "filters": [
+        "Age IN (19,20)"
+      ],
+      "agg": [],
+      "group_by": [],
+      "order_by": [],
+      "limit": null
+    },
+    "score": 1.0,
+    "pass": true,
+    "reason": "语义完全一致，原始问题要求显示年龄为19或20的成员姓名，SQL反向翻译描述中的过滤条件Age IN (19,20)和目标列Name准确匹配了该意图。"
+  }
+}

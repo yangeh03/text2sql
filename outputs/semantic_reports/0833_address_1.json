@@ -1,0 +1,29 @@
+{
+  "db_id": "address_1",
+  "index": 833,
+  "question": "For each city, what is the the city code and sum of distances from each?",
+  "sql": "SELECT city1_code, SUM(distance) FROM Direct_distance GROUP BY city1_code;",
+  "semantic": {
+    "back_translation": {
+      "intent": "计算每个城市的总距离",
+      "tables": [
+        "Direct_distance"
+      ],
+      "columns": [
+        "city1_code"
+      ],
+      "filters": [],
+      "agg": [
+        "SUM(distance)"
+      ],
+      "group_by": [
+        "city1_code"
+      ],
+      "order_by": [],
+      "limit": null
+    },
+    "score": 1.0,
+    "pass": true,
+    "reason": "原始问题要求每个城市的代码和距离总和，SQL描述中通过group_by city1_code和SUM(distance)实现了该逻辑，且列名city1_code与问题中的'city code'语义一致。"
+  }
+}

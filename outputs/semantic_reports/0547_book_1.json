@@ -1,0 +1,26 @@
+{
+  "db_id": "book_1",
+  "index": 547,
+  "question": "What are the names of the different clients who have made an order?",
+  "sql": "SELECT DISTINCT Client.Name FROM Client JOIN Orders ON Client.IdClient = Orders.IdClient",
+  "semantic": {
+    "back_translation": {
+      "intent": "获取不同的客户名称",
+      "tables": [
+        "Client",
+        "Orders"
+      ],
+      "columns": [
+        "Client.Name"
+      ],
+      "filters": [],
+      "agg": [],
+      "group_by": [],
+      "order_by": [],
+      "limit": null
+    },
+    "score": 1.0,
+    "pass": true,
+    "reason": "语义一致，原始问题要求获取不同客户名称，SQL反向翻译描述中意图、表、列均正确对应，无过滤、聚合、分组或排序条件，与问题一致。"
+  }
+}

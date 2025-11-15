@@ -1,0 +1,25 @@
+{
+  "db_id": "address_1",
+  "index": 763,
+  "question": "Count the number of cities.",
+  "sql": "SELECT COUNT(*) FROM City",
+  "semantic": {
+    "back_translation": {
+      "intent": "统计总数",
+      "tables": [
+        "City"
+      ],
+      "columns": [],
+      "filters": [],
+      "agg": [
+        "COUNT"
+      ],
+      "group_by": [],
+      "order_by": [],
+      "limit": null
+    },
+    "score": 1.0,
+    "pass": true,
+    "reason": "语义完全一致，原始问题要求统计城市数量，SQL反向翻译描述正确表达了这一意图，使用了COUNT聚合函数，目标表为City，无过滤条件、分组或排序。"
+  }
+}

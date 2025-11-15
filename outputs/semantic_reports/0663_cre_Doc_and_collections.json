@@ -1,0 +1,25 @@
+{
+  "db_id": "cre_Doc_and_collections",
+  "index": 663,
+  "question": "What are the collection susbset names?",
+  "sql": "SELECT Collection_Subset_Name FROM Collection_Subsets",
+  "semantic": {
+    "back_translation": {
+      "intent": "获取数据",
+      "tables": [
+        "Collection_Subsets"
+      ],
+      "columns": [
+        "Collection_Subset_Name"
+      ],
+      "filters": [],
+      "agg": [],
+      "group_by": [],
+      "order_by": [],
+      "limit": null
+    },
+    "score": 1.0,
+    "pass": true,
+    "reason": "原始问题要求获取集合子集名称，SQL反向翻译描述准确对应了目标表(Collection_Subsets)和所需列(Collection_Subset_Name)，无过滤/聚合/分组/排序等额外操作，完全匹配需求"
+  }
+}

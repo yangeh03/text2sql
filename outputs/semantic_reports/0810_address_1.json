@@ -1,0 +1,28 @@
+{
+  "db_id": "address_1",
+  "index": 810,
+  "question": "Show ids for all male students living outside of USA.",
+  "sql": "SELECT StuID FROM Student INNER JOIN City ON Student.city_code = City.city_code WHERE Sex = 'male' AND City.country != 'USA';",
+  "semantic": {
+    "back_translation": {
+      "intent": "查询",
+      "tables": [
+        "Student"
+      ],
+      "columns": [
+        "StuID"
+      ],
+      "filters": [
+        "Sex = 'male'",
+        "country != 'USA'"
+      ],
+      "agg": [],
+      "group_by": [],
+      "order_by": [],
+      "limit": null
+    },
+    "score": 1.0,
+    "pass": true,
+    "reason": "语义完全一致。原始问题要求显示所有非美国居住的男性学生的ID，SQL反向翻译描述中的意图、表、列、过滤条件均准确对应。"
+  }
+}

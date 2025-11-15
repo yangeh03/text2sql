@@ -1,0 +1,29 @@
+{
+  "db_id": "cre_Doc_and_collections",
+  "index": 734,
+  "question": "List id of documents that in document subset Best for 2000 or in collection named Best.",
+  "sql": "SELECT DISTINCT Document_Object_ID FROM Document_Subset_Members WHERE Document_Subset_ID = (SELECT Document_Subset_ID FROM Document_Subsets WHERE Document_Subset_Name = 'Best for 2000') UNION SELECT Document_Object_ID FROM Documents_in_Collections WHERE Collection_ID = (SELECT Collection_ID FROM Collections WHERE Collection_Name = 'Best')",
+  "semantic": {
+    "back_translation": {
+      "intent": "获取Document_Object_ID的集合，合并两个来源的数据",
+      "tables": [
+        "Document_Subset_Members",
+        "Documents_in_Collections"
+      ],
+      "columns": [
+        "Document_Object_ID"
+      ],
+      "filters": [
+        "Document_Subset_ID = (SELECT Document_Subset_ID FROM Document_Subsets WHERE Document_Subset_Name = 'Best for 2000')",
+        "Collection_ID = (SELECT Collection_ID FROM Collections WHERE Collection_Name = 'Best')"
+      ],
+      "agg": [],
+      "group_by": [],
+      "order_by": [],
+      "limit": null
+    },
+    "score": 1.0,
+    "pass": true,
+    "reason": "两者语义完全一致。原始问题要求获取属于'BEST for 2000'子集或位于'BEST'集合的文档ID，SQL描述通过两个表(Document_Subset_Members和Documents_in_Collections)的联合查询实现该需求，且过滤条件准确对应子集名称和集合名称的匹配逻辑。"
+  }
+}

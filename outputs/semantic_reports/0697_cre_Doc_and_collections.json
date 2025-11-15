@@ -1,0 +1,30 @@
+{
+  "db_id": "cre_Doc_and_collections",
+  "index": 697,
+  "question": "What is the number of child collections belonging to the collection named Best?",
+  "sql": "SELECT COUNT(*) FROM Collection_Subset_Members WHERE Related_Collection_ID = (SELECT Collection_ID FROM Collections WHERE Collection_Name = 'Best')",
+  "semantic": {
+    "back_translation": {
+      "intent": "统计满足条件的记录数量",
+      "tables": [
+        "Collection_Subset_Members",
+        "Collections",
+        "Collection_Subsets"
+      ],
+      "columns": [],
+      "filters": [
+        "Related_Collection_ID = (SELECT Collection_ID FROM Collections WHERE Collection_Name = 'Best')",
+        "Collection_Subset_ID IN (SELECT Collection_Subset_ID FROM Collection_Subsets WHERE Collection_Subset_Name IN ('UK album', 'US album', 'Canadian album'))"
+      ],
+      "agg": [
+        "COUNT"
+      ],
+      "group_by": [],
+      "order_by": [],
+      "limit": null
+    },
+    "score": 0.5,
+    "pass": false,
+    "reason": "过滤条件存在差异，原始问题未限定子集合类型，而SQL中通过'UK album','US album','Canadian album'进行了类型过滤"
+  }
+}

@@ -1,0 +1,28 @@
+{
+  "db_id": "book_1",
+  "index": 579,
+  "question": "Give the titles of books authored by Plato that have a sale price lower than the average sale price across all books.",
+  "sql": "SELECT Title FROM Book JOIN Author_Book ON Book.ISBN = Author_Book.ISBN JOIN Author ON Author_Book.Author = Author.idAuthor WHERE Author.Name = 'Plato' AND Book.SalePrice < (SELECT AVG(SalePrice) FROM Book)",
+  "semantic": {
+    "back_translation": {
+      "intent": "查询特定作者的书籍中，销售价格低于该作者书籍平均销售价格的书名",
+      "tables": [
+        "Book"
+      ],
+      "columns": [
+        "Title"
+      ],
+      "filters": [
+        "Author = 'Plato'",
+        "SalePrice < (SELECT AVG(SalePrice) FROM Book)"
+      ],
+      "agg": [],
+      "group_by": [],
+      "order_by": [],
+      "limit": null
+    },
+    "score": 0.5,
+    "pass": false,
+    "reason": "原始问题中的平均价格是针对所有书籍的，而SQL描述中子查询仅计算了Plato书籍的平均价格，导致过滤条件的计算范围不一致"
+  }
+}

@@ -1,0 +1,29 @@
+{
+  "db_id": "book_1",
+  "index": 582,
+  "question": "List titles of all books published by an author whose name contains the string 'Plato'?",
+  "sql": "SELECT Book.Title FROM Book JOIN Author_Book ON Book.ISBN = Author_Book.ISBN JOIN Author ON Author_Book.Author = Author.idAuthor WHERE Author.Name LIKE '%Plato%'",
+  "semantic": {
+    "back_translation": {
+      "intent": "查询书籍的ISBN",
+      "tables": [
+        "Book",
+        "Author_Book",
+        "Author"
+      ],
+      "columns": [
+        "Book.ISBN"
+      ],
+      "filters": [
+        "Author.Name LIKE '%Plato%'"
+      ],
+      "agg": [],
+      "group_by": [],
+      "order_by": [],
+      "limit": null
+    },
+    "score": 0.5,
+    "pass": false,
+    "reason": "意图不一致（原始问题要求书籍标题，SQL描述目标为ISBN），过滤条件字段不匹配（原始问题应过滤Author.Name，SQL描述正确），但表关联和LIKE条件使用一致"
+  }
+}

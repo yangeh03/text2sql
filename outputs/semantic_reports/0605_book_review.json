@@ -1,0 +1,31 @@
+{
+  "db_id": "book_review",
+  "index": 605,
+  "question": "What is the average number of readers for books of type \"Novel\"?",
+  "sql": "SELECT AVG(review.Readers_in_Million) FROM review JOIN book ON review.Book_ID = book.Book_ID WHERE book.Type = 'Novel'",
+  "semantic": {
+    "back_translation": {
+      "intent": "计算平均值",
+      "tables": [
+        "review",
+        "book"
+      ],
+      "columns": [
+        "Readers_in_Million"
+      ],
+      "filters": [
+        "book.Type = 'Novel'",
+        "book.Title IN ('A Game of Thrones', 'A Clash of Kings', 'A Storm of Swords', 'A Feast for Crows', 'A Dance with Dragons')"
+      ],
+      "agg": [
+        "AVG"
+      ],
+      "group_by": [],
+      "order_by": [],
+      "limit": null
+    },
+    "score": 0.5,
+    "pass": false,
+    "reason": "原始问题仅要求过滤书籍类型为'Novel'，但SQL描述中额外添加了具体的书名过滤条件（'A Game of Thrones'等），导致过滤范围不一致"
+  }
+}

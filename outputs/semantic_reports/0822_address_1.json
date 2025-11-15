@@ -1,0 +1,27 @@
+{
+  "db_id": "address_1",
+  "index": 822,
+  "question": "Show me the city code of two cities with a distance less than 1000.",
+  "sql": "SELECT city1_code FROM Direct_distance WHERE distance < 1000 LIMIT 2;",
+  "semantic": {
+    "back_translation": {
+      "intent": "获取满足特定距离条件的city1_code的前两条记录",
+      "tables": [
+        "Direct_distance"
+      ],
+      "columns": [
+        "city1_code"
+      ],
+      "filters": [
+        "distance < 1000"
+      ],
+      "agg": [],
+      "group_by": [],
+      "order_by": [],
+      "limit": 2
+    },
+    "score": 1.0,
+    "pass": true,
+    "reason": "语义一致，原始问题要求获取两个距离小于1000的城市的city code，SQL反向翻译描述准确反映了这一意图，包括目标表、列、过滤条件和限制数量。"
+  }
+}

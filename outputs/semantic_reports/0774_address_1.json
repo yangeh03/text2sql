@@ -1,0 +1,29 @@
+{
+  "db_id": "address_1",
+  "index": 774,
+  "question": "How many cities are in Canada?",
+  "sql": "SELECT COUNT(DISTINCT city_name) FROM City WHERE country = 'Canada';",
+  "semantic": {
+    "back_translation": {
+      "intent": "统计加拿大不同城市的数量",
+      "tables": [
+        "City"
+      ],
+      "columns": [
+        "city_name"
+      ],
+      "filters": [
+        "country = 'Canada'"
+      ],
+      "agg": [
+        "COUNT(DISTINCT city_name)"
+      ],
+      "group_by": [],
+      "order_by": [],
+      "limit": null
+    },
+    "score": 1.0,
+    "pass": true,
+    "reason": "语义完全一致，SQL反向翻译描述准确表达了原始问题'How many cities are in Canada?'的意图，即统计加拿大不同城市的数量，且未包含额外或缺失的条件。"
+  }
+}

@@ -1,0 +1,32 @@
+{
+  "db_id": "cre_Doc_and_collections",
+  "index": 704,
+  "question": "Which document has least number of related documents? List the document id and the number of related documents.",
+  "sql": "SELECT Document_Object_ID, COUNT(Related_Document_Object_ID) AS related_count FROM Document_Subset_Members GROUP BY Document_Object_ID ORDER BY related_count ASC LIMIT 1;",
+  "semantic": {
+    "back_translation": {
+      "intent": "统计每个文档对象的关联文档数量并找出关联最少的文档对象",
+      "tables": [
+        "Document_Subset_Members"
+      ],
+      "columns": [
+        "Document_Object_ID",
+        "Related_Document_Object_ID"
+      ],
+      "filters": [],
+      "agg": [
+        "COUNT(Related_Document_Object_ID)"
+      ],
+      "group_by": [
+        "Document_Object_ID"
+      ],
+      "order_by": [
+        "related_count ASC"
+      ],
+      "limit": 1
+    },
+    "score": 1.0,
+    "pass": true,
+    "reason": "语义完全一致。SQL正确统计每个文档的关联文档数量（COUNT(Related_Document_Object_ID)），按数量升序排序后取最小值（order_by related_count ASC + limit 1），输出文档ID和数量，与原始问题要求完全匹配。"
+  }
+}

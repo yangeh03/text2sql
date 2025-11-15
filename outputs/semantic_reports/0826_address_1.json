@@ -1,0 +1,30 @@
+{
+  "db_id": "address_1",
+  "index": 826,
+  "question": "What is the average distance between Boston and all other cities.",
+  "sql": "SELECT AVG(distance) FROM Direct_distance WHERE (city1_code = 'BOS' OR city2_code = 'BOS') AND city1_code != city2_code;",
+  "semantic": {
+    "back_translation": {
+      "intent": "计算平均距离",
+      "tables": [
+        "Direct_distance"
+      ],
+      "columns": [
+        "distance"
+      ],
+      "filters": [
+        "city1_code = 'BOS'",
+        "city2_code = 'BOS'"
+      ],
+      "agg": [
+        "AVG"
+      ],
+      "group_by": [],
+      "order_by": [],
+      "limit": null
+    },
+    "score": 0.3,
+    "pass": false,
+    "reason": "过滤条件错误，原始问题要求计算波士顿与其他所有城市的距离，但SQL中同时限制city1_code和city2_code等于'BOS'，这会导致仅筛选波士顿到自身的距离（无意义），应改为筛选其中一个字段为'BOS'"
+  }
+}

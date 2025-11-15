@@ -1,0 +1,29 @@
+{
+  "db_id": "cre_Doc_and_collections",
+  "index": 705,
+  "question": "What is the document object id with the least number of documents ?",
+  "sql": "SELECT Document_Object_ID FROM Document_Subset_Members GROUP BY Document_Object_ID ORDER BY COUNT(*) ASC LIMIT 1;",
+  "semantic": {
+    "back_translation": {
+      "intent": "查找出现次数等于所有组中最小计数值的Document_Object_ID",
+      "tables": [
+        "Document_Subset_Members"
+      ],
+      "columns": [
+        "Document_Object_ID"
+      ],
+      "filters": [],
+      "agg": [
+        "COUNT"
+      ],
+      "group_by": [
+        "Document_Object_ID"
+      ],
+      "order_by": [],
+      "limit": null
+    },
+    "score": 0.5,
+    "pass": false,
+    "reason": "原始问题询问的是具有最少文档数的文档对象ID，而SQL反向翻译描述中仅提到查找出现次数等于所有组中最小计数值的Document_Object_ID，未明确说明要返回具体的ID或进行排序以确定最小值，因此语义不完全一致。"
+  }
+}

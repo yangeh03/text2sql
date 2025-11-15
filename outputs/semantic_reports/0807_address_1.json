@@ -1,0 +1,28 @@
+{
+  "db_id": "address_1",
+  "index": 807,
+  "question": "What the the student ids for students not living in the USA?",
+  "sql": "SELECT Student.StuID FROM Student JOIN City ON Student.city_code = City.city_code WHERE City.country != 'USA'",
+  "semantic": {
+    "back_translation": {
+      "intent": "获取非美国城市的学生成绩ID",
+      "tables": [
+        "Student",
+        "City"
+      ],
+      "columns": [
+        "Student.StuID"
+      ],
+      "filters": [
+        "City.country != 'USA'"
+      ],
+      "agg": [],
+      "group_by": [],
+      "order_by": [],
+      "limit": null
+    },
+    "score": 1.0,
+    "pass": true,
+    "reason": "原始问题与SQL反向翻译描述的语义一致。两者均要求获取居住城市非美国的学生成绩ID，通过关联Student和City表，过滤City.country != 'USA'，并选择Student.StuID字段。"
+  }
+}

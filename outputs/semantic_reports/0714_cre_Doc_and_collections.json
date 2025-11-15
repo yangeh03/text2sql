@@ -1,0 +1,35 @@
+{
+  "db_id": "cre_Doc_and_collections",
+  "index": 714,
+  "question": "Which document subset has most of number of distinct documents ? List subset id , name and number of documents .",
+  "sql": "SELECT ds.Document_Subset_ID, ds.Document_Subset_Name, COUNT(DISTINCT dsm.Document_Object_ID) AS num_documents FROM Document_Subsets ds JOIN Document_Subset_Members dsm ON ds.Document_Subset_ID = dsm.Document_Subset_ID GROUP BY ds.Document_Subset_ID, ds.Document_Subset_Name ORDER BY num_documents DESC LIMIT 1;",
+  "semantic": {
+    "back_translation": {
+      "intent": "查找包含最多文档的文档子集",
+      "tables": [
+        "Document_Subsets",
+        "Document_Subset_Members"
+      ],
+      "columns": [
+        "Document_Subset_ID",
+        "Document_Subset_Name",
+        "num_documents"
+      ],
+      "filters": [],
+      "agg": [
+        "COUNT(DISTINCT dsm.Document_Object_ID)"
+      ],
+      "group_by": [
+        "ds.Document_Subset_ID",
+        "ds.Document_Subset_Name"
+      ],
+      "order_by": [
+        "num_documents DESC"
+      ],
+      "limit": 1
+    },
+    "score": 1.0,
+    "pass": true,
+    "reason": "语义完全一致。原始问题要求找出包含最多不同文档的子集，并列出子集ID、名称和文档数量。SQL反向翻译描述中通过COUNT(DISTINCT dsm.Document_Object_ID)计算不同文档数量，按Document_Subset_ID和Document_Subset_Name分组，并按数量降序排序取第一条，符合原始问题的意图。"
+  }
+}

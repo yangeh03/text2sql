@@ -1,0 +1,27 @@
+{
+  "db_id": "book_review",
+  "index": 600,
+  "question": "What is the average rating in reviews?",
+  "sql": "SELECT AVG(Rating) FROM review;",
+  "semantic": {
+    "back_translation": {
+      "intent": "计算平均评分",
+      "tables": [
+        "review"
+      ],
+      "columns": [
+        "Rating"
+      ],
+      "filters": [],
+      "agg": [
+        "AVG"
+      ],
+      "group_by": [],
+      "order_by": [],
+      "limit": null
+    },
+    "score": 1.0,
+    "pass": true,
+    "reason": "The original question and the SQL description both aim to calculate the average rating from the review table without any filters, grouping, or ordering requirements."
+  }
+}

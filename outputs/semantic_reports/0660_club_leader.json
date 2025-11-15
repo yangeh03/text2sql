@@ -1,0 +1,28 @@
+{
+  "db_id": "club_leader",
+  "index": 660,
+  "question": "What is the average age of all the club leaders?",
+  "sql": "SELECT AVG(m.Age) FROM member m JOIN club_leader cl ON m.Member_ID = cl.Member_ID WHERE cl.Member_ID IS NOT NULL",
+  "semantic": {
+    "back_translation": {
+      "intent": "计算平均年龄",
+      "tables": [
+        "member",
+        "club_leader"
+      ],
+      "columns": [
+        "m.Age"
+      ],
+      "filters": [],
+      "agg": [
+        "AVG"
+      ],
+      "group_by": [],
+      "order_by": [],
+      "limit": null
+    },
+    "score": 0.5,
+    "pass": false,
+    "reason": "目标表不一致，原始问题询问的是club leaders的平均年龄，但SQL描述中使用了member和club_leader两个表，且未明确关联关系或过滤条件来限定club_leader的成员"
+  }
+}

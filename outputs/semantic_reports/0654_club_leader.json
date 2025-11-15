@@ -1,0 +1,30 @@
+{
+  "db_id": "club_leader",
+  "index": 654,
+  "question": "Show the names of club leaders and the names of clubs they joined.",
+  "sql": "SELECT club.Club_Name, member.Name FROM club JOIN club_leader ON club.Club_ID = club_leader.Club_ID JOIN member ON club_leader.Member_ID = member.Member_ID;",
+  "semantic": {
+    "back_translation": {
+      "intent": "获取特定成员所属俱乐部的名称和他们的姓名",
+      "tables": [
+        "club",
+        "club_leader",
+        "member"
+      ],
+      "columns": [
+        "club.Club_Name",
+        "member.Name"
+      ],
+      "filters": [
+        "member.Name IN ('Wally Lewis', 'Brett Kenny', 'Garry Jack', 'Hugh McGahan', 'Peter Sterling', 'Ellery Hanley', 'Mack Mitchell', 'Oscar Roan', 'Tony Peters')"
+      ],
+      "agg": [],
+      "group_by": [],
+      "order_by": [],
+      "limit": null
+    },
+    "score": 0.0,
+    "pass": false,
+    "reason": "原始问题要求显示俱乐部领导的姓名和他们加入的俱乐部名称，而反向翻译的描述中只提到了获取特定成员所属俱乐部的名称和他们的姓名，未明确指出这些成员是俱乐部领导，且未说明是领导与俱乐部的关联。"
+  }
+}

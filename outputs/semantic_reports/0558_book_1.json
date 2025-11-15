@@ -1,0 +1,28 @@
+{
+  "db_id": "book_1",
+  "index": 558,
+  "question": "Show all client names for clients who have not made orders.",
+  "sql": "SELECT Name FROM Client LEFT JOIN Orders ON Client.IdClient = Orders.IdClient WHERE Orders.IdOrder IS NULL;",
+  "semantic": {
+    "back_translation": {
+      "intent": "查找没有相关订单的客户名称",
+      "tables": [
+        "Client",
+        "Orders"
+      ],
+      "columns": [
+        "Name"
+      ],
+      "filters": [
+        "Orders.IdOrder IS NULL"
+      ],
+      "agg": [],
+      "group_by": [],
+      "order_by": [],
+      "limit": null
+    },
+    "score": 1.0,
+    "pass": true,
+    "reason": "语义完全一致。原始问题要求获取未下单的客户名称，SQL反向翻译通过左连接Orders表并筛选IdOrder为NULL的记录实现了该逻辑，涉及的表、列、过滤条件均匹配，无聚合、分组、排序等额外操作。"
+  }
+}

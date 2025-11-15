@@ -1,0 +1,32 @@
+{
+  "db_id": "cre_Doc_and_collections",
+  "index": 701,
+  "question": "What are the collection subset ids, names, and number of collections for each subset?",
+  "sql": "SELECT Collection_Subsets.Collection_Subset_ID, Collection_Subsets.Collection_Subset_Name, COUNT(Collections.Collection_ID) AS number_of_collections FROM Collection_Subsets LEFT JOIN Collections ON Collection_Subsets.Collection_Subset_ID = Collections.Parent_Collection_ID GROUP BY Collection_Subsets.Collection_Subset_ID;",
+  "semantic": {
+    "back_translation": {
+      "intent": "统计每个集合子集的集合数量",
+      "tables": [
+        "Collections",
+        "Collection_Subsets"
+      ],
+      "columns": [
+        "Collection_Subset_ID",
+        "Collection_Subset_Name",
+        "number_of_collections"
+      ],
+      "filters": [],
+      "agg": [
+        "COUNT(*)"
+      ],
+      "group_by": [
+        "Collection_Subset_ID"
+      ],
+      "order_by": [],
+      "limit": null
+    },
+    "score": 0.5,
+    "pass": false,
+    "reason": "原始问题要求获取每个集合子集的ID、名称和对应的集合数量，而SQL反向翻译描述中只提到了统计每个集合子集的集合数量，未明确包含ID和名称的获取。"
+  }
+}

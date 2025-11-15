@@ -1,0 +1,21 @@
+{
+  "db_id": "cre_Doc_and_collections",
+  "index": 694,
+  "question": "List document that have more than one child. List the document id.",
+  "sql": "SELECT Parent_Document_Object_ID FROM Document_Objects JOIN Document_Subset_Members ON Document_Objects.Document_Object_ID = Document_Subset_Members.Document_Object_ID GROUP BY Parent_Document_Object_ID HAVING COUNT(*) > 1;",
+  "semantic": {
+    "back_translation": {
+      "intent": "",
+      "tables": [],
+      "columns": [],
+      "filters": [],
+      "agg": [],
+      "group_by": [],
+      "order_by": [],
+      "limit": null
+    },
+    "score": 0.3,
+    "pass": false,
+    "reason": "缺少关键的表、列、过滤条件和分组信息。原始问题需要查询具有多个子项的文档ID，应包含关联子表的JOIN操作、COUNT聚合函数、HAVING子句过滤数量条件及GROUP BY分组，但反向翻译描述中这些要素均未体现"
+  }
+}

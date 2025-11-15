@@ -1,0 +1,29 @@
+{
+  "db_id": "cre_Doc_and_collections",
+  "index": 664,
+  "question": "What is detail of collection subset with name 'Top collection'?",
+  "sql": "SELECT * FROM Collection_Subsets WHERE Collection_Subset_Name = 'Top collection';",
+  "semantic": {
+    "back_translation": {
+      "intent": "检索所有符合条件的记录",
+      "tables": [
+        "Collection_Subsets"
+      ],
+      "columns": [
+        "Collection_Subset_ID",
+        "Collection_Subset_Name",
+        "Collecrtion_Subset_Details"
+      ],
+      "filters": [
+        "Collection_Subset_Name = 'Top collection'"
+      ],
+      "agg": [],
+      "group_by": [],
+      "order_by": [],
+      "limit": null
+    },
+    "score": 1.0,
+    "pass": true,
+    "reason": "原始问题询问的是名为 'Top collection' 的集合子集的详细信息，SQL反向翻译描述准确地表达了这一意图，包括目标表、相关列和过滤条件，没有遗漏或错误。"
+  }
+}

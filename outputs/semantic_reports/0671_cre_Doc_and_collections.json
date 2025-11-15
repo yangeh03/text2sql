@@ -1,0 +1,25 @@
+{
+  "db_id": "cre_Doc_and_collections",
+  "index": 671,
+  "question": "What is the object id of the document objects?",
+  "sql": "SELECT Document_Object_ID FROM Document_Objects",
+  "semantic": {
+    "back_translation": {
+      "intent": "获取文档对象的ID",
+      "tables": [
+        "Document_Objects"
+      ],
+      "columns": [
+        "Document_Object_ID"
+      ],
+      "filters": [],
+      "agg": [],
+      "group_by": [],
+      "order_by": [],
+      "limit": null
+    },
+    "score": 1.0,
+    "pass": true,
+    "reason": "语义完全一致，原始问题询问文档对象的ID，SQL反向翻译描述准确对应了目标表和列，且无过滤、聚合、分组或排序要求。"
+  }
+}

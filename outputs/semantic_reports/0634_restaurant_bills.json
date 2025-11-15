@@ -1,0 +1,27 @@
+{
+  "db_id": "restaurant_bills",
+  "index": 634,
+  "question": "For each order, return the customer name and the dish name.",
+  "sql": "SELECT customer_order.Dish_Name, customer.Name FROM customer_order LEFT JOIN customer ON customer_order.Customer_ID = customer.Customer_ID;",
+  "semantic": {
+    "back_translation": {
+      "intent": "获取订单和客户信息的关联数据",
+      "tables": [
+        "customer_order",
+        "customer"
+      ],
+      "columns": [
+        "Dish_Name",
+        "Name"
+      ],
+      "filters": [],
+      "agg": [],
+      "group_by": [],
+      "order_by": [],
+      "limit": null
+    },
+    "score": 1.0,
+    "pass": true,
+    "reason": "语义一致，原始问题要求为每个订单返回客户名称和菜品名称，SQL反向翻译描述中涉及的表和列与该意图相符，且无过滤、聚合、分组或排序要求。"
+  }
+}

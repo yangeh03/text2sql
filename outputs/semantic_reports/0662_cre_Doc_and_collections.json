@@ -1,0 +1,25 @@
+{
+  "db_id": "cre_Doc_and_collections",
+  "index": 662,
+  "question": "List all collections' subset. List the subsets' names.",
+  "sql": "SELECT Collection_Subset_Name FROM Collection_Subsets;",
+  "semantic": {
+    "back_translation": {
+      "intent": "获取数据",
+      "tables": [
+        "Collection_Subsets"
+      ],
+      "columns": [
+        "Collection_Subset_Name"
+      ],
+      "filters": [],
+      "agg": [],
+      "group_by": [],
+      "order_by": [],
+      "limit": null
+    },
+    "score": 1.0,
+    "pass": true,
+    "reason": "语义一致，原始问题要求列出所有集合的子集及其名称，SQL反向翻译描述正确地指定了目标表和列，且无过滤、聚合、分组或排序条件，符合原始问题的意图。"
+  }
+}

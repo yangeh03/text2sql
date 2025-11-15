@@ -1,0 +1,29 @@
+{
+  "db_id": "club_leader",
+  "index": 653,
+  "question": "Show the nations that have at least two members.",
+  "sql": "SELECT member.Nationality FROM member GROUP BY member.Nationality HAVING COUNT(*) >= 2;",
+  "semantic": {
+    "back_translation": {
+      "intent": "查询具有相同国籍的成员",
+      "tables": [
+        "member"
+      ],
+      "columns": [
+        "Nationality"
+      ],
+      "filters": [],
+      "agg": [
+        "COUNT(*)"
+      ],
+      "group_by": [
+        "Nationality"
+      ],
+      "order_by": [],
+      "limit": null
+    },
+    "score": 0.5,
+    "pass": false,
+    "reason": "原始问题要求显示至少有两个成员的国家，但反向翻译描述中缺少HAVING COUNT(*) >= 2的筛选条件，仅通过分组统计无法满足最小数量要求"
+  }
+}

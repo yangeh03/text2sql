@@ -1,0 +1,35 @@
+{
+  "db_id": "restaurant_bills",
+  "index": 639,
+  "question": "Show the customers with total quantity of order bigger than 1.",
+  "sql": "SELECT customer.Customer_ID, customer.Name, SUM(customer_order.Quantity) AS Total_Quantity FROM customer JOIN customer_order ON customer.Customer_ID = customer_order.Customer_ID GROUP BY customer.Customer_ID HAVING SUM(customer_order.Quantity) > 1;",
+  "semantic": {
+    "back_translation": {
+      "intent": "查询满足特定条件的客户及其总订购量",
+      "tables": [
+        "customer",
+        "customer_order"
+      ],
+      "columns": [
+        "Customer_ID",
+        "Name",
+        "Quantity"
+      ],
+      "filters": [
+        "customer.Customer_ID IN (1, Arthur Morris, Denis Compton, Donald Bradman, Cyril Washbrook, Len Hutton)",
+        "customer_order.Dish_Name IN (Spring Rolls, Kung Pao Chicken, Ma Po Tofu, Peking Roasted Duck)"
+      ],
+      "agg": [
+        "SUM"
+      ],
+      "group_by": [
+        "customer.Customer_ID"
+      ],
+      "order_by": [],
+      "limit": null
+    },
+    "score": 0.3,
+    "pass": false,
+    "reason": "filters中错误地添加了customer表的Customer_ID和customer_order表的Dish_Name条件，而原始问题仅要求总订购量大于1的客户，未涉及具体客户ID或菜品名称的过滤"
+  }
+}

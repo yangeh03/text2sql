@@ -1,0 +1,25 @@
+{
+  "db_id": "book_1",
+  "index": 525,
+  "question": "Count the number of authors.",
+  "sql": "SELECT COUNT(*) FROM Author;",
+  "semantic": {
+    "back_translation": {
+      "intent": "统计指定表的记录数量",
+      "tables": [
+        "Author"
+      ],
+      "columns": [],
+      "filters": [],
+      "agg": [
+        "COUNT(*)"
+      ],
+      "group_by": [],
+      "order_by": [],
+      "limit": null
+    },
+    "score": 1.0,
+    "pass": true,
+    "reason": "语义完全一致，原始问题要求统计作者数量，SQL反向翻译描述中使用COUNT(*)对Author表进行统计，无过滤条件，符合原始问题意图。"
+  }
+}

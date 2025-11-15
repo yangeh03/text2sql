@@ -1,0 +1,29 @@
+{
+  "db_id": "address_1",
+  "index": 783,
+  "question": "Which states have at least two cities?",
+  "sql": "SELECT state FROM City GROUP BY state HAVING COUNT(*) >= 2;",
+  "semantic": {
+    "back_translation": {
+      "intent": "查找满足条件的特定字段值",
+      "tables": [
+        "City"
+      ],
+      "columns": [
+        "state"
+      ],
+      "filters": [],
+      "agg": [
+        "COUNT"
+      ],
+      "group_by": [
+        "state"
+      ],
+      "order_by": [],
+      "limit": null
+    },
+    "score": 0.0,
+    "pass": false,
+    "reason": "原始问题询问的是哪些州有至少两个城市，而SQL反向翻译描述中没有体现筛选条件（如COUNT(city) >= 2）或最终结果的筛选逻辑，导致语义不一致。"
+  }
+}

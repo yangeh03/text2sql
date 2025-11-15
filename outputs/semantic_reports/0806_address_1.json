@@ -1,0 +1,28 @@
+{
+  "db_id": "address_1",
+  "index": 806,
+  "question": "Show ids for all students who don't live in USA.",
+  "sql": "SELECT StuID FROM Student JOIN City ON Student.city_code = City.city_code WHERE City.country != 'USA'",
+  "semantic": {
+    "back_translation": {
+      "intent": "获取满足特定条件的学生ID列表",
+      "tables": [
+        "Student",
+        "City"
+      ],
+      "columns": [
+        "StuID"
+      ],
+      "filters": [
+        "City.country != 'USA'"
+      ],
+      "agg": [],
+      "group_by": [],
+      "order_by": [],
+      "limit": null
+    },
+    "score": 1.0,
+    "pass": true,
+    "reason": "语义一致，原始问题要求显示所有不住在美国的学生ID，SQL反向翻译描述中的过滤条件City.country != 'USA'准确表达了这一意图，且未涉及聚合、分组或排序，与原始问题一致。"
+  }
+}

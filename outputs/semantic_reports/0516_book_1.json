@@ -1,0 +1,25 @@
+{
+  "db_id": "book_1",
+  "index": 516,
+  "question": "List all the author names.",
+  "sql": "SELECT Name FROM Author;",
+  "semantic": {
+    "back_translation": {
+      "intent": "获取数据",
+      "tables": [
+        "Author"
+      ],
+      "columns": [
+        "Name"
+      ],
+      "filters": [],
+      "agg": [],
+      "group_by": [],
+      "order_by": [],
+      "limit": null
+    },
+    "score": 1.0,
+    "pass": true,
+    "reason": "完全一致。原始问题要求列出所有作者姓名，对应SQL反向翻译描述中的目标表Author、列Name，且无过滤、聚合、分组、排序或限制条件。"
+  }
+}

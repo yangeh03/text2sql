@@ -1,0 +1,29 @@
+{
+  "db_id": "cre_Doc_and_collections",
+  "index": 698,
+  "question": "List all document which is related to document owned by Ransom . List the document id .",
+  "sql": "SELECT DISTINCT Related_Document_Object_ID AS Document_Object_ID FROM Document_Subset_Members WHERE Document_Object_ID IN (SELECT Document_Object_ID FROM Document_Objects WHERE Owner = 'Ransom') UNION SELECT DISTINCT Document_Object_ID AS Document_Object_ID FROM Document_Subset_Members WHERE Related_Document_Object_ID IN (SELECT Document_Object_ID FROM Document_Objects WHERE Owner = 'Ransom') ORDER BY Document_Object_ID;",
+  "semantic": {
+    "back_translation": {
+      "intent": "获取与'Ransom'所有者相关的文档对象ID的集合",
+      "tables": [
+        "Document_Subset_Members",
+        "Document_Objects"
+      ],
+      "columns": [
+        "Document_Object_ID"
+      ],
+      "filters": [
+        "Document_Object_ID IN (SELECT Document_Object_ID FROM Document_Objects WHERE Owner = 'Ransom')",
+        "Related_Document_Object_ID IN (SELECT Document_Object_ID FROM Document_Objects WHERE Owner = 'Ransom')"
+      ],
+      "agg": [],
+      "group_by": [],
+      "order_by": [],
+      "limit": null
+    },
+    "score": 0.5,
+    "pass": false,
+    "reason": "原始问题要求列出与'Ransom'拥有文档相关的文档ID，而SQL描述中错误地将两个表的Document_Object_ID均作为过滤条件，实际应通过Document_Subset_Members表的关联关系字段（如Related_Document_Object_ID）进行连接查询，且未明确关联逻辑导致结果可能包含冗余或错误数据。"
+  }
+}

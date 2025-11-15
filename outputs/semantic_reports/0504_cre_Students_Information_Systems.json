@@ -1,0 +1,32 @@
+{
+  "db_id": "cre_Students_Information_Systems",
+  "index": 504,
+  "question": "How many courses does each student take? List the student id, the student biographical data and the course count.",
+  "sql": "SELECT Students.student_id, Students.bio_data, COUNT(Transcripts.transcript_id) AS course_count FROM Students JOIN Transcripts ON Students.student_id = Transcripts.student_id GROUP BY Students.student_id, Students.bio_data;",
+  "semantic": {
+    "back_translation": {
+      "intent": "统计每个学生的课程数量",
+      "tables": [
+        "Students",
+        "Transcripts"
+      ],
+      "columns": [
+        "Students.student_id",
+        "Students.bio_data"
+      ],
+      "filters": [],
+      "agg": [
+        "COUNT"
+      ],
+      "group_by": [
+        "Students.student_id",
+        "Students.bio_data"
+      ],
+      "order_by": [],
+      "limit": null
+    },
+    "score": 0.5,
+    "pass": false,
+    "reason": "原始问题要求列出每个学生的课程数量，但SQL反向翻译的描述中未明确关联课程表（如Courses），且使用Transcripts表可能不准确。此外，'course count'应基于课程数量进行统计，但描述中未体现与课程表的连接或正确的计数逻辑。"
+  }
+}

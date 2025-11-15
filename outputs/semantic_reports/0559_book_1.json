@@ -1,0 +1,28 @@
+{
+  "db_id": "book_1",
+  "index": 559,
+  "question": "What are the names of clients who have never made an order?",
+  "sql": "SELECT Name FROM Client WHERE IdClient NOT IN (SELECT IdClient FROM Orders);",
+  "semantic": {
+    "back_translation": {
+      "intent": "查找没有下过订单的客户姓名",
+      "tables": [
+        "Client",
+        "Orders"
+      ],
+      "columns": [
+        "Name"
+      ],
+      "filters": [
+        "IdClient NOT IN (SELECT IdClient FROM Orders)"
+      ],
+      "agg": [],
+      "group_by": [],
+      "order_by": [],
+      "limit": null
+    },
+    "score": 1.0,
+    "pass": true,
+    "reason": "语义完全一致。SQL描述正确实现了原始问题要求，通过NOT IN子查询准确筛选出未下单客户，涉及的Client和Orders表、Name列均符合需求，且无额外聚合/分组/排序操作。"
+  }
+}

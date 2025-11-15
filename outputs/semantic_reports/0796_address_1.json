@@ -1,0 +1,31 @@
+{
+  "db_id": "address_1",
+  "index": 796,
+  "question": "Find the number of students living in each city.",
+  "sql": "SELECT City.city_name, COUNT(*) AS num_students FROM Student INNER JOIN City ON Student.city_code = City.city_code GROUP BY City.city_code;",
+  "semantic": {
+    "back_translation": {
+      "intent": "统计每个城市的注册学生数量",
+      "tables": [
+        "Student",
+        "City"
+      ],
+      "columns": [
+        "City.city_name",
+        "COUNT(*) AS num_students"
+      ],
+      "filters": [],
+      "agg": [
+        "COUNT(*)"
+      ],
+      "group_by": [
+        "City.city_name"
+      ],
+      "order_by": [],
+      "limit": null
+    },
+    "score": 0.5,
+    "pass": false,
+    "reason": "原始问题中未明确提及'City'表，而SQL反向翻译描述中包含了'City'表和'City.city_name'列，可能导致语义不一致。"
+  }
+}

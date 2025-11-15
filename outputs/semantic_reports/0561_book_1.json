@@ -1,0 +1,28 @@
+{
+  "db_id": "book_1",
+  "index": 561,
+  "question": "Give the maximum and minimum sale price of books.",
+  "sql": "SELECT MAX(SalePrice), MIN(SalePrice) FROM Book;",
+  "semantic": {
+    "back_translation": {
+      "intent": "查询最大值和最小值",
+      "tables": [
+        "Book"
+      ],
+      "columns": [
+        "SalePrice"
+      ],
+      "filters": [],
+      "agg": [
+        "MAX(SalePrice)",
+        "MIN(SalePrice)"
+      ],
+      "group_by": [],
+      "order_by": [],
+      "limit": null
+    },
+    "score": 1.0,
+    "pass": true,
+    "reason": "语义一致，原始问题要求查询书籍的最高和最低销售价格，SQL反向翻译描述正确地使用了MAX和MIN聚合函数对SalePrice列进行计算，且未添加额外过滤、分组或排序条件。"
+  }
+}

@@ -1,0 +1,25 @@
+{
+  "db_id": "book_1",
+  "index": 517,
+  "question": "What are the names of all the authors?",
+  "sql": "SELECT Name FROM Author;",
+  "semantic": {
+    "back_translation": {
+      "intent": "查询作者名称",
+      "tables": [
+        "Author"
+      ],
+      "columns": [
+        "Name"
+      ],
+      "filters": [],
+      "agg": [],
+      "group_by": [],
+      "order_by": [],
+      "limit": null
+    },
+    "score": 1.0,
+    "pass": true,
+    "reason": "语义完全一致。原始问题要求获取所有作者的姓名，SQL描述准确对应了查询意图（查询作者名称）、目标表（Author）、列（Name），且无过滤、聚合、分组、排序等额外要求。"
+  }
+}

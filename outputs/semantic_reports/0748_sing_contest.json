@@ -1,0 +1,28 @@
+{
+  "db_id": "sing_contest",
+  "index": 748,
+  "question": "What are the names and original artists of the song whose English translation is 'All the streets of love'?",
+  "sql": "SELECT name, original_artist FROM songs WHERE english_translation = 'All the streets of love';",
+  "semantic": {
+    "back_translation": {
+      "intent": "查询歌曲名称和原艺术家",
+      "tables": [
+        "songs"
+      ],
+      "columns": [
+        "name",
+        "original_artist"
+      ],
+      "filters": [
+        "english_translation = 'All the streets of love'"
+      ],
+      "agg": [],
+      "group_by": [],
+      "order_by": [],
+      "limit": null
+    },
+    "score": 1.0,
+    "pass": true,
+    "reason": "语义一致，SQL反向翻译描述准确反映了原始问题的意图，即查询歌曲名称和原艺术家，且过滤条件为英文翻译为'All the streets of love'。"
+  }
+}

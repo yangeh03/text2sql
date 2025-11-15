@@ -1,0 +1,32 @@
+{
+  "db_id": "cre_Doc_and_collections",
+  "index": 707,
+  "question": "What are the ids of the dcouments that have between 2 and 4 related documents and how many related items are there?",
+  "sql": "SELECT Document_Object_ID, COUNT(*) AS related_items FROM Document_Subset_Members GROUP BY Document_Object_ID HAVING COUNT(*) BETWEEN 2 AND 4;",
+  "semantic": {
+    "back_translation": {
+      "intent": "统计相关条目数量并筛选符合条件的",
+      "tables": [
+        "Document_Subset_Members"
+      ],
+      "columns": [
+        "Document_Object_ID",
+        "COUNT(*) AS related_items"
+      ],
+      "filters": [
+        "Related_Document_Object_ID IN (2, 4, Ransom, Marlin, Braeden)"
+      ],
+      "agg": [
+        "COUNT(*)"
+      ],
+      "group_by": [
+        "Document_Object_ID"
+      ],
+      "order_by": [],
+      "limit": null
+    },
+    "score": 0.0,
+    "pass": false,
+    "reason": "原始问题要求统计具有2到4个相关文档的文档ID及其相关条目数量，但SQL反向翻译的描述中过滤条件使用了具体的值(2, 4, Ransom, Marlin, Braeden)，而未体现范围条件(2到4)。此外，未明确说明统计的是相关文档数量而非相关条目数量。"
+  }
+}

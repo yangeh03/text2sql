@@ -1,0 +1,26 @@
+{
+  "db_id": "club_leader",
+  "index": 647,
+  "question": "What are the names and nationalities of the members?",
+  "sql": "SELECT Name, Nationality FROM member",
+  "semantic": {
+    "back_translation": {
+      "intent": "获取数据",
+      "tables": [
+        "member"
+      ],
+      "columns": [
+        "Name",
+        "Nationality"
+      ],
+      "filters": [],
+      "agg": [],
+      "group_by": [],
+      "order_by": [],
+      "limit": null
+    },
+    "score": 1.0,
+    "pass": true,
+    "reason": "语义完全一致，原始问题要求获取成员的姓名和国籍，SQL反向翻译描述中表为member，列包括Name和Nationality，无过滤、聚合、分组或排序条件，符合原始问题的意图。"
+  }
+}

@@ -1,0 +1,28 @@
+{
+  "db_id": "book_1",
+  "index": 570,
+  "question": "List all book titles which have highest purchase prices .",
+  "sql": "SELECT Title FROM Book WHERE PurchasePrice = (SELECT MAX(PurchasePrice) FROM Book);",
+  "semantic": {
+    "back_translation": {
+      "intent": "查询最高购买价格的书籍标题",
+      "tables": [
+        "Book",
+        "Books_Order"
+      ],
+      "columns": [
+        "Title"
+      ],
+      "filters": [],
+      "agg": [],
+      "group_by": [],
+      "order_by": [
+        "PurchasePrice DESC"
+      ],
+      "limit": 1
+    },
+    "score": 0.5,
+    "pass": false,
+    "reason": "原始问题要求列出所有具有最高购买价格的书籍标题，而SQL反向翻译描述中使用了order_by PurchasePrice DESC和limit 1，仅返回单条记录，未处理多条记录可能具有相同最高价格的情况。"
+  }
+}

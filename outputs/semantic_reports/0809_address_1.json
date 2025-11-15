@@ -1,0 +1,29 @@
+{
+  "db_id": "address_1",
+  "index": 809,
+  "question": "What are the student ids for female students in the state of PA?",
+  "sql": "SELECT StuID FROM Student WHERE Sex = 'F' AND city_code IN (SELECT city_code FROM City WHERE state = 'PA');",
+  "semantic": {
+    "back_translation": {
+      "intent": "查询满足特定条件的学生ID",
+      "tables": [
+        "Student",
+        "City"
+      ],
+      "columns": [
+        "StuID"
+      ],
+      "filters": [
+        "Sex = 'F'",
+        "city_code IN (SELECT city_code FROM City WHERE state = 'PA')"
+      ],
+      "agg": [],
+      "group_by": [],
+      "order_by": [],
+      "limit": null
+    },
+    "score": 0.5,
+    "pass": false,
+    "reason": "SQL中引入了City表，而原始问题仅涉及Student表。过滤条件中的city_code关联逻辑未在原始问题中体现，可能导致结果集包含非PA州的女性学生（若Student表本身不包含state字段）"
+  }
+}

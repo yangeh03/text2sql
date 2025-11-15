@@ -1,0 +1,32 @@
+{
+  "db_id": "cre_Doc_and_collections",
+  "index": 713,
+  "question": "What is the subset id, name, and number of different documents for each subset?",
+  "sql": "SELECT Document_Subset_Members.Document_Subset_ID, Document_Subsets.Document_Subset_Name, COUNT(DISTINCT Document_Subset_Members.Document_Object_ID) AS number_of_documents FROM Document_Subset_Members JOIN Document_Subsets ON Document_Subset_Members.Document_Subset_ID = Document_Subsets.Document_Subset_ID GROUP BY Document_Subset_Members.Document_Subset_ID, Document_Subsets.Document_Subset_Name;",
+  "semantic": {
+    "back_translation": {
+      "intent": "统计每个文档子集中的不同文档数量",
+      "tables": [
+        "Document_Subset_Members"
+      ],
+      "columns": [
+        "Document_Subset_ID",
+        "Document_Subset_Name",
+        "number_of_documents"
+      ],
+      "filters": [],
+      "agg": [
+        "COUNT(DISTINCT Document_Object_ID)"
+      ],
+      "group_by": [
+        "Document_Subset_ID",
+        "Document_Subset_Name"
+      ],
+      "order_by": [],
+      "limit": null
+    },
+    "score": 1.0,
+    "pass": true,
+    "reason": "语义完全一致。原始问题要求每个子集的ID、名称和不同文档数量，SQL通过COUNT(DISTINCT Document_Object_ID)计算数量，并按Document_Subset_ID和Document_Subset_Name分组，准确对应问题需求。"
+  }
+}

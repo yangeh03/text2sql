@@ -1,0 +1,29 @@
+{
+  "db_id": "cre_Doc_and_collections",
+  "index": 738,
+  "question": "How many collections that are related to collection named Best?",
+  "sql": "SELECT COUNT(*) FROM Collection_Subset_Members WHERE Related_Collection_ID = (SELECT Collection_ID FROM Collections WHERE Collection_Name = 'Best')",
+  "semantic": {
+    "back_translation": {
+      "intent": "统计满足条件的记录数量",
+      "tables": [
+        "Collection_Subset_Members",
+        "Collections"
+      ],
+      "columns": [],
+      "filters": [
+        "Collection_ID = (SELECT Collection_ID FROM Collections WHERE Collection_Name = 'Best')",
+        "Related_Collection_ID = (SELECT Collection_ID FROM Collections WHERE Collection_Name = 'Best')"
+      ],
+      "agg": [
+        "COUNT(*)"
+      ],
+      "group_by": [],
+      "order_by": [],
+      "limit": null
+    },
+    "score": 0.5,
+    "pass": false,
+    "reason": "filters 条件错误，原始问题要求统计与 'Best' 集合相关联的其他集合数量，但 SQL 过滤条件错误地将两个字段（Collection_ID 和 Related_Collection_ID）均设置为等于 'Best' 的 Collection_ID，这会导致逻辑错误。正确做法应仅通过 Related_Collection_ID 进行关联筛选"
+  }
+}

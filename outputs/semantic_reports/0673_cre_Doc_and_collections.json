@@ -1,0 +1,27 @@
+{
+  "db_id": "cre_Doc_and_collections",
+  "index": 673,
+  "question": "What are the document object ids of the objects owned by Marlin?",
+  "sql": "SELECT Document_Object_ID FROM Document_Objects WHERE Owner = 'Marlin'",
+  "semantic": {
+    "back_translation": {
+      "intent": "查询特定所有者的文档对象ID",
+      "tables": [
+        "Document_Objects"
+      ],
+      "columns": [
+        "Document_Object_ID"
+      ],
+      "filters": [
+        "Owner = 'Marlin'"
+      ],
+      "agg": [],
+      "group_by": [],
+      "order_by": [],
+      "limit": null
+    },
+    "score": 1.0,
+    "pass": true,
+    "reason": "语义一致，原始问题要求获取所有者为Marlin的文档对象ID，SQL反向翻译描述准确反映了这一意图，包括目标表、列和过滤条件。"
+  }
+}

@@ -1,0 +1,29 @@
+{
+  "db_id": "cre_Doc_and_collections",
+  "index": 669,
+  "question": "What are the details on the document subsets that are named 'Best for 2000'?",
+  "sql": "SELECT Document_Subset_ID, Document_Subset_Name, Document_Subset_Details FROM Document_Subsets WHERE Document_Subset_Name = 'Best for 2000';",
+  "semantic": {
+    "back_translation": {
+      "intent": "查询特定文档子集的信息",
+      "tables": [
+        "Document_Subsets"
+      ],
+      "columns": [
+        "Document_Subset_ID",
+        "Document_Subset_Name",
+        "Document_Subset_Details"
+      ],
+      "filters": [
+        "Document_Subset_Name = 'Best for 2000'"
+      ],
+      "agg": [],
+      "group_by": [],
+      "order_by": [],
+      "limit": null
+    },
+    "score": 1.0,
+    "pass": true,
+    "reason": "原始问题要求查询名为'Best for 2000'的文档子集的详细信息，与SQL描述中选取Document_Subsets表的Document_Subset_Details字段且过滤条件为Document_Subset_Name='Best for 2000'的意图完全一致，无差异"
+  }
+}

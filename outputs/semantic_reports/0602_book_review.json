@@ -1,0 +1,28 @@
+{
+  "db_id": "book_review",
+  "index": 602,
+  "question": "What is the rating of the book with the largest number of chapters?",
+  "sql": "SELECT review.Rating FROM review JOIN book ON review.Book_ID = book.Book_ID ORDER BY book.Chapters DESC LIMIT 1;",
+  "semantic": {
+    "back_translation": {
+      "intent": "查询最高评分的书的评分",
+      "tables": [
+        "review",
+        "book"
+      ],
+      "columns": [
+        "review.Rating"
+      ],
+      "filters": [],
+      "agg": [],
+      "group_by": [],
+      "order_by": [
+        "book.Chapters DESC"
+      ],
+      "limit": 1
+    },
+    "score": 0.3,
+    "pass": false,
+    "reason": "意图不一致：原始问题要求根据章节数最多筛选书籍再获取评分，而SQL意图描述为查询最高评分的书籍。columns字段错误：应为book表的Rating而非review.Rating。order_by条件正确但意图错误。"
+  }
+}

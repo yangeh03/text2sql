@@ -1,0 +1,28 @@
+{
+  "db_id": "club_leader",
+  "index": 655,
+  "question": "Show the names of club leaders of clubs with overall ranking higher than 100.",
+  "sql": "SELECT club.Team_Leader FROM club JOIN club_leader ON club.Club_ID = club_leader.Club_ID WHERE club.Overall_Ranking > 100;",
+  "semantic": {
+    "back_translation": {
+      "intent": "获取特定信息",
+      "tables": [
+        "club",
+        "club_leader"
+      ],
+      "columns": [
+        "Team_Leader"
+      ],
+      "filters": [
+        "club.Overall_Ranking > 100"
+      ],
+      "agg": [],
+      "group_by": [],
+      "order_by": [],
+      "limit": null
+    },
+    "score": 1.0,
+    "pass": true,
+    "reason": "语义一致，原始问题要求显示排名高于100的俱乐部的负责人姓名，SQL反向翻译描述中的过滤条件和目标列与之匹配。"
+  }
+}

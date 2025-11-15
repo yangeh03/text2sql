@@ -1,0 +1,32 @@
+{
+  "db_id": "book_1",
+  "index": 534,
+  "question": "Show all author names and the numbers of books each has written.",
+  "sql": "SELECT Author.Name, COUNT(Book.ISBN) AS num_books FROM Author JOIN Author_Book ON Author.idAuthor = Author_Book.Author JOIN Book ON Author_Book.ISBN = Book.ISBN GROUP BY Author.Name;",
+  "semantic": {
+    "back_translation": {
+      "intent": "统计每位作者所著的书籍数量",
+      "tables": [
+        "Author",
+        "Author_Book",
+        "Book"
+      ],
+      "columns": [
+        "Author.Name",
+        "num_books"
+      ],
+      "filters": [],
+      "agg": [
+        "COUNT(Book.ISBN)"
+      ],
+      "group_by": [
+        "Author.Name"
+      ],
+      "order_by": [],
+      "limit": null
+    },
+    "score": 1.0,
+    "pass": true,
+    "reason": "语义一致，原始问题要求显示所有作者姓名及其著作数量，SQL反向翻译描述中的意图、聚合、分组均与之匹配。"
+  }
+}

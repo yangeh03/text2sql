@@ -1,0 +1,27 @@
+{
+  "db_id": "cre_Doc_and_collections",
+  "index": 676,
+  "question": "What is the owner of the parent document of document owned by 'Marlin'?",
+  "sql": "SELECT Owner FROM Document_Objects WHERE Document_Object_ID = (SELECT Parent_Document_Object_ID FROM Document_Objects WHERE Owner = 'Marlin')",
+  "semantic": {
+    "back_translation": {
+      "intent": "查询特定文档对象的所有者",
+      "tables": [
+        "Document_Objects"
+      ],
+      "columns": [
+        "Owner"
+      ],
+      "filters": [
+        "Document_Object_ID = (SELECT Parent_Document_Object_ID FROM Document_Objects WHERE Owner = 'Marlin')"
+      ],
+      "agg": [],
+      "group_by": [],
+      "order_by": [],
+      "limit": null
+    },
+    "score": 1.0,
+    "pass": true,
+    "reason": "语义一致。原始问题要求找到'Marlin'拥有文档的父文档的所有者，SQL通过子查询获取'Marlin'的文档的Parent_Document_Object_ID，再用该ID查找对应的所有者，符合原始问题的逻辑。"
+  }
+}

@@ -1,0 +1,31 @@
+{
+  "db_id": "book_review",
+  "index": 604,
+  "question": "What is the title of the book with the highest rank in the review?",
+  "sql": "SELECT Title FROM book JOIN review ON book.Book_ID = review.Book_ID ORDER BY review.Rank ASC LIMIT 1;",
+  "semantic": {
+    "back_translation": {
+      "intent": "获取书籍标题按排名升序排列的第一条记录",
+      "tables": [
+        "book",
+        "review"
+      ],
+      "columns": [
+        "Title"
+      ],
+      "filters": [
+        "book.Book_ID = review.Book_ID"
+      ],
+      "agg": [],
+      "group_by": [],
+      "order_by": [
+        "review.Rank",
+        "ASC"
+      ],
+      "limit": 1
+    },
+    "score": 1.0,
+    "pass": true,
+    "reason": "原始问题要求获取评价中排名最高的书的标题，SQL描述通过按review.Rank升序排列并取第一条记录实现了这一目标。两者在意图（获取最高排名书籍标题）、关联表（book和review）、连接条件（Book_ID关联）、排序方式（按Rank升序）和限制条件（取第一条）上完全一致。"
+  }
+}

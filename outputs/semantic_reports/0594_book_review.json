@@ -1,0 +1,25 @@
+{
+  "db_id": "book_review",
+  "index": 594,
+  "question": "How many books are there?",
+  "sql": "SELECT COUNT(*) FROM book;",
+  "semantic": {
+    "back_translation": {
+      "intent": "统计书籍数量",
+      "tables": [
+        "book"
+      ],
+      "columns": [],
+      "filters": [],
+      "agg": [
+        "COUNT(*)"
+      ],
+      "group_by": [],
+      "order_by": [],
+      "limit": null
+    },
+    "score": 1.0,
+    "pass": true,
+    "reason": "原始问题询问书籍总数，SQL反向翻译描述准确使用COUNT(*)对book表进行统计，无过滤、分组、排序等额外条件，完全匹配"
+  }
+}

@@ -1,0 +1,27 @@
+{
+  "db_id": "book_review",
+  "index": 599,
+  "question": "What are the titles of books that are not \"Poet\"?",
+  "sql": "SELECT Title FROM book WHERE Type <> 'Poet'",
+  "semantic": {
+    "back_translation": {
+      "intent": "查询书籍标题",
+      "tables": [
+        "book"
+      ],
+      "columns": [
+        "Title"
+      ],
+      "filters": [
+        "Type != 'Poet'"
+      ],
+      "agg": [],
+      "group_by": [],
+      "order_by": [],
+      "limit": null
+    },
+    "score": 0.0,
+    "pass": false,
+    "reason": "语义判定解析失败"
+  }
+}

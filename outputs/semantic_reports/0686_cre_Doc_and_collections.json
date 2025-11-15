@@ -1,0 +1,27 @@
+{
+  "db_id": "cre_Doc_and_collections",
+  "index": 686,
+  "question": "List the name of all collections.",
+  "sql": "SELECT Collection_Name FROM Collections;",
+  "semantic": {
+    "back_translation": {
+      "intent": "查询特定集合名称的集合",
+      "tables": [
+        "Collections"
+      ],
+      "columns": [
+        "Collection_Name"
+      ],
+      "filters": [
+        "Collection_Name IN ('Best', 'Nice')"
+      ],
+      "agg": [],
+      "group_by": [],
+      "order_by": [],
+      "limit": null
+    },
+    "score": 0.5,
+    "pass": false,
+    "reason": "原始问题要求列出所有集合名称，但SQL描述中包含过滤条件(Collection_Name IN ('Best', 'Nice'))，导致结果范围被错误限制"
+  }
+}

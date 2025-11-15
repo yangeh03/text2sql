@@ -1,0 +1,31 @@
+{
+  "db_id": "book_1",
+  "index": 576,
+  "question": "What is the title of the book written by George Orwell that has the lowest sale price?",
+  "sql": "SELECT Title FROM Book JOIN Author_Book ON Book.ISBN = Author_Book.ISBN JOIN Author ON Author_Book.Author = Author.idAuthor WHERE Author.Name = 'George Orwell' ORDER BY SalePrice ASC LIMIT 1;",
+  "semantic": {
+    "back_translation": {
+      "intent": "查询某作者的书籍标题，按售价升序排列并限制返回一条记录",
+      "tables": [
+        "Book",
+        "Author_Book",
+        "Author"
+      ],
+      "columns": [
+        "Title"
+      ],
+      "filters": [
+        "Author.Name = 'George Orwell'"
+      ],
+      "agg": [],
+      "group_by": [],
+      "order_by": [
+        "SalePrice ASC"
+      ],
+      "limit": 1
+    },
+    "score": 1.0,
+    "pass": true,
+    "reason": "语义一致，SQL反向翻译描述准确表达了原始问题的意图：查询George Orwell所写书籍的标题，按售价升序排列并取最低售价的书。"
+  }
+}

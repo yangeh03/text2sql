@@ -1,0 +1,30 @@
+{
+  "db_id": "book_1",
+  "index": 572,
+  "question": "What is the average sale price of books written by George Orwell?",
+  "sql": "SELECT AVG(Book.SalePrice) FROM Book JOIN Author_Book ON Book.ISBN = Author_Book.ISBN WHERE Author_Book.Author = 'George Orwell';",
+  "semantic": {
+    "back_translation": {
+      "intent": "计算平均销售价格",
+      "tables": [
+        "Book",
+        "Author_Book"
+      ],
+      "columns": [
+        "SalePrice"
+      ],
+      "filters": [
+        "Author = 'George Orwell'"
+      ],
+      "agg": [
+        "AVG"
+      ],
+      "group_by": [],
+      "order_by": [],
+      "limit": null
+    },
+    "score": 0.5,
+    "pass": false,
+    "reason": "缺少JOIN条件，导致无法正确关联Author_Book表与Book表，过滤条件应作用于关联后的结果而非单个表"
+  }
+}

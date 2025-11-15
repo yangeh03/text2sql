@@ -1,0 +1,26 @@
+{
+  "db_id": "book_1",
+  "index": 544,
+  "question": "Show the titles of books that have been ordered.",
+  "sql": "SELECT Book.Title FROM Book JOIN Books_Order ON Book.ISBN = Books_Order.ISBN WHERE Books_Order.amount > 0",
+  "semantic": {
+    "back_translation": {
+      "intent": "获取书籍的标题信息",
+      "tables": [
+        "Book",
+        "Books_Order"
+      ],
+      "columns": [
+        "Title"
+      ],
+      "filters": [],
+      "agg": [],
+      "group_by": [],
+      "order_by": [],
+      "limit": null
+    },
+    "score": 0.5,
+    "pass": false,
+    "reason": "缺少关键过滤条件，应关联Books_Order表筛选已订购的书籍，但反向翻译描述中filters字段为空"
+  }
+}

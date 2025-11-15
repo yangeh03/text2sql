@@ -1,0 +1,27 @@
+{
+  "db_id": "cre_Doc_and_collections",
+  "index": 690,
+  "question": "What is the name of the parent collection of the collection named Nice?",
+  "sql": "SELECT C2.Collection_Name FROM Collections C1 JOIN Collections C2 ON C1.Parent_Collection_ID = C2.Collection_ID WHERE C1.Collection_Name = 'Nice';",
+  "semantic": {
+    "back_translation": {
+      "intent": "获取特定名称的集合的父集合ID",
+      "tables": [
+        "Collections"
+      ],
+      "columns": [
+        "Parent_Collection_ID"
+      ],
+      "filters": [
+        "Collection_Name = 'Nice'"
+      ],
+      "agg": [],
+      "group_by": [],
+      "order_by": [],
+      "limit": null
+    },
+    "score": 0.5,
+    "pass": false,
+    "reason": "目标列不一致，原始问题要求父集合的名称，而SQL反向翻译描述仅获取父集合ID"
+  }
+}

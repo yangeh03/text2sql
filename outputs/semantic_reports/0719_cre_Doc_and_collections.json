@@ -1,0 +1,27 @@
+{
+  "db_id": "cre_Doc_and_collections",
+  "index": 719,
+  "question": "What are the different subsets of documents related to each document id , list the name of the document subset and id of the actual document ?",
+  "sql": "SELECT Document_Subset_Members.Document_Object_ID, Document_Subset_Members.Document_Subset_ID, Document_Subsets.Document_Subset_Name FROM Document_Subset_Members JOIN Document_Subsets ON Document_Subset_Members.Document_Subset_ID = Document_Subsets.Document_Subset_ID GROUP BY Document_Subset_Members.Document_Object_ID, Document_Subset_Members.Document_Subset_ID;",
+  "semantic": {
+    "back_translation": {
+      "intent": "获取文档子集成员与其对应的文档子集名称的关联信息",
+      "tables": [
+        "Document_Subset_Members",
+        "Document_Subsets"
+      ],
+      "columns": [
+        "Document_Subset_Members.Document_Subset_ID",
+        "Document_Subsets.Document_Subset_Name"
+      ],
+      "filters": [],
+      "agg": [],
+      "group_by": [],
+      "order_by": [],
+      "limit": null
+    },
+    "score": 0.5,
+    "pass": false,
+    "reason": "原始问题要求列出每个文档id相关的不同子集及其名称和实际文档id，但SQL描述中未体现文档id的关联关系，且缺少必要的分组逻辑。目标表应包含Document_Subset_Members与Document_Subsets的连接，但group_by字段为空导致无法按文档id分组。"
+  }
+}

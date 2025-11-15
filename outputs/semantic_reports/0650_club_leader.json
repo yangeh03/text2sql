@@ -1,0 +1,27 @@
+{
+  "db_id": "club_leader",
+  "index": 650,
+  "question": "What is the name of the oldest member?",
+  "sql": "SELECT Name FROM member ORDER BY Age DESC LIMIT 1",
+  "semantic": {
+    "back_translation": {
+      "intent": "查询",
+      "tables": [
+        "member"
+      ],
+      "columns": [
+        "Name"
+      ],
+      "filters": [],
+      "agg": [],
+      "group_by": [],
+      "order_by": [
+        "Age DESC"
+      ],
+      "limit": 1
+    },
+    "score": 1.0,
+    "pass": true,
+    "reason": "正确。SQL描述准确反映了原始问题，通过按年龄降序排序并限制一条记录，即可获取最年长成员的姓名。"
+  }
+}

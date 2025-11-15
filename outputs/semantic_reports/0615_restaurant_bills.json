@@ -1,0 +1,27 @@
+{
+  "db_id": "restaurant_bills",
+  "index": 615,
+  "question": "How many customers are there?",
+  "sql": "SELECT COUNT(Customer_ID) FROM customer;",
+  "semantic": {
+    "back_translation": {
+      "intent": "统计客户数量",
+      "tables": [
+        "customer"
+      ],
+      "columns": [
+        "Customer_ID"
+      ],
+      "filters": [],
+      "agg": [
+        "COUNT"
+      ],
+      "group_by": [],
+      "order_by": [],
+      "limit": null
+    },
+    "score": 1.0,
+    "pass": true,
+    "reason": "原始问题询问客户总数，SQL描述正确使用COUNT聚合函数统计customer表的Customer_ID列。虽然未使用COUNT(*)，但若Customer_ID是唯一标识列则结果等价，且无过滤、分组、排序等额外条件，完全符合语义。"
+  }
+}

@@ -1,0 +1,29 @@
+{
+  "db_id": "book_1",
+  "index": 563,
+  "question": "Give the average purchase price and average sale price for books.",
+  "sql": "SELECT AVG(PurchasePrice), AVG(SalePrice) FROM Book;",
+  "semantic": {
+    "back_translation": {
+      "intent": "计算平均值",
+      "tables": [
+        "Book"
+      ],
+      "columns": [
+        "PurchasePrice",
+        "SalePrice"
+      ],
+      "filters": [],
+      "agg": [
+        "AVG",
+        "AVG"
+      ],
+      "group_by": [],
+      "order_by": [],
+      "limit": null
+    },
+    "score": 1.0,
+    "pass": true,
+    "reason": "语义完全一致，均要求计算书籍表中PurchasePrice和SalePrice的平均值，无过滤、分组、排序或限制条件"
+  }
+}

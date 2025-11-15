@@ -1,0 +1,25 @@
+{
+  "db_id": "club_leader",
+  "index": 645,
+  "question": "How many members are there?",
+  "sql": "SELECT COUNT(*) FROM member;",
+  "semantic": {
+    "back_translation": {
+      "intent": "统计成员数量",
+      "tables": [
+        "member"
+      ],
+      "columns": [],
+      "filters": [],
+      "agg": [
+        "COUNT"
+      ],
+      "group_by": [],
+      "order_by": [],
+      "limit": null
+    },
+    "score": 1.0,
+    "pass": true,
+    "reason": "两者语义完全一致，均要求统计member表中所有成员的总数，未涉及过滤、分组、排序等其他条件"
+  }
+}

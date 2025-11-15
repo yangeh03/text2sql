@@ -1,0 +1,30 @@
+{
+  "db_id": "address_1",
+  "index": 791,
+  "question": "Count the number of students living in China.",
+  "sql": "SELECT COUNT(*) FROM Student INNER JOIN City ON Student.city_code = City.city_code WHERE City.country = 'China'",
+  "semantic": {
+    "back_translation": {
+      "intent": "统计",
+      "tables": [
+        "Student",
+        "City"
+      ],
+      "columns": [
+        "*"
+      ],
+      "filters": [
+        "City.country = 'China'"
+      ],
+      "agg": [
+        "COUNT(*)"
+      ],
+      "group_by": [],
+      "order_by": [],
+      "limit": null
+    },
+    "score": 1.0,
+    "pass": true,
+    "reason": "语义一致，SQL反向翻译描述准确表达了原始问题'统计在中国居住的学生数量'，使用了正确的表、过滤条件和聚合函数。"
+  }
+}

@@ -1,0 +1,25 @@
+{
+  "db_id": "restaurant_bills",
+  "index": 641,
+  "question": "Show distinct managers of branches.",
+  "sql": "SELECT DISTINCT Manager FROM branch;",
+  "semantic": {
+    "back_translation": {
+      "intent": "获取唯一管理者列表",
+      "tables": [
+        "branch"
+      ],
+      "columns": [
+        "Manager"
+      ],
+      "filters": [],
+      "agg": [],
+      "group_by": [],
+      "order_by": [],
+      "limit": null
+    },
+    "score": 1.0,
+    "pass": true,
+    "reason": "语义一致，原始问题要求展示不同分支机构的唯一管理者列表，SQL反向翻译描述正确地指定了目标表为branch，列Manager，并通过distinct获取唯一值，无过滤、聚合、分组或排序要求。"
+  }
+}

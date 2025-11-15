@@ -1,0 +1,28 @@
+{
+  "db_id": "address_1",
+  "index": 815,
+  "question": "What is the distance between Boston and Newark?",
+  "sql": "SELECT distance FROM Direct_distance WHERE (city1_code = 'BOS' AND city2_code = 'EWR') OR (city1_code = 'EWR' AND city2_code = 'BOS');",
+  "semantic": {
+    "back_translation": {
+      "intent": "获取特定城市对之间的距离",
+      "tables": [
+        "Direct_distance"
+      ],
+      "columns": [
+        "distance"
+      ],
+      "filters": [
+        "(city1_code = 'BOS' AND city2_code = 'EWR')",
+        "(city1_code = 'EWR' AND city2_code = 'BOS')"
+      ],
+      "agg": [],
+      "group_by": [],
+      "order_by": [],
+      "limit": null
+    },
+    "score": 0.5,
+    "pass": false,
+    "reason": "过滤条件同时包含两个方向的城市对（BOS-EWR和EWR-BOS），而原始问题仅询问Boston到Newark的单向距离，可能导致返回多余结果或不符合实际需求"
+  }
+}

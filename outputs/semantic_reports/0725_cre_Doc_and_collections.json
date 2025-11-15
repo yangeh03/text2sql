@@ -1,0 +1,30 @@
+{
+  "db_id": "cre_Doc_and_collections",
+  "index": 725,
+  "question": "What is the number of documents in the collection named 'Best'?",
+  "sql": "SELECT COUNT(*) FROM Documents_in_Collections JOIN Collections ON Documents_in_Collections.Collection_ID = Collections.Collection_ID WHERE Collections.Collection_Name = 'Best'",
+  "semantic": {
+    "back_translation": {
+      "intent": "统计满足条件的文档数量",
+      "tables": [
+        "Documents_in_Collections",
+        "Collections"
+      ],
+      "columns": [
+        "*"
+      ],
+      "filters": [
+        "Collections.Collection_Name = 'Best'"
+      ],
+      "agg": [
+        "COUNT(*)"
+      ],
+      "group_by": [],
+      "order_by": [],
+      "limit": null
+    },
+    "score": 1.0,
+    "pass": true,
+    "reason": "原始问题要求统计名为'Best'的集合中的文档数量，SQL描述中通过过滤Collections表的Collection_Name字段并使用COUNT(*)聚合函数实现了该意图，且未涉及分组、排序等无关操作。"
+  }
+}

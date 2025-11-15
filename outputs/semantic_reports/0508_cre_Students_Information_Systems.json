@@ -1,0 +1,30 @@
+{
+  "db_id": "cre_Students_Information_Systems",
+  "index": 508,
+  "question": "What is the code and description of the most common student address type?",
+  "sql": "SELECT r.address_type_code, r.address_type_description FROM Ref_Address_Types r JOIN (SELECT address_type_code, COUNT(*) AS cnt FROM Students_Addresses GROUP BY address_type_code ORDER BY cnt DESC LIMIT 1) s ON r.address_type_code = s.address_type_code;",
+  "semantic": {
+    "back_translation": {
+      "intent": "获取特定地址类型代码的描述",
+      "tables": [
+        "Ref_Address_Types"
+      ],
+      "columns": [
+        "address_type_code",
+        "address_type_description"
+      ],
+      "filters": [
+        "address_type_code IN ('CO', 'HM')"
+      ],
+      "agg": [],
+      "group_by": [],
+      "order_by": [
+        "address_type_code DESC"
+      ],
+      "limit": 1
+    },
+    "score": 0.0,
+    "pass": false,
+    "reason": "原始问题询问的是最常见的学生地址类型代码和描述，而SQL反向翻译的描述中没有体现对地址类型频率的统计或筛选，且过滤条件中包含的地址类型代码('CO', 'HM')与问题无关。"
+  }
+}

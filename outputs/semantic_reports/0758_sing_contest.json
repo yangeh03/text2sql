@@ -1,0 +1,27 @@
+{
+  "db_id": "sing_contest",
+  "index": 758,
+  "question": "What are the distinct names of the participants who have sung a song in 'English'?",
+  "sql": "SELECT DISTINCT participants.name FROM participants JOIN songs ON participants.id = songs.participant_id WHERE songs.language = 'English'",
+  "semantic": {
+    "back_translation": {
+      "intent": "获取符合条件的唯一名称列表",
+      "tables": [
+        "participants"
+      ],
+      "columns": [
+        "name"
+      ],
+      "filters": [
+        "name IN ('Freeway', 'Biby Michael's Friend', 'Iskren Petsov', 'Sunay Chalakov', 'Tsetso Vlaykov')"
+      ],
+      "agg": [],
+      "group_by": [],
+      "order_by": [],
+      "limit": null
+    },
+    "score": 0.0,
+    "pass": false,
+    "reason": "原始问题询问的是用'English'演唱歌曲的参与者名称，而SQL反向翻译的描述中filters部分列出了具体的名称，但未体现'English'语言的过滤条件，导致语义不一致。"
+  }
+}

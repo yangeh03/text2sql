@@ -1,0 +1,28 @@
+{
+  "db_id": "address_1",
+  "index": 805,
+  "question": "What are the states with more than 5 students?",
+  "sql": "SELECT state FROM City WHERE city_code IN (SELECT city_code FROM Student GROUP BY city_code HAVING COUNT(*) > 5);",
+  "semantic": {
+    "back_translation": {
+      "intent": "查询城市状态",
+      "tables": [
+        "City",
+        "Student"
+      ],
+      "columns": [
+        "state"
+      ],
+      "filters": [
+        "city_code IN (SELECT city_code FROM Student GROUP BY city_code HAVING COUNT(*) > 5)"
+      ],
+      "agg": [],
+      "group_by": [],
+      "order_by": [],
+      "limit": null
+    },
+    "score": 1.0,
+    "pass": true,
+    "reason": "语义一致。原始问题询问的是拥有超过5名学生的州，SQL反向翻译描述通过从Student表中筛选出有超过5名学生的city_code，并与City表关联获取对应state，准确表达了这一意图。"
+  }
+}

@@ -1,0 +1,33 @@
+{
+  "db_id": "address_1",
+  "index": 799,
+  "question": "Give the state that has the most students.",
+  "sql": "SELECT City.state, COUNT(*) AS num_students FROM Student JOIN City ON Student.city_code = City.city_code GROUP BY City.state ORDER BY num_students DESC LIMIT 1;",
+  "semantic": {
+    "back_translation": {
+      "intent": "统计每个州的学生数量并按数量降序排列，取最多的学生数量所在的州",
+      "tables": [
+        "Student",
+        "City"
+      ],
+      "columns": [
+        "City.state",
+        "COUNT(*)"
+      ],
+      "filters": [],
+      "agg": [
+        "COUNT(*)"
+      ],
+      "group_by": [
+        "City.state"
+      ],
+      "order_by": [
+        "num_students DESC"
+      ],
+      "limit": 1
+    },
+    "score": 1.0,
+    "pass": true,
+    "reason": "语义完全一致，SQL反向翻译描述准确表达了原始问题的意图：统计每个州的学生数量，按数量降序排列并取第一行。"
+  }
+}

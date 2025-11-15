@@ -1,0 +1,29 @@
+{
+  "db_id": "cre_Doc_and_collections",
+  "index": 675,
+  "question": "What are the owners of the document objects described as the 'Braeden Collection'?",
+  "sql": "SELECT DISTINCT Document_Objects.Owner FROM Document_Objects JOIN Documents_in_Collections ON Document_Objects.Document_Object_ID = Documents_in_Collections.Document_Object_ID JOIN Collections ON Documents_in_Collections.Collection_ID = Collections.Collection_ID WHERE Collections.Collection_Name = 'Braeden Collection';",
+  "semantic": {
+    "back_translation": {
+      "intent": "获取所有属于'Braeden Collection'的文档对象的所有者",
+      "tables": [
+        "Document_Objects",
+        "Documents_in_Collections",
+        "Collections"
+      ],
+      "columns": [
+        "Document_Objects.Owner"
+      ],
+      "filters": [
+        "Collections.Collection_Name = 'Braeden Collection'"
+      ],
+      "agg": [],
+      "group_by": [],
+      "order_by": [],
+      "limit": null
+    },
+    "score": 1.0,
+    "pass": true,
+    "reason": "语义完全一致。原始问题询问属于'Braeden Collection'的文档对象的所有者，SQL描述准确匹配了该意图，通过Collections表的过滤条件正确关联到Document_Objects表，并选择所需Owner列，未使用聚合、分组、排序或限制。"
+  }
+}

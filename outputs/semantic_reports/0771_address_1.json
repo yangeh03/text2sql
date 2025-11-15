@@ -1,0 +1,28 @@
+{
+  "db_id": "address_1",
+  "index": 771,
+  "question": "What latitude and longitude correspond to Baltimore?",
+  "sql": "SELECT latitude, longitude FROM City WHERE city_name = 'Baltimore'",
+  "semantic": {
+    "back_translation": {
+      "intent": "获取特定城市的经纬度信息",
+      "tables": [
+        "City"
+      ],
+      "columns": [
+        "latitude",
+        "longitude"
+      ],
+      "filters": [
+        "city_name = 'Baltimore'"
+      ],
+      "agg": [],
+      "group_by": [],
+      "order_by": [],
+      "limit": null
+    },
+    "score": 1.0,
+    "pass": true,
+    "reason": "语义完全一致，SQL准确查询了City表中Baltimore城市的latitude和longitude字段，无额外操作或过滤条件遗漏"
+  }
+}

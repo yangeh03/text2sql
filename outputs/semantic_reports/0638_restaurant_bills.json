@@ -1,0 +1,31 @@
+{
+  "db_id": "restaurant_bills",
+  "index": 638,
+  "question": "What is the total quantities of dishes ordered by each customer ? List the customer name and the total quantity .",
+  "sql": "SELECT customer.Name, SUM(customer_order.Quantity) AS TotalQuantity FROM customer JOIN customer_order ON customer.Customer_ID = customer_order.Customer_ID GROUP BY customer.Customer_ID;",
+  "semantic": {
+    "back_translation": {
+      "intent": "统计每个客户的订单总数量",
+      "tables": [
+        "customer",
+        "customer_order"
+      ],
+      "columns": [
+        "customer.Name",
+        "customer_order.Quantity"
+      ],
+      "filters": [],
+      "agg": [
+        "SUM(customer_order.Quantity)"
+      ],
+      "group_by": [
+        "customer.Customer_ID"
+      ],
+      "order_by": [],
+      "limit": null
+    },
+    "score": 1.0,
+    "pass": true,
+    "reason": "原始问题要求统计每个客户的订单总数量并列出客户姓名和总数量。SQL描述中意图正确，涉及的表、列、聚合函数和分组字段均准确对应。客户姓名通过customer.Name列获取，总数量通过sum(customer_order.Quantity)计算，分组依据customer.Customer_ID确保每个客户独立统计，且无过滤、排序或限制条件差异。"
+  }
+}

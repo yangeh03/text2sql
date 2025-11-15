@@ -1,0 +1,32 @@
+{
+  "db_id": "restaurant_bills",
+  "index": 629,
+  "question": "Show the most common nationality of customers.",
+  "sql": "SELECT Nationality, COUNT(*) AS count FROM customer GROUP BY Nationality ORDER BY count DESC LIMIT 1;",
+  "semantic": {
+    "back_translation": {
+      "intent": "统计各国籍客户数量并返回最多数量的国籍",
+      "tables": [
+        "customer"
+      ],
+      "columns": [
+        "Nationality",
+        "count"
+      ],
+      "filters": [],
+      "agg": [
+        "COUNT"
+      ],
+      "group_by": [
+        "Nationality"
+      ],
+      "order_by": [
+        "count DESC"
+      ],
+      "limit": 1
+    },
+    "score": 1.0,
+    "pass": true,
+    "reason": "语义完全一致。原始问题要求展示客户中最常见的国籍，SQL描述通过统计各国籍数量（COUNT聚合）、按数量降序排序（ORDER BY count DESC）并限制返回一条记录（LIMIT 1）实现了该需求。"
+  }
+}

@@ -1,0 +1,27 @@
+{
+  "db_id": "restaurant_bills",
+  "index": 626,
+  "question": "Find the customer with the highest membership level and return his or her card credit.",
+  "sql": "SELECT Card_Credit FROM customer WHERE Level_of_Membership = (SELECT MAX(Level_of_Membership) FROM customer);",
+  "semantic": {
+    "back_translation": {
+      "intent": "获取具有最高会员等级的客户的信用卡信息",
+      "tables": [
+        "customer"
+      ],
+      "columns": [
+        "Card_Credit"
+      ],
+      "filters": [
+        "Level_of_Membership = (SELECT MAX(Level_of_Membership) FROM customer)"
+      ],
+      "agg": [],
+      "group_by": [],
+      "order_by": [],
+      "limit": null
+    },
+    "score": 0.0,
+    "pass": false,
+    "reason": "语义判定解析失败"
+  }
+}

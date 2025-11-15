@@ -1,0 +1,29 @@
+{
+  "db_id": "book_1",
+  "index": 529,
+  "question": "What are the names and addressed of all clients, ordered alphabetically by name?",
+  "sql": "SELECT Name, Address FROM Client ORDER BY Name ASC",
+  "semantic": {
+    "back_translation": {
+      "intent": "获取客户信息",
+      "tables": [
+        "Client"
+      ],
+      "columns": [
+        "Name",
+        "Address"
+      ],
+      "filters": [],
+      "agg": [],
+      "group_by": [],
+      "order_by": [
+        "Name",
+        "ASC"
+      ],
+      "limit": null
+    },
+    "score": 1.0,
+    "pass": true,
+    "reason": "两者语义完全一致，均要求获取所有客户姓名和地址字段，并按姓名升序排列。目标表均为Client，无过滤/聚合/分组条件，列名对应正确（Address字段名大小写不影响语义）"
+  }
+}

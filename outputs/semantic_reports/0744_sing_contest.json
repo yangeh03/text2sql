@@ -1,0 +1,26 @@
+{
+  "db_id": "sing_contest",
+  "index": 744,
+  "question": "List the names and languages of the songs .",
+  "sql": "SELECT name, language FROM songs;",
+  "semantic": {
+    "back_translation": {
+      "intent": "查询歌曲信息",
+      "tables": [
+        "songs"
+      ],
+      "columns": [
+        "name",
+        "language"
+      ],
+      "filters": [],
+      "agg": [],
+      "group_by": [],
+      "order_by": [],
+      "limit": null
+    },
+    "score": 1.0,
+    "pass": true,
+    "reason": "语义完全一致，原始问题要求列出歌曲的名称和语言，SQL反向翻译描述准确对应了目标表、列及无过滤、分组、排序和限制条件。"
+  }
+}

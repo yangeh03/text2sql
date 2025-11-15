@@ -1,0 +1,29 @@
+{
+  "db_id": "address_1",
+  "index": 817,
+  "question": "Give the average, minimum, and maximum distances between two cities.",
+  "sql": "SELECT AVG(distance) AS average_distance, MIN(distance) AS minimum_distance, MAX(distance) AS maximum_distance FROM Direct_distance;",
+  "semantic": {
+    "back_translation": {
+      "intent": "计算距离的平均值、最小值和最大值",
+      "tables": [
+        "Direct_distance"
+      ],
+      "columns": [
+        "distance"
+      ],
+      "filters": [],
+      "agg": [
+        "AVG(distance)",
+        "MIN(distance)",
+        "MAX(distance)"
+      ],
+      "group_by": [],
+      "order_by": [],
+      "limit": null
+    },
+    "score": 1.0,
+    "pass": true,
+    "reason": "原始问题要求计算两个城市间距离的平均值、最小值和最大值，SQL反向翻译描述准确对应了该意图，使用了正确的表和列，并包含完整的聚合函数（AVG, MIN, MAX）且无额外过滤/分组/排序限制，与问题语义完全一致。"
+  }
+}

@@ -1,0 +1,25 @@
+{
+  "db_id": "book_1",
+  "index": 524,
+  "question": "How many authors are there?",
+  "sql": "SELECT COUNT(*) FROM Author;",
+  "semantic": {
+    "back_translation": {
+      "intent": "统计作者数量",
+      "tables": [
+        "Author"
+      ],
+      "columns": [],
+      "filters": [],
+      "agg": [
+        "COUNT(*)"
+      ],
+      "group_by": [],
+      "order_by": [],
+      "limit": null
+    },
+    "score": 1.0,
+    "pass": true,
+    "reason": " "
+  }
+}

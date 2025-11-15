@@ -1,0 +1,25 @@
+{
+  "db_id": "address_1",
+  "index": 764,
+  "question": "List all different states .",
+  "sql": "SELECT DISTINCT state FROM City",
+  "semantic": {
+    "back_translation": {
+      "intent": "获取不同的州",
+      "tables": [
+        "City"
+      ],
+      "columns": [
+        "state"
+      ],
+      "filters": [],
+      "agg": [],
+      "group_by": [],
+      "order_by": [],
+      "limit": null
+    },
+    "score": 0.5,
+    "pass": false,
+    "reason": "SQL反向翻译描述缺少DISTINCT或GROUP BY操作以确保州的唯一性，而原始问题明确要求列出不同的州"
+  }
+}

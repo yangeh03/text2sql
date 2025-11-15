@@ -1,0 +1,31 @@
+{
+  "db_id": "book_review",
+  "index": 607,
+  "question": "What is the most common type of books?",
+  "sql": "SELECT Type, COUNT(*) AS count FROM book GROUP BY Type ORDER BY count DESC LIMIT 1;",
+  "semantic": {
+    "back_translation": {
+      "intent": "统计每种类型的书籍数量，并找出数量最多的类型",
+      "tables": [
+        "book"
+      ],
+      "columns": [
+        "Type"
+      ],
+      "filters": [],
+      "agg": [
+        "COUNT(*)"
+      ],
+      "group_by": [
+        "Type"
+      ],
+      "order_by": [
+        "count DESC"
+      ],
+      "limit": 1
+    },
+    "score": 1.0,
+    "pass": true,
+    "reason": "完全一致。SQL正确统计了每种书籍类型的数量（COUNT(*)），按类型分组（GROUP BY Type），降序排序（ORDER BY count DESC）并限制返回第一条（LIMIT 1），准确回答了'最常见书籍类型'的原始问题。"
+  }
+}

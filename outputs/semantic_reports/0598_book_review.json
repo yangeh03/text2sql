@@ -1,0 +1,31 @@
+{
+  "db_id": "book_review",
+  "index": 598,
+  "question": "What are the maximum and minimum number of chapters for each book?",
+  "sql": "SELECT Title, MAX(Chapters) AS max_chapters, MIN(Chapters) AS min_chapters FROM book GROUP BY Title;",
+  "semantic": {
+    "back_translation": {
+      "intent": "获取每个书名的章节数最大值和最小值",
+      "tables": [
+        "book"
+      ],
+      "columns": [
+        "Title",
+        "Chapters"
+      ],
+      "filters": [],
+      "agg": [
+        "MAX",
+        "MIN"
+      ],
+      "group_by": [
+        "Title"
+      ],
+      "order_by": [],
+      "limit": null
+    },
+    "score": 1.0,
+    "pass": true,
+    "reason": "语义完全一致，原始问题要求获取每个书名的章节数最大值和最小值，与SQL反向翻译描述中的意图、表、列、聚合函数和分组字段完全匹配。"
+  }
+}

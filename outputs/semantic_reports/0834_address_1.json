@@ -1,0 +1,31 @@
+{
+  "db_id": "address_1",
+  "index": 834,
+  "question": "Show all city names and the average distance to all other cities.",
+  "sql": "SELECT c1.city_name, AVG(dd.distance) AS average_distance FROM City c1 JOIN Direct_distance dd ON c1.city_code = dd.city1_code OR c1.city_code = dd.city2_code GROUP BY c1.city_code;",
+  "semantic": {
+    "back_translation": {
+      "intent": "计算每个城市的平均距离",
+      "tables": [
+        "City",
+        "Direct_distance"
+      ],
+      "columns": [
+        "city_name",
+        "distance"
+      ],
+      "filters": [],
+      "agg": [
+        "AVG"
+      ],
+      "group_by": [
+        "city_code"
+      ],
+      "order_by": [],
+      "limit": null
+    },
+    "score": 1.0,
+    "pass": true,
+    "reason": "语义一致。原始问题要求显示所有城市名称及其到其他城市的平均距离，SQL反向翻译描述中意图是计算每个城市的平均距离，涉及City和Direct_distance表，使用AVG聚合函数，按city_code分组，符合原始问题的语义。"
+  }
+}

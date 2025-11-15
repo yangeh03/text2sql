@@ -1,0 +1,29 @@
+{
+  "db_id": "book_review",
+  "index": 608,
+  "question": "What are the types of books that have at least three books belonging to?",
+  "sql": "SELECT Type FROM book GROUP BY Type HAVING COUNT(*) >= 3;",
+  "semantic": {
+    "back_translation": {
+      "intent": "查询书籍类型",
+      "tables": [
+        "book"
+      ],
+      "columns": [
+        "Type"
+      ],
+      "filters": [],
+      "agg": [
+        "COUNT(*)"
+      ],
+      "group_by": [
+        "Type"
+      ],
+      "order_by": [],
+      "limit": null
+    },
+    "score": 0.5,
+    "pass": false,
+    "reason": "缺少过滤条件（如 COUNT(*) >= 3）"
+  }
+}

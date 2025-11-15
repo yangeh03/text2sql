@@ -1,0 +1,29 @@
+{
+  "db_id": "cre_Doc_and_collections",
+  "index": 685,
+  "question": "What is the number of child documents for each parent document, and what are the ids of the parent documents?",
+  "sql": "SELECT Parent_Document_Object_ID, COUNT(*) AS num_child_documents FROM Document_Objects GROUP BY Parent_Document_Object_ID;",
+  "semantic": {
+    "back_translation": {
+      "intent": "统计每个父文档对象的子文档数量",
+      "tables": [
+        "Document_Objects"
+      ],
+      "columns": [
+        "Parent_Document_Object_ID"
+      ],
+      "filters": [],
+      "agg": [
+        "COUNT(*)"
+      ],
+      "group_by": [
+        "Parent_Document_Object_ID"
+      ],
+      "order_by": [],
+      "limit": null
+    },
+    "score": 1.0,
+    "pass": true,
+    "reason": "语义一致，SQL反向翻译描述准确表达了原始问题中统计每个父文档的子文档数量并获取父文档ID的意图。"
+  }
+}

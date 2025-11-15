@@ -1,0 +1,27 @@
+{
+  "db_id": "cre_Students_Information_Systems",
+  "index": 507,
+  "question": "Count the number of students who have a detention record.",
+  "sql": "SELECT COUNT(DISTINCT student_id) FROM Detention;",
+  "semantic": {
+    "back_translation": {
+      "intent": "统计",
+      "tables": [
+        "Detention"
+      ],
+      "columns": [
+        "student_id"
+      ],
+      "filters": [],
+      "agg": [
+        "COUNT(DISTINCT student_id)"
+      ],
+      "group_by": [],
+      "order_by": [],
+      "limit": null
+    },
+    "score": 1.0,
+    "pass": true,
+    "reason": "语义完全一致。原始问题要求统计有违纪记录的学生人数，SQL描述正确使用Detention表的student_id列，并通过COUNT(DISTINCT)实现去重计数，无额外过滤/分组/排序条件，符合原始问题需求。"
+  }
+}

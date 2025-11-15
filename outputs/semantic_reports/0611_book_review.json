@@ -1,0 +1,30 @@
+{
+  "db_id": "book_review",
+  "index": 611,
+  "question": "How many books do not have reviews?",
+  "sql": "SELECT COUNT(*) FROM book WHERE Book_ID NOT IN (SELECT DISTINCT Book_ID FROM review);",
+  "semantic": {
+    "back_translation": {
+      "intent": "统计未被评论的书籍数量",
+      "tables": [
+        "book",
+        "review"
+      ],
+      "columns": [
+        "*"
+      ],
+      "filters": [
+        "Book_ID NOT IN (SELECT DISTINCT Book_ID FROM review)"
+      ],
+      "agg": [
+        "COUNT"
+      ],
+      "group_by": [],
+      "order_by": [],
+      "limit": null
+    },
+    "score": 1.0,
+    "pass": true,
+    "reason": "语义一致，原始问题询问未被评论的书籍数量，SQL反向翻译描述通过Book_ID NOT IN子查询正确表达了这一逻辑，且COUNT聚合函数和空的group_by、order_by、limit字段与问题要求一致。"
+  }
+}

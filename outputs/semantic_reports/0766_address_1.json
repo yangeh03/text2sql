@@ -1,0 +1,27 @@
+{
+  "db_id": "address_1",
+  "index": 766,
+  "question": "How many countries do we have?",
+  "sql": "SELECT COUNT(DISTINCT country) FROM City;",
+  "semantic": {
+    "back_translation": {
+      "intent": "统计不同国家的数量",
+      "tables": [
+        "City"
+      ],
+      "columns": [
+        "country"
+      ],
+      "filters": [],
+      "agg": [
+        "COUNT(DISTINCT country)"
+      ],
+      "group_by": [],
+      "order_by": [],
+      "limit": null
+    },
+    "score": 1.0,
+    "pass": true,
+    "reason": "原始问题询问国家数量，SQL通过COUNT(DISTINCT country)统计City表中不同国家的数量，二者语义一致。"
+  }
+}

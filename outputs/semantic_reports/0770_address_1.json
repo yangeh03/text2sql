@@ -1,0 +1,28 @@
+{
+  "db_id": "address_1",
+  "index": 770,
+  "question": "What is the latitude and longitude for Baltimore?",
+  "sql": "SELECT latitude, longitude FROM City WHERE city_name = 'Baltimore';",
+  "semantic": {
+    "back_translation": {
+      "intent": "获取数据",
+      "tables": [
+        "City"
+      ],
+      "columns": [
+        "latitude",
+        "longitude"
+      ],
+      "filters": [
+        "city_name = 'Baltimore'"
+      ],
+      "agg": [],
+      "group_by": [],
+      "order_by": [],
+      "limit": null
+    },
+    "score": 1.0,
+    "pass": true,
+    "reason": "原始问题要求获取Baltimore的纬度和经度，SQL描述准确匹配了目标表(City)、目标列(latitude, longitude)和过滤条件(city_name = 'Baltimore')，且未包含任何无关的聚合、分组、排序或限制操作。"
+  }
+}

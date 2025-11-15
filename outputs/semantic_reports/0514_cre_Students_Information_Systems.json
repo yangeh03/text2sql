@@ -1,0 +1,27 @@
+{
+  "db_id": "cre_Students_Information_Systems",
+  "index": 514,
+  "question": "When did all the detentions start?",
+  "sql": "SELECT MIN(datetime_detention_start) FROM Detention;",
+  "semantic": {
+    "back_translation": {
+      "intent": "查询最小值",
+      "tables": [
+        "Detention"
+      ],
+      "columns": [
+        "datetime_detention_start"
+      ],
+      "filters": [],
+      "agg": [
+        "MIN"
+      ],
+      "group_by": [],
+      "order_by": [],
+      "limit": null
+    },
+    "score": 1.0,
+    "pass": true,
+    "reason": "原始问题询问所有拘留开始的最早时间，SQL通过MIN函数对datetime_detention_start列求最小值，目标表和聚合逻辑完全匹配，无过滤/分组/排序差异。"
+  }
+}

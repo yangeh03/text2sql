@@ -1,0 +1,27 @@
+{
+  "db_id": "cre_Doc_and_collections",
+  "index": 683,
+  "question": "What are the ids of the documents that are not parent documents?",
+  "sql": "SELECT Document_Object_ID FROM Document_Objects WHERE Parent_Document_Object_ID IS NULL;",
+  "semantic": {
+    "back_translation": {
+      "intent": "查询具有父文档对象的文档对象ID",
+      "tables": [
+        "Document_Objects"
+      ],
+      "columns": [
+        "Document_Object_ID"
+      ],
+      "filters": [
+        "Parent_Document_Object_ID IS NOT NULL"
+      ],
+      "agg": [],
+      "group_by": [],
+      "order_by": [],
+      "limit": null
+    },
+    "score": 0.5,
+    "pass": false,
+    "reason": "原始问题询问的是'不是父文档'的文档ID（即没有父文档的文档），而SQL反向翻译描述查询的是'具有父文档对象'的文档ID（Parent_Document_Object_ID IS NOT NULL）。关键差异在于过滤条件，原始问题应筛选Parent_Document_Object_ID为NULL的记录，而SQL反向翻译描述筛选的是非空值。"
+  }
+}

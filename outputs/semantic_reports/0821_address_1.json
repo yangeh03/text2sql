@@ -1,0 +1,30 @@
+{
+  "db_id": "address_1",
+  "index": 821,
+  "question": "What are the city codes of cities with distance greater than average?",
+  "sql": "SELECT city1_code, city2_code FROM Direct_distance WHERE distance > (SELECT AVG(distance) FROM Direct_distance)",
+  "semantic": {
+    "back_translation": {
+      "intent": "查找满足条件的记录",
+      "tables": [
+        "Direct_distance"
+      ],
+      "columns": [
+        "city1_code",
+        "city2_code"
+      ],
+      "filters": [
+        "distance > (SELECT AVG(distance) FROM Direct_distance)"
+      ],
+      "agg": [
+        "AVG"
+      ],
+      "group_by": [],
+      "order_by": [],
+      "limit": null
+    },
+    "score": 1.0,
+    "pass": true,
+    "reason": "语义一致，原始问题要求找出距离大于平均值的城市代码，SQL反向翻译描述正确地使用了子查询计算平均距离，并筛选出符合条件的记录。"
+  }
+}

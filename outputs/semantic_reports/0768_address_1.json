@@ -1,0 +1,28 @@
+{
+  "db_id": "address_1",
+  "index": 768,
+  "question": "Show names, codes, states, countries for all cities.",
+  "sql": "SELECT city_name, city_code, state, country FROM City;",
+  "semantic": {
+    "back_translation": {
+      "intent": "查询城市数据",
+      "tables": [
+        "City"
+      ],
+      "columns": [
+        "city_name",
+        "city_code",
+        "state",
+        "country"
+      ],
+      "filters": [],
+      "agg": [],
+      "group_by": [],
+      "order_by": [],
+      "limit": null
+    },
+    "score": 1.0,
+    "pass": true,
+    "reason": "语义完全一致，原始问题要求查询城市表的city_name, city_code, state, country字段，且无任何过滤、分组、排序或限制条件，与SQL反向翻译描述完全匹配。"
+  }
+}

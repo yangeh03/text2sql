@@ -1,0 +1,25 @@
+{
+  "db_id": "cre_Students_Information_Systems",
+  "index": 515,
+  "question": "Give me the detention start date for all the detention records.",
+  "sql": "SELECT datetime_detention_start FROM Detention;",
+  "semantic": {
+    "back_translation": {
+      "intent": "获取拘留开始时间",
+      "tables": [
+        "Detention"
+      ],
+      "columns": [
+        "datetime_detention_start"
+      ],
+      "filters": [],
+      "agg": [],
+      "group_by": [],
+      "order_by": [],
+      "limit": null
+    },
+    "score": 1.0,
+    "pass": true,
+    "reason": "原始问题要求获取所有拘留记录的拘留开始时间，SQL反向描述中表为Detention，列datetime_detention_start与问题中的'detention start date'对应，且无过滤、聚合、分组、排序等差异。"
+  }
+}

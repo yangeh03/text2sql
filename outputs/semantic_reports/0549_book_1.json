@@ -1,0 +1,22 @@
+{
+  "db_id": "book_1",
+  "index": 549,
+  "question": "What are the names of all the clients, and how many times has each of them ordered?",
+  "sql": "SELECT Client.Name, COUNT(Orders.IdOrder) FROM Client LEFT JOIN Orders ON Client.IdClient = Orders.IdClient GROUP BY Client.IdClient;",
+  "semantic": {
+    "back_translation": {
+      "intent": "",
+      "tables": [],
+      "columns": [],
+      "filters": [],
+      "agg": [],
+      "group_by": [],
+      "order_by": [],
+      "limit": null,
+      "_error": "back-translate failed: Request timed out."
+    },
+    "score": 0.3,
+    "pass": false,
+    "reason": "intent未正确描述查询意图，tables/columns/agg/group_by等关键信息缺失，且存在转换失败错误提示"
+  }
+}

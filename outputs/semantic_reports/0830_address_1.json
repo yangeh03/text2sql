@@ -1,0 +1,31 @@
+{
+  "db_id": "address_1",
+  "index": 830,
+  "question": "What is the name of the city furthest to Boston?",
+  "sql": "SELECT City.city_name FROM City JOIN Direct_distance ON City.city_code = Direct_distance.city1_code WHERE Direct_distance.city2_code = 'BOS' ORDER BY distance DESC LIMIT 1;",
+  "semantic": {
+    "back_translation": {
+      "intent": "查找与城市代码为'BOS'的城市之间的直接距离最近的城市名称",
+      "tables": [
+        "City",
+        "Direct_distance"
+      ],
+      "columns": [
+        "city1_name"
+      ],
+      "filters": [
+        "City.city_code = Direct_distance.city1_code",
+        "city2_code = 'BOS'"
+      ],
+      "agg": [],
+      "group_by": [],
+      "order_by": [
+        "distance DESC"
+      ],
+      "limit": 1
+    },
+    "score": 0.0,
+    "pass": false,
+    "reason": "原始问题询问的是距离波士顿最远的城市名称，而SQL反向翻译描述中查找的是与城市代码为'BOS'的城市之间的直接距离最近的城市名称，语义不一致。"
+  }
+}

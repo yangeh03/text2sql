@@ -1,0 +1,30 @@
+{
+  "db_id": "address_1",
+  "index": 827,
+  "question": "Give the average distance between Boston and other cities.",
+  "sql": "SELECT AVG(D.distance) FROM Direct_distance D JOIN City C1 ON D.city1_code = C1.city_code JOIN City C2 ON D.city2_code = C2.city_code WHERE (C1.city_name = 'Boston' OR C2.city_name = 'Boston') AND C1.city_code != C2.city_code;",
+  "semantic": {
+    "back_translation": {
+      "intent": "计算平均距离",
+      "tables": [
+        "Direct_distance",
+        "City"
+      ],
+      "columns": [
+        "distance"
+      ],
+      "filters": [
+        "C1.city_name = 'Boston'"
+      ],
+      "agg": [
+        "AVG"
+      ],
+      "group_by": [],
+      "order_by": [],
+      "limit": null
+    },
+    "score": 0.7,
+    "pass": false,
+    "reason": "原始问题要求计算波士顿与其他城市之间的平均距离，但SQL描述中仅通过单个城市过滤条件(C1.city_name = 'Boston')筛选数据，未明确排除波士顿到自身的距离记录，也未体现两个城市之间的双向关系。"
+  }
+}

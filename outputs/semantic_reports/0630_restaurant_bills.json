@@ -1,0 +1,32 @@
+{
+  "db_id": "restaurant_bills",
+  "index": 630,
+  "question": "Which nationality does the most customers have?",
+  "sql": "SELECT Nationality, COUNT(*) AS num_customers FROM customer GROUP BY Nationality ORDER BY num_customers DESC LIMIT 1;",
+  "semantic": {
+    "back_translation": {
+      "intent": "统计每个国籍的客户数量，并按数量降序排列，取最多的国籍",
+      "tables": [
+        "customer"
+      ],
+      "columns": [
+        "Nationality",
+        "num_customers"
+      ],
+      "filters": [],
+      "agg": [
+        "COUNT"
+      ],
+      "group_by": [
+        "Nationality"
+      ],
+      "order_by": [
+        "num_customers DESC"
+      ],
+      "limit": 1
+    },
+    "score": 1.0,
+    "pass": true,
+    "reason": ""
+  }
+}

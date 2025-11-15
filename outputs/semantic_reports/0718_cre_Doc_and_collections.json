@@ -1,0 +1,29 @@
+{
+  "db_id": "cre_Doc_and_collections",
+  "index": 718,
+  "question": "List all document subsets of documents that related to each document id. List the name of document subset and the document id.",
+  "sql": "SELECT Document_Subset_Members.Document_Subset_ID, Document_Subset_Name FROM Document_Subsets JOIN Document_Subset_Members ON Document_Subsets.Document_Subset_ID = Document_Subset_Members.Document_Subset_ID JOIN Document_Objects ON Document_Subset_Members.Document_Object_ID = Document_Objects.Document_Object_ID JOIN Documents_in_Collections ON Document_Objects.Document_Object_ID = Documents_in_Collections.Document_Object_ID WHERE Documents_in_Collections.Collection_ID IN (SELECT Collection_ID FROM Documents_in_Collections)",
+  "semantic": {
+    "back_translation": {
+      "intent": "查询特定文档子集的名称和对应的文档对象ID",
+      "tables": [
+        "Document_Subsets",
+        "Document_Subset_Members"
+      ],
+      "columns": [
+        "Document_Subset_Name",
+        "Document_Object_ID"
+      ],
+      "filters": [
+        "Document_Subset_Name IN ('Best for 2000', 'Best for 2001', 'Best for 2002', 'Best for 2003', 'Best for 2004', 'Ransom', 'Marlin', 'Braeden')"
+      ],
+      "agg": [],
+      "group_by": [],
+      "order_by": [],
+      "limit": null
+    },
+    "score": 0.0,
+    "pass": false,
+    "reason": "原始问题要求列出每个文档ID相关的文档子集，但SQL反向翻译的描述中只过滤了特定的文档子集名称，并未涉及文档ID的关联或遍历，因此无法满足原始问题的语义需求。"
+  }
+}

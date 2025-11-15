@@ -1,0 +1,29 @@
+{
+  "db_id": "address_1",
+  "index": 780,
+  "question": "Show all countries and number of cities in each .",
+  "sql": "SELECT country, COUNT(*) AS num_cities FROM City GROUP BY country;",
+  "semantic": {
+    "back_translation": {
+      "intent": "统计每个国家的城市数量",
+      "tables": [
+        "City"
+      ],
+      "columns": [
+        "country"
+      ],
+      "filters": [],
+      "agg": [
+        "COUNT(*)"
+      ],
+      "group_by": [
+        "country"
+      ],
+      "order_by": [],
+      "limit": null
+    },
+    "score": 0.5,
+    "pass": false,
+    "reason": "columns 未包含统计结果列（如 COUNT(*)），仅列出分组字段 country，导致输出字段不完整"
+  }
+}

@@ -1,0 +1,28 @@
+{
+  "db_id": "address_1",
+  "index": 819,
+  "question": "What are the city codes of the cities with the maximum distance?",
+  "sql": "SELECT city1_code, city2_code FROM Direct_distance WHERE distance = (SELECT MAX(distance) FROM Direct_distance)",
+  "semantic": {
+    "back_translation": {
+      "intent": "查找具有最大距离的两个城市代码",
+      "tables": [
+        "Direct_distance"
+      ],
+      "columns": [
+        "city1_code",
+        "city2_code"
+      ],
+      "filters": [
+        "distance = (SELECT MAX(distance) FROM Direct_distance)"
+      ],
+      "agg": [],
+      "group_by": [],
+      "order_by": [],
+      "limit": null
+    },
+    "score": 1.0,
+    "pass": true,
+    "reason": "原始问题询问具有最大距离的城市代码，SQL通过子查询获取最大距离并筛选出对应的城市对（city1_code和city2_code），逻辑与目标一致。"
+  }
+}

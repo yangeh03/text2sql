@@ -1,0 +1,31 @@
+{
+  "db_id": "sing_contest",
+  "index": 757,
+  "question": "What are the average rhythm scores for the songs in each different language?",
+  "sql": "SELECT songs.language, AVG(performance_score.rhythm_tempo) FROM songs JOIN performance_score ON songs.id = performance_score.songs_id GROUP BY songs.language;",
+  "semantic": {
+    "back_translation": {
+      "intent": "计算每个语言的平均节奏速度",
+      "tables": [
+        "songs",
+        "performance_score"
+      ],
+      "columns": [
+        "language",
+        "rhythm_tempo"
+      ],
+      "filters": [],
+      "agg": [
+        "AVG"
+      ],
+      "group_by": [
+        "language"
+      ],
+      "order_by": [],
+      "limit": null
+    },
+    "score": 0.5,
+    "pass": false,
+    "reason": "目标表不一致，原始问题中的'songs'表与SQL描述中的'performance_score'表存在差异，且'rhythm scores'可能对应'performance_score'而非'songs'表的'rhythm_tempo'列"
+  }
+}

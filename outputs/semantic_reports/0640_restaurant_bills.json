@@ -1,0 +1,32 @@
+{
+  "db_id": "restaurant_bills",
+  "index": 640,
+  "question": "Which customers have total order quantity greater than 1? Give me the customer names.",
+  "sql": "SELECT Name FROM customer WHERE Customer_ID IN (SELECT Customer_ID FROM customer_order GROUP BY Customer_ID HAVING SUM(Quantity) > 1);",
+  "semantic": {
+    "back_translation": {
+      "intent": "获取购买总量超过1的客户的姓名",
+      "tables": [
+        "customer",
+        "customer_order"
+      ],
+      "columns": [
+        "Name"
+      ],
+      "filters": [
+        "Customer_ID IN (SELECT Customer_ID FROM customer_order GROUP BY Customer_ID HAVING SUM(Quantity) > 1)"
+      ],
+      "agg": [
+        "SUM(Quantity)"
+      ],
+      "group_by": [
+        "Customer_ID"
+      ],
+      "order_by": [],
+      "limit": null
+    },
+    "score": 1.0,
+    "pass": true,
+    "reason": "语义完全一致，SQL反向翻译描述准确表达了原始问题中'购买总量超过1的客户姓名'的意图，包括涉及的表、列、过滤条件和聚合操作。"
+  }
+}

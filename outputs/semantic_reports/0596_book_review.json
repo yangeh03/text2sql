@@ -1,0 +1,27 @@
+{
+  "db_id": "book_review",
+  "index": 596,
+  "question": "List the titles of books in descending order of pages.",
+  "sql": "SELECT Title FROM book ORDER BY Pages DESC;",
+  "semantic": {
+    "back_translation": {
+      "intent": "获取书籍的标题信息并按页数降序排列",
+      "tables": [
+        "book"
+      ],
+      "columns": [
+        "Title"
+      ],
+      "filters": [],
+      "agg": [],
+      "group_by": [],
+      "order_by": [
+        "Pages DESC"
+      ],
+      "limit": null
+    },
+    "score": 1.0,
+    "pass": true,
+    "reason": "语义完全一致，原始问题要求列出书籍标题并按页数降序排列，SQL反向翻译描述准确反映了这一意图，包括目标表、列、排序方式等。"
+  }
+}

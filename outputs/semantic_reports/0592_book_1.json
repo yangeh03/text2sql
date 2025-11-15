@@ -1,0 +1,30 @@
+{
+  "db_id": "book_1",
+  "index": 592,
+  "question": "Show all client names who have orders for \"Pride and Prejudice\".",
+  "sql": "SELECT DISTINCT Client.Name FROM Client JOIN Orders ON Client.IdClient = Orders.IdClient JOIN Books_Order ON Orders.IdOrder = Books_Order.IdOrder JOIN Book ON Books_Order.ISBN = Book.ISBN WHERE Book.Title = 'Pride and Prejudice';",
+  "semantic": {
+    "back_translation": {
+      "intent": "获取购买了特定书籍的客户名称",
+      "tables": [
+        "Client",
+        "Orders",
+        "Books_Order",
+        "Book"
+      ],
+      "columns": [
+        "Client.Name"
+      ],
+      "filters": [
+        "Book.Title = 'Pride and Prejudice'"
+      ],
+      "agg": [],
+      "group_by": [],
+      "order_by": [],
+      "limit": null
+    },
+    "score": 0.5,
+    "pass": false,
+    "reason": "缺少关键的关联条件，如通过Books_Order表连接订单和书籍，且未明确订单与客户的关系"
+  }
+}

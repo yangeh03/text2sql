@@ -1,0 +1,30 @@
+{
+  "db_id": "sing_contest",
+  "index": 755,
+  "question": "How many performances have a stage presence score less than 7 or higher than 9?",
+  "sql": "SELECT COUNT(*) FROM performance_score WHERE stage_presence < 7 OR stage_presence > 9;",
+  "semantic": {
+    "back_translation": {
+      "intent": "统计满足条件的记录数量",
+      "tables": [
+        "performance_score"
+      ],
+      "columns": [
+        "*"
+      ],
+      "filters": [
+        "stage_presence < 7",
+        "stage_presence > 9"
+      ],
+      "agg": [
+        "COUNT"
+      ],
+      "group_by": [],
+      "order_by": [],
+      "limit": null
+    },
+    "score": 0.5,
+    "pass": false,
+    "reason": "过滤条件逻辑错误（应使用OR连接两个条件），且表名可能不一致（原始问题中的表应为performances，而SQL描述中为performance_score）"
+  }
+}

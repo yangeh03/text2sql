@@ -1,0 +1,28 @@
+{
+  "db_id": "cre_Doc_and_collections",
+  "index": 693,
+  "question": "What are the names of the collections that are not the parent of the other collections?",
+  "sql": "SELECT Collection_Name FROM Collections WHERE Parent_Collection_ID IS NULL AND Collection_ID NOT IN (SELECT Parent_Collection_ID FROM Collections WHERE Parent_Collection_ID IS NOT NULL)",
+  "semantic": {
+    "back_translation": {
+      "intent": "查询",
+      "tables": [
+        "Collections"
+      ],
+      "columns": [
+        "Collection_Name"
+      ],
+      "filters": [
+        "Parent_Collection_ID IS NULL",
+        "Collection_Name NOT IN ('Best for 2000', 'Best for 2001', 'Best for 2002', 'Best for 2003', 'Best for 2004', 'UK album', 'US album', 'Canadian album', 'History collection', 'Art collection')"
+      ],
+      "agg": [],
+      "group_by": [],
+      "order_by": [],
+      "limit": null
+    },
+    "score": 0.0,
+    "pass": false,
+    "reason": "语义判定解析失败"
+  }
+}

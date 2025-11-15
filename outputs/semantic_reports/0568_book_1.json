@@ -1,0 +1,27 @@
+{
+  "db_id": "book_1",
+  "index": 568,
+  "question": "List all book titles which have the lowest sale price .",
+  "sql": "SELECT Title FROM Book WHERE SalePrice = (SELECT MIN(SalePrice) FROM Book)",
+  "semantic": {
+    "back_translation": {
+      "intent": "查询最低售价的书籍标题",
+      "tables": [
+        "Book"
+      ],
+      "columns": [
+        "Title"
+      ],
+      "filters": [
+        "SalePrice = (SELECT MIN(SalePrice) FROM Book)"
+      ],
+      "agg": [],
+      "group_by": [],
+      "order_by": [],
+      "limit": null
+    },
+    "score": 1.0,
+    "pass": true,
+    "reason": "两者语义完全一致。原始问题要求列出所有最低售价的书籍标题，SQL通过SalePrice = (SELECT MIN(SalePrice) FROM Book)准确实现了该逻辑，正确筛选出具有最低售价的书籍标题，且未涉及聚合、分组、排序等额外操作。"
+  }
+}

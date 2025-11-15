@@ -1,0 +1,29 @@
+{
+  "db_id": "restaurant_bills",
+  "index": 627,
+  "question": "Show different nationalities of customers, along with the number of customers of each nationality.",
+  "sql": "SELECT Nationality, COUNT(Customer_ID) FROM customer GROUP BY Nationality;",
+  "semantic": {
+    "back_translation": {
+      "intent": "统计每个国籍的客户数量",
+      "tables": [
+        "customer"
+      ],
+      "columns": [
+        "Nationality"
+      ],
+      "filters": [],
+      "agg": [
+        "COUNT(Customer_ID)"
+      ],
+      "group_by": [
+        "Nationality"
+      ],
+      "order_by": [],
+      "limit": null
+    },
+    "score": 1.0,
+    "pass": true,
+    "reason": "语义一致，原始问题要求展示不同国籍的客户及其数量，SQL反向翻译描述准确表达了这一意图，包括目标表、列、聚合函数和分组条件。"
+  }
+}

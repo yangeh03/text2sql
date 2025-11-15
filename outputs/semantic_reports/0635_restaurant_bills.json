@@ -1,0 +1,30 @@
+{
+  "db_id": "restaurant_bills",
+  "index": 635,
+  "question": "Show the names of customers and names of dishes they order, in descending order of the quantity of dish.",
+  "sql": "SELECT c.Name, co.Dish_Name FROM customer c JOIN customer_order co ON c.Customer_ID = co.Customer_ID ORDER BY co.Quantity DESC;",
+  "semantic": {
+    "back_translation": {
+      "intent": "获取顾客及其订单信息",
+      "tables": [
+        "customer",
+        "customer_order"
+      ],
+      "columns": [
+        "c.Name",
+        "co.Dish_Name",
+        "co.Quantity"
+      ],
+      "filters": [],
+      "agg": [],
+      "group_by": [],
+      "order_by": [
+        "co.Quantity DESC"
+      ],
+      "limit": null
+    },
+    "score": 0.5,
+    "pass": false,
+    "reason": "原始问题未要求显示菜品数量列，但SQL反向翻译描述中包含了co.Quantity作为列，导致结果中多出一列。"
+  }
+}

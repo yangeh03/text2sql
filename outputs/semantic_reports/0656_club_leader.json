@@ -1,0 +1,28 @@
+{
+  "db_id": "club_leader",
+  "index": 656,
+  "question": "Show the names of club leaders that joined their club before 2018.",
+  "sql": "SELECT member.Name FROM member JOIN club_leader ON member.Member_ID = club_leader.Member_ID WHERE club_leader.Year_Join < '2018'",
+  "semantic": {
+    "back_translation": {
+      "intent": "获取符合条件的成员姓名",
+      "tables": [
+        "member",
+        "club_leader"
+      ],
+      "columns": [
+        "Name"
+      ],
+      "filters": [
+        "club_leader.Year_Join < '2018'"
+      ],
+      "agg": [],
+      "group_by": [],
+      "order_by": [],
+      "limit": null
+    },
+    "score": 0.5,
+    "pass": false,
+    "reason": "原始问题要求获取俱乐部领导者的姓名，但SQL描述中未明确表关联关系。club_leader表可能缺少Name列，或应通过JOIN连接member表获取姓名。过滤条件应基于member表的Year_Join字段而非club_leader表。"
+  }
+}

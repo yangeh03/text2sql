@@ -1,0 +1,28 @@
+{
+  "db_id": "restaurant_bills",
+  "index": 643,
+  "question": "List the names of customers that do not have any order.",
+  "sql": "SELECT Name FROM customer WHERE Customer_ID NOT IN (SELECT Customer_ID FROM customer_order);",
+  "semantic": {
+    "back_translation": {
+      "intent": "查找没有下过订单的客户姓名",
+      "tables": [
+        "customer",
+        "customer_order"
+      ],
+      "columns": [
+        "Name"
+      ],
+      "filters": [
+        "Customer_ID NOT IN (SELECT Customer_ID FROM customer_order)"
+      ],
+      "agg": [],
+      "group_by": [],
+      "order_by": [],
+      "limit": null
+    },
+    "score": 1.0,
+    "pass": true,
+    "reason": ""
+  }
+}

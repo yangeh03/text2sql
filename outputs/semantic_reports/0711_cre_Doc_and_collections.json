@@ -1,0 +1,29 @@
+{
+  "db_id": "cre_Doc_and_collections",
+  "index": 711,
+  "question": "What are the different subset names of all documents owned by Braeden?",
+  "sql": "SELECT DISTINCT Document_Subset_Name FROM Document_Subsets JOIN Document_Subset_Members ON Document_Subsets.Document_Subset_ID = Document_Subset_Members.Document_Subset_ID JOIN Document_Objects ON Document_Subset_Members.Document_Object_ID = Document_Objects.Document_Object_ID WHERE Document_Objects.Owner = 'Braeden';",
+  "semantic": {
+    "back_translation": {
+      "intent": "获取不同的文档子集名称",
+      "tables": [
+        "Document_Subsets",
+        "Document_Subset_Members",
+        "Document_Objects"
+      ],
+      "columns": [
+        "Document_Subset_Name"
+      ],
+      "filters": [
+        "Document_Objects.Owner = 'Braeden'"
+      ],
+      "agg": [],
+      "group_by": [],
+      "order_by": [],
+      "limit": null
+    },
+    "score": 1.0,
+    "pass": true,
+    "reason": "语义一致，SQL反向翻译描述准确反映了原始问题意图，即获取所有由Braeden拥有的文档的子集名称，且未涉及聚合、分组、排序或限制条件。"
+  }
+}

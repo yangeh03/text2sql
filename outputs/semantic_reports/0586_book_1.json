@@ -1,0 +1,33 @@
+{
+  "db_id": "book_1",
+  "index": 586,
+  "question": "Show ids for orders including both \"Pride and Prejudice\" and \"The Little Prince\".",
+  "sql": "SELECT IdOrder FROM Books_Order WHERE ISBN IN (SELECT ISBN FROM Book WHERE Title = 'Pride and Prejudice') AND IdOrder IN (SELECT IdOrder FROM Books_Order WHERE ISBN IN (SELECT ISBN FROM Book WHERE Title = 'The Little Prince')) GROUP BY IdOrder HAVING COUNT(DISTINCT ISBN) = 2;",
+  "semantic": {
+    "back_translation": {
+      "intent": "查询同时包含《Pride and Prejudice》和《The Little Prince》两本书的订单ID",
+      "tables": [
+        "Books_Order",
+        "Book"
+      ],
+      "columns": [
+        "IdOrder",
+        "ISBN"
+      ],
+      "filters": [
+        "ISBN IN (SELECT ISBN FROM Book WHERE Title = 'Pride and Prejudice' OR Title = 'The Little Prince')"
+      ],
+      "agg": [
+        "COUNT(DISTINCT ISBN)"
+      ],
+      "group_by": [
+        "IdOrder"
+      ],
+      "order_by": [],
+      "limit": null
+    },
+    "score": 0.5,
+    "pass": false,
+    "reason": "过滤条件错误使用OR逻辑，应要求订单同时包含两本书而非任选其一。此外，缺少HAVING子句确保两本书的存在，COUNT(DISTINCT ISBN)聚合函数与原始问题需求不符"
+  }
+}

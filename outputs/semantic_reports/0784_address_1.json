@@ -1,0 +1,31 @@
+{
+  "db_id": "address_1",
+  "index": 784,
+  "question": "Which state has most number of cities?",
+  "sql": "SELECT state FROM City GROUP BY state ORDER BY COUNT(*) DESC LIMIT 1;",
+  "semantic": {
+    "back_translation": {
+      "intent": "查询每个州的出现次数，并找出出现次数最多的州",
+      "tables": [
+        "City"
+      ],
+      "columns": [
+        "state"
+      ],
+      "filters": [],
+      "agg": [
+        "COUNT(*)"
+      ],
+      "group_by": [
+        "state"
+      ],
+      "order_by": [
+        "COUNT(*) DESC"
+      ],
+      "limit": 1
+    },
+    "score": 1.0,
+    "pass": true,
+    "reason": "完全一致。SQL正确统计了每个州的城市数量并通过降序排序取最大值，与原始问题要求的'找出城市数量最多的州'完全匹配。"
+  }
+}

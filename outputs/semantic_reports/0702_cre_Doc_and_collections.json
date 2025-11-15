@@ -1,0 +1,34 @@
+{
+  "db_id": "cre_Doc_and_collections",
+  "index": 702,
+  "question": "Which document has most of child? List the document id and the number of child.",
+  "sql": "SELECT Parent_Document_Object_ID AS Document_Object_ID, COUNT(*) AS num_children FROM Document_Objects WHERE Parent_Document_Object_ID IS NOT NULL GROUP BY Parent_Document_Object_ID ORDER BY num_children DESC LIMIT 1",
+  "semantic": {
+    "back_translation": {
+      "intent": "统计每个父文档对象的子文档对象数量",
+      "tables": [
+        "Document_Objects"
+      ],
+      "columns": [
+        "Parent_Document_Object_ID",
+        "num_children"
+      ],
+      "filters": [
+        "Parent_Document_Object_ID IS NOT NULL"
+      ],
+      "agg": [
+        "COUNT(*)"
+      ],
+      "group_by": [
+        "Parent_Documented_Object_Id"
+      ],
+      "order_by": [
+        "num_children DESC"
+      ],
+      "limit": 1
+    },
+    "score": 0.9,
+    "pass": true,
+    "reason": "group_by字段存在拼写错误（Parent_Documented_Object_Id应为Parent_Document_Object_ID），但整体意图一致，正确统计父文档的子数量并按数量降序取最大值"
+  }
+}

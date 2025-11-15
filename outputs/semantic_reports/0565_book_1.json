@@ -1,0 +1,28 @@
+{
+  "db_id": "book_1",
+  "index": 565,
+  "question": "Return the largest difference in sale price and purchase price.",
+  "sql": "SELECT MAX(ABS(SalePrice - PurchasePrice)) FROM Book;",
+  "semantic": {
+    "back_translation": {
+      "intent": "Find the maximum profit",
+      "tables": [
+        "Book"
+      ],
+      "columns": [
+        "SalePrice",
+        "PurchasePrice"
+      ],
+      "filters": [],
+      "agg": [
+        "MAX"
+      ],
+      "group_by": [],
+      "order_by": [],
+      "limit": null
+    },
+    "score": 0.5,
+    "pass": false,
+    "reason": "意图不一致，原始问题要求最大差额（可能指绝对值），而SQL描述旨在计算最大利润（即SalePrice - PurchasePrice的差值，隐含正数）。"
+  }
+}

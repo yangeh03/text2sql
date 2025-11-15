@@ -1,0 +1,27 @@
+{
+  "db_id": "address_1",
+  "index": 818,
+  "question": "Show me the city code of two cities with maximum distance.",
+  "sql": "SELECT city1_code, city2_code FROM Direct_distance ORDER BY distance DESC LIMIT 2;",
+  "semantic": {
+    "back_translation": {
+      "intent": "获取城市1代码",
+      "tables": [
+        "Direct_distance"
+      ],
+      "columns": [
+        "city1_code"
+      ],
+      "filters": [],
+      "agg": [],
+      "group_by": [],
+      "order_by": [
+        "distance DESC"
+      ],
+      "limit": 2
+    },
+    "score": 0.5,
+    "pass": false,
+    "reason": "原始问题要求获取两个距离最大的城市的代码，但SQL反向翻译仅获取了city1_code，未体现对两个城市代码的获取，也未明确最大距离的判断逻辑。"
+  }
+}

@@ -1,0 +1,29 @@
+{
+  "db_id": "cre_Doc_and_collections",
+  "index": 709,
+  "question": "What are the different owners of documents that are related to ones owned by Braeden?",
+  "sql": "SELECT DISTINCT DO.Owner FROM Document_Objects DO JOIN Document_Subset_Members DSM ON DO.Document_Object_ID = DSM.Document_Object_ID JOIN Document_Objects RDO ON DSM.Related_Document_Object_ID = RDO.Document_Object_ID WHERE RDO.Owner = 'Braeden';",
+  "semantic": {
+    "back_translation": {
+      "intent": "获取与Braeden关联的不同文档对象的所有者",
+      "tables": [
+        "Document_Objects",
+        "Document_Subset_Members",
+        "Document_Objects"
+      ],
+      "columns": [
+        "Owner"
+      ],
+      "filters": [
+        "RDO.Owner = 'Braeden'"
+      ],
+      "agg": [],
+      "group_by": [],
+      "order_by": [],
+      "limit": null
+    },
+    "score": 0.5,
+    "pass": false,
+    "reason": "原始问题询问的是与Braeden拥有的文档相关的不同文档对象的所有者，而SQL反向翻译描述中仅涉及单个表(Document_Objects)和过滤条件(RDO.Owner = 'Braeden')，未体现文档关联关系或跨表查询逻辑，导致语义不一致。"
+  }
+}

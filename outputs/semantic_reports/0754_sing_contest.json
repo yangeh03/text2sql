@@ -1,0 +1,34 @@
+{
+  "db_id": "sing_contest",
+  "index": 754,
+  "question": "What are the id and name of the song sung by the most participants?",
+  "sql": "SELECT songs.id, songs.name FROM songs JOIN performance_score ON songs.id = performance_score.songs_id GROUP BY songs.id, songs.name ORDER BY COUNT(participant_id) DESC LIMIT 1;",
+  "semantic": {
+    "back_translation": {
+      "intent": "查找参与人数最多的歌曲",
+      "tables": [
+        "songs",
+        "performance_score"
+      ],
+      "columns": [
+        "songs.id",
+        "songs.name"
+      ],
+      "filters": [],
+      "agg": [
+        "COUNT(participant_id)"
+      ],
+      "group_by": [
+        "songs.id",
+        "songs.name"
+      ],
+      "order_by": [
+        "COUNT(participant_id) DESC"
+      ],
+      "limit": 1
+    },
+    "score": 1.0,
+    "pass": true,
+    "reason": "语义一致，SQL反向翻译描述准确表达了原始问题意图，即查找参与人数最多的歌曲，并通过正确的聚合、分组和排序方式实现。"
+  }
+}

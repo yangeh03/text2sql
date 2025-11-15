@@ -1,0 +1,28 @@
+{
+  "db_id": "cre_Doc_and_collections",
+  "index": 717,
+  "question": "For the document subset named 'Best for 2000', what are the document ids in that subset?",
+  "sql": "SELECT Document_Object_ID FROM Document_Subset_Members WHERE Document_Subset_ID = (SELECT Document_Subset_ID FROM Document_Subsets WHERE Document_Subset_Name = 'Best for 2000')",
+  "semantic": {
+    "back_translation": {
+      "intent": "查询特定文档子集的成员文档对象ID",
+      "tables": [
+        "Document_Subset_Members",
+        "Document_Subsets"
+      ],
+      "columns": [
+        "Document_Object_ID"
+      ],
+      "filters": [
+        "Document_Subset_ID = (SELECT Document_Subset_ID FROM Document_Subsets WHERE Document_Subset_Name = 'Best for 2000')"
+      ],
+      "agg": [],
+      "group_by": [],
+      "order_by": [],
+      "limit": null
+    },
+    "score": 1.0,
+    "pass": true,
+    "reason": "语义一致，SQL反向翻译描述准确地表达了原始问题的意图，即查询名为'Best for 2000'的文档子集的所有文档对象ID。"
+  }
+}

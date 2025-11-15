@@ -1,0 +1,34 @@
+{
+  "db_id": "cre_Doc_and_collections",
+  "index": 728,
+  "question": "Which collection have most number of documents? List collection name, id and number of documents.",
+  "sql": "SELECT Collections.Collection_Name, Collections.Collection_ID, COUNT(Documents_in_Collections.Document_Object_ID) AS num_documents FROM Collections INNER JOIN Documents_in_Collections ON Collections.Collection_ID = Documents_in_Collections.Collection_ID GROUP BY Collections.Collection_ID ORDER BY num_documents DESC LIMIT 1;",
+  "semantic": {
+    "back_translation": {
+      "intent": "统计每个集合中的文档数量并找出文档数量最多的集合",
+      "tables": [
+        "Collections",
+        "Documents_in_Collections"
+      ],
+      "columns": [
+        "Collections.Collection_Name",
+        "Collections.Collection_ID",
+        "num_documents"
+      ],
+      "filters": [],
+      "agg": [
+        "COUNT(Documents_in_Collections.Document_Object_ID)"
+      ],
+      "group_by": [
+        "Collections.Collection_ID"
+      ],
+      "order_by": [
+        "num_documents DESC"
+      ],
+      "limit": 1
+    },
+    "score": 1.0,
+    "pass": true,
+    "reason": "语义完全一致。SQL意图准确统计每个集合的文档数量（通过COUNT聚合），按Collection_ID分组，并按文档数量降序排列取最大值，最终输出的字段（Collection_Name, Collection_ID, num_documents）与原始问题要求的'collection name, id and number of documents'完全匹配。"
+  }
+}

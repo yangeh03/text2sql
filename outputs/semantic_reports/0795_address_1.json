@@ -1,0 +1,30 @@
+{
+  "db_id": "address_1",
+  "index": 795,
+  "question": "How many students live in each country?",
+  "sql": "SELECT COUNT(*) AS count, City.country FROM Student JOIN City ON Student.city_code = City.city_code GROUP BY City.country;",
+  "semantic": {
+    "back_translation": {
+      "intent": "统计每个国家的学生数量",
+      "tables": [
+        "Student",
+        "City"
+      ],
+      "columns": [
+        "City.country"
+      ],
+      "filters": [],
+      "agg": [
+        "COUNT(*)"
+      ],
+      "group_by": [
+        "City.country"
+      ],
+      "order_by": [],
+      "limit": null
+    },
+    "score": 1.0,
+    "pass": true,
+    "reason": "语义完全一致。原始问题要求统计每个国家的学生数量，SQL反向翻译描述正确使用COUNT(*)聚合函数并按City.country分组，且未添加无关的过滤条件或额外表。"
+  }
+}

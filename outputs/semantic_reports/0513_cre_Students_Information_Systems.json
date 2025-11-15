@@ -1,0 +1,28 @@
+{
+  "db_id": "cre_Students_Information_Systems",
+  "index": 513,
+  "question": "What are the start time and end time of addresses for the students who receive 2 transcripts?",
+  "sql": "SELECT date_from, date_to FROM Students_Addresses WHERE student_id IN (SELECT student_id FROM Transcripts GROUP BY student_id HAVING COUNT(*) = 2)",
+  "semantic": {
+    "back_translation": {
+      "intent": "查询学生地址信息",
+      "tables": [
+        "Students_Addresses"
+      ],
+      "columns": [
+        "date_from",
+        "date_to"
+      ],
+      "filters": [
+        "student_id IN (SELECT student_id FROM Transcripts GROUP BY student_id HAVING COUNT(*) = 2)"
+      ],
+      "agg": [],
+      "group_by": [],
+      "order_by": [],
+      "limit": null
+    },
+    "score": 1.0,
+    "pass": true,
+    "reason": "语义一致，原始问题要求获取接收2份成绩单的学生的地址起始和结束时间，SQL反向翻译描述正确地通过子查询筛选出这些学生，并选择了对应的日期字段。"
+  }
+}

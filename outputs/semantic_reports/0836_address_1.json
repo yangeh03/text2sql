@@ -1,0 +1,32 @@
+{
+  "db_id": "address_1",
+  "index": 836,
+  "question": "How far do Linda (first name) Smith (last name) and Tracy (first name) Kim (last name) live?",
+  "sql": "SELECT d.distance FROM Direct_distance d WHERE (d.city1_code = (SELECT city_code FROM Student WHERE fname = 'Linda' AND lname = 'Smith') AND d.city2_code = (SELECT city_code FROM Student WHERE fname = 'Tracy' AND lname = 'Kim')) OR (d.city1_code = (SELECT city_code FROM Student WHERE fname = 'Tracy' AND lname = 'Kim') AND d.city2_code = (SELECT city_code FROM Student WHERE fname = 'Linda' AND lname = 'Smith'))",
+  "semantic": {
+    "back_translation": {
+      "intent": "查找两个学生（Linda Smith 和 Tracy Kim）各自所在城市的直接距离",
+      "tables": [
+        "Student",
+        "City",
+        "Direct_distance"
+      ],
+      "columns": [
+        "Direct_distance.distance"
+      ],
+      "filters": [
+        "Student.Fname = 'Linda' AND Student.LName = 'Smith'",
+        "City.city_code IN (SELECT city_code FROM Student WHERE Fname = 'Tracy' AND LName = 'Kim')",
+        "Student.Fname = 'Tracy' AND Student.LName = 'Kim'",
+        "City.city_code IN (SELECT city_code FROM Student WHERE Fname = 'Linda' AND LName = 'Smith')"
+      ],
+      "agg": [],
+      "group_by": [],
+      "order_by": [],
+      "limit": null
+    },
+    "score": 0.5,
+    "pass": false,
+    "reason": "过滤条件错误地重复使用Student表两次且未正确关联两个城市之间的距离，City表的city_code IN子查询无法直接获取两个城市间的距离数据，缺少明确的跨城市距离查询逻辑"
+  }
+}
