@@ -1,18 +1,12 @@
 # -*- coding: utf-8 -*-
 SYSTEM_PROMPT = (
-    "你是Text-to-SQL智能体，将自然语言问题转换为单条、可执行且正确的SQL查询。\n\n"
-    "工作流程：\n"
-    "1) 先在心中分析用户意图与约束（不输出思考过程）。\n"
-    "2) 映射到Schema：识别必要的表、列、主键PK/外键FK与连接键；如需中间表请一并考虑。\n"
-    "3) 形成查询结构：按 FROM → JOIN → WHERE → GROUP BY → HAVING → ORDER BY → LIMIT 的顺序，仅在必要时包含。\n"
-    "4) 生成SQL：仅输出最终SQL，严格遵循schema。\n\n"
+    "你是Text-to-SQL智能体，将自然语言问题转换为SQL查询。\n\n"
     "重要规则：\n"
-    "1. 只使用schema中存在的表名和列名，避免臆断与别名错用；歧义列必须加表前缀\n"
-    "2. SQL必须为单行，不要使用换行符或多余注释/说明\n"
-    "3. 优先使用提供的示例值构建WHERE条件，字符串大小写与空格保持原样\n"
-    "4. 仔细检查JOIN条件与外键关系，避免缺失/错误连接与不必要表\n"
-    "5. 涉及聚合时，正确配套GROUP BY/HAVING；避免SELECT *\n"
-    "6. 若执行报错或语义不符，请根据错误信息或语义差异精确修复\n"
+    "1. 只使用schema中存在的表名和列名，不要臆断\n"
+    "2. 生成的SQL必须是单行格式，不要使用换行符\n"
+    "3. 优先使用提供的示例值来构建WHERE条件\n"
+    "4. 仔细检查JOIN条件和外键关系\n"
+    "5. 如果遇到错误，根据错误信息精确修复\n"
 )
 
 # 预处理阶段工具
@@ -76,59 +70,49 @@ EXECUTION_TOOLS = [
 # 节点级提示词
 PREPROCESS_PROMPT = (
     "请依次执行以下步骤来准备SQL生成所需的信息：\n"
-    "1. 调用 get_database_schema 获取完整数据库模式（含列、PK、FK）\n"
-    "2. 调用 schema_linker 筛选与问题相关且可完成JOIN的表（必要时包含中间/桥接表）\n"
-    "3. 调用 content_retriever 检索示例值（如无则返回空数组[]）\n"
-    "务必严格遵循各工具的输出格式要求。\n"
+    "1. 调用 get_database_schema 获取完整数据库模式\n"
+    "2. 调用 schema_linker 筛选相关表\n"
+    "3. 调用 content_retriever 检索示例值\n"
 )
 
 # Schema Linker 提示词模板
 SCHEMA_LINKER_PROMPT_TEMPLATE = (
-    "给定一个自然语言问题和完整数据库schema（包含列、主键PK、外键FK），识别生成答案所需的所有相关表。\n\n"
+    "给定一个自然语言问题和完整的数据库schema，请识别与问题相关的表。\n\n"
     "问题：{question}\n\n"
     "完整数据库Schema：\n{db_schema}\n\n"
-    "要求：\n"
-    "- 覆盖完成查询所需的表，包括用于连接的中间表/桥接表（如多对多关联表）。\n"
-    "- 重点关注可作为连接键的列，避免遗漏或选择错误的表。\n"
-    "- 不做过度扩展，不包含无关表。\n\n"
-    "输出：只返回相关表名的JSON数组，例如:[\"table1\", \"table2\"]。不得包含任何额外文字。"
+    "请仔细分析问题中的关键词（如：表名、列名、实体名），并识别相关的表。\n"
+    "只返回相关表名的列表，格式为JSON数组，例如：[\"table1\", \"table2\"]\n"
+    "不要包含任何其他解释或文字，只返回JSON数组。"
 )
 
 # Content Retriever 提示词模板
 CONTENT_RETRIEVER_PROMPT_TEMPLATE = (
-    "给定一个自然语言问题和相关数据库schema，从问题中识别潜在的关键取值（人名、地名、机构、产品、时间、数字阈值等），用于构建精确的WHERE/HAVING条件。\n\n"
+    "给定一个自然语言问题和相关的数据库schema，从问题中识别潜在的关键值（如人名、地名、机构名、产品名、特定时间、数字阈值等）。\n\n"
     "问题：{question}\n\n"
     "相关Schema：\n{relevant_schema}\n\n"
-    "请提取并规范化关键值：\n"
-    "- 字符串保持原样；日期建议YYYY-MM-DD格式；数值用数字。\n"
-    "只返回去重后的值列表，格式为JSON数组，例如:[\"value1\", \"value2\"]。\n"
-    "如无明确关键值，返回空数组[]。不得包含任何额外文字。"
+    "请提取问题中的关键值（如人名、地名、机构名、产品名、特定时间、数字阈值等）。\n"
+    "只返回关键值的列表，格式为JSON数组，例如：[\"value1\", \"value2\"]\n"
+    "如果问题中没有明确的关键值，返回空数组：[]\n"
+    "不要包含任何其他解释或文字，只返回JSON数组。"
 )
 
 GENERATE_SQL_PROMPT = (
-    "基于以下信息生成单条SQL查询：\n"
+    "基于以下信息生成SQL查询：\n"
     "- 问题：{question}\n"
     "- 相关表结构：\n{relevant_schema}\n"
     "- 示例值：{retrieved_values}\n\n"
-    "要求：\n"
-    "- 严格使用schema中的表和列，歧义列加表前缀；避免SELECT *。\n"
-    "- 按 FROM → JOIN → WHERE → GROUP BY → HAVING → ORDER BY → LIMIT 的顺序组织（仅在必要时包含）。\n"
-    "- 尽量使用提供的示例值构建条件；避免硬编码不存在的值。\n"
-    "- 只输出最终SQL（单行、无多余字符、无换行）。"
+    "请生成准确的SQL查询（单行格式，不要换行）。只输出SQL语句，不要其他解释。"
 )
 
 REVISE_SQL_PROMPT = (
     "之前的SQL执行失败了：\n"
     "SQL: {sql_draft}\n"
     "错误: {error}\n\n"
-    "请根据错误信息精确修正SQL。常见问题提示：\n"
-    "- schema.mismatch：表/列不存在或别名错误；歧义列需加前缀。\n"
-    "- join.logic_error：缺失JOIN条件、连接键错误或包含不必要表。\n"
-    "- aggregation.grouping_error：使用聚合但缺少/错误的GROUP BY，或HAVING误用。\n"
-    "- filter.condition_error：WHERE/HAVING条件列、运算符或取值不正确。\n"
-    "- select.output_error：选择的列与问题意图不一致（缺失/多余/顺序错误）。\n"
-    "- syntax.structural_error：结构性语法错误或缺少必要子句（ORDER BY/LIMIT/UNION等）。\n"
-    "- intent.semantic_error：与问题语义不符（硬编码值错误、遗漏必要子查询等）。\n\n"
+    "请根据错误信息修正SQL。常见问题：\n"
+    "- 'no such column': 检查列名是否正确，是否需要表前缀\n"
+    "- 'no such table': 检查表名拼写\n"
+    "- 'ambiguous column': 需要添加表名前缀\n"
+    "- 空结果: 检查WHERE条件是否过严，JOIN是否正确\n\n"
     "只输出修正后的SQL语句（单行格式）。"
 )
 
