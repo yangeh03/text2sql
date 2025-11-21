@@ -5,9 +5,9 @@
 ## 🎯 核心特性
 
 - ✅ **验证-修订闭环**：自动执行SQL并根据错误修订，最多3次迭代
+- 🧠 **语义一致性检查**：基于反向翻译（SQL→Text）的语义验证，提前发现逻辑错误
 - 🎨 **状态驱动架构**：使用 LangGraph 状态图，流程清晰易扩展
 - 🛡️ **安全执行**：只读SQL执行、行数限制、超时控制
-- 📊 **多数据集支持**：完整支持 Spider 和 BIRD Text-to-SQL 数据集评测
 - 🔍 **可观测性**：完整的修订历史、步骤追踪、ReAct 输出
 - 🚀 **本地/云端模型**：支持 Ollama 和 OpenAI 兼容 API
 
@@ -17,7 +17,7 @@
 
 ## 📖 工作流程
 
-系统采用四节点流程图：
+系统采用七节点流程图（**已重构为多阶段推理架构**）：
 
 ```
 START 
@@ -27,16 +27,35 @@ preprocess (预处理)
   ├─ 模式链接：筛选相关表和列
   └─ 检索示例值：从数据库抽取实体值
   ↓
+subproblem (子问题分解) 🆕
+  └─ 使用 LLM 将问题分解为多个 SQL 子句
+  ↓
+sql_plan (SQL计划生成) 🆕
+  └─ 使用 COT 思维链生成查询计划
+  └─ 输出必须包含 FINAL_PLAN: 段
+  ↓
 generate_sql (生成SQL)
-  └─ 基于 schema 和示例值生成 SQL 草稿
+  └─ 基于计划和 schema 生成 SQL 草稿
   ↓
 validate_sql (验证SQL)
-  └─ 在真实数据库上执行 SQL
+  ├─ 语义验证：SQL→Text反向翻译，检查语义一致性
+  └─ 执行验证：在真实数据库上执行 SQL
   ↓
 [条件路由]
-  ├─ 执行成功且有数据 → finalize (完成)
-  ├─ 执行失败或空结果 → revise_sql (修订)
+  ├─ 语义/执行成功且有数据 → finalize (完成)
+  ├─ 语义/执行失败或空结果 → correction_plan (纠错计划) 🆕
   └─ 达到最大修订次数 → finalize (强制完成)
+  ↓
+correction_plan (纠错计划生成) 🆕
+  ├─ 使用 COT 分析错误类型
+  ├─ 识别错误分类（schema/join/filter/aggregation等）
+  └─ 输出必须包含 CORRECTION_PLAN: 段
+  ↓
+correction_sql (纠错SQL生成) 🆕
+  └─ 严格按照纠错计划修正 SQL
+  ↓
+validate_sql (重新验证)
+  └─ 循环直到成功或达到最大次数
   ↓
 finalize (最终化)
   └─ 设置 final_sql
@@ -46,8 +65,15 @@ END
 
 ### 修订策略
 
-- **错误修订**：根据 SQL 错误信息（如 `no such column`、`ambiguous column`）精确修复
-- **空结果修订**：首次空结果尝试放宽 WHERE 条件或检查 JOIN
+- **两阶段纠错**：`correction_plan`（分析错误）→ `correction_sql`（修正SQL）
+- **错误分类体系**：
+  - `schema.mismatch`：表名、列名不存在或模糊
+  - `join.logic_error`：JOIN条件错误、外键错误、多余的表
+  - `filter.condition_error`：WHERE/HAVING子句错误
+  - `aggregation.grouping_error`：聚合函数或GROUP BY错误
+  - `select.output_error`：SELECT列错误（多余、缺失、顺序错误）
+  - `syntax.structural_error`：语法错误或缺少必需子句
+  - `intent.semantic_error`：语法正确但不符合用户意图
 - **终止保护**：最多修订 3 次，避免无限循环
 
 ---
@@ -96,29 +122,6 @@ PROVIDER=openai_compatible
 OPENAI_API_KEY=your-api-key
 OPENAI_BASE_URL=https://api.openai.com/v1
 MODEL_NAME=gpt-4o-mini
-
-# 消融/扩展（默认保守）
-ENABLE_SQL_TOOL=true
-ENABLE_VIZ_TOOL=true
-ENABLE_REFLECTION=false
-ENABLE_VALIDATION=false
-ENABLE_MEMORY=false
-
-# 资源与安全
-MAX_TOKENS=1024
-REQUEST_TIMEOUT=60
-SQL_MAX_ROWS=200
-SQL_HARD_LIMIT_INJECT=true
-
-# 语义验证（反向翻译）相关开关与阈值
-# ENABLE_SEMANTIC_VALIDATE: 是否在执行验证前进行“SQL→自然语言反向翻译 + 语义一致性判定”
-# SEMANTIC_SCORE_THRESHOLD: 语义判定通过的分数阈值（0~1），仅供实现时参考（当前由 LLM 判定返回 pass/score）
-# SEMANTIC_GATE_MODE: 语义闸门模式
-#   - before_exec: 通过后继续走 validate_sql（默认，不改变原有流程）
-#   - finalize_on_pass: 通过后直接 finalize（课堂 Demo/快速模式，可选）
-ENABLE_SEMANTIC_VALIDATE=true
-SEMANTIC_SCORE_THRESHOLD=0.7
-SEMANTIC_GATE_MODE=before_exec    # 或 finalize_on_pass（演示快速出结果）
 ```
 
 ### 3. 数据准备
@@ -313,23 +316,32 @@ class AgentState(BaseModel):
     relevant_schema: str             # 筛选后的相关表
     retrieved_values: list[str]      # 示例值
     
+    # 计划与推理
+    subproblems: str                 # 子问题分解
+    sql_plan: str                    # SQL查询计划
+    correction_plan: str             # 纠错计划
+    
     # SQL 生成与验证
     sql_draft: str                   # 当前 SQL 草稿
+    sql_nl_explanation: str          # SQL自然语言解释
+    semantic_validation: dict        # 语义验证结果
     execution_result: dict           # 执行结果或错误
     revision_history: list[dict]     # 修订历史
+    correction_history: list[dict]   # 纠错历史
     final_sql: str                   # 最终 SQL
     
     # 控制
     max_revisions: int = 3           # 最大修订次数
 ```
 
-#### 2. 四个核心工具
+#### 2. 五个核心工具
 
 | 工具 | 功能 | 实现方式 | 输入 | 输出 |
 |------|------|----------|------|------|
 | `get_database_schema` | 获取完整 schema | 基于规则 | db_id | CREATE TABLE 语句 |
 | `schema_linker` | 筛选相关表 | **基于LLM** | question, schema | 相关表的 schema |
 | `content_retriever` | 检索示例值 | **基于LLM+数据库** | question, schema, db_id | 关键值+示例值列表 |
+| `semantic_validator` | 语义验证 | **基于LLM** | question, sql | 语义一致性报告 |
 | `sql_executor` | 执行 SQL | 基于 SQLite | db_id, sql_query | 执行结果或错误 |
 
 **💡 智能增强**：
@@ -340,9 +352,12 @@ class AgentState(BaseModel):
 #### 3. LangGraph 节点
 
 - **preprocess**: 调用前三个工具，准备 SQL 生成所需信息
-- **generate_sql**: 基于 schema 和示例值生成 SQL
-- **validate_sql**: 执行 SQL 并记录结果
-- **revise_sql**: 根据错误修正 SQL
+- **subproblem**: 🆕 将问题分解为SQL子问题（WHERE, JOIN, GROUP BY等）
+- **sql_plan**: 🆕 使用COT生成查询计划（含FINAL_PLAN段）
+- **generate_sql**: 基于计划和 schema 生成 SQL
+- **validate_sql**: 语义验证（SQL→Text）+ 执行验证
+- **correction_plan**: 🆕 使用COT分析错误（结合纠错历史）并生成纠错计划（含CORRECTION_PLAN段）
+- **correction_sql**: 🆕 按纠错计划修正SQL并记录历史
 - **finalize**: 设置最终 SQL
 - **decide_next_step**: 条件路由（修订 vs 结束）
 
@@ -378,37 +393,6 @@ SQL_HARD_LIMIT_INJECT=true               # 自动添加 LIMIT
 
 ---
 
-## 🔧 常见问题
-
-### 数据准备
-
-**Q: Spider 数据集在哪下载？**
-
-A: [Spider 官网](https://yale-lily.github.io/spider) 下载后解压到 `spider_data/` 目录。
-
-**Spider 数据集结构：**
-- `dev.json` - 开发集问题和SQL
-- `tables.json` - 数据库schema定义
-- `database/{db_id}/{db_id}.sqlite` - SQLite数据库文件
-
-**Q: BIRD 数据集在哪下载？**
-
-A: [BIRD 官网](https://bird-bench.github.io/) 下载后解压到 `bird_data/` 目录。
-
-**BIRD 数据集结构：**
-- `dev.json` - 开发集问题和SQL（含question_id）
-- `dev_tables.json` - 数据库schema定义
-- `dev_databases/{db_id}/{db_id}.sqlite` - SQLite数据库文件
-- `dev_databases/{db_id}/database_description/` - 数据库描述文档
-
-**Q: 数据库文件必须存在吗？**
-
-A: 是的，系统需要在真实数据库上执行 SQL 进行验证。确保：
-- Spider: `spider_data/database/{db_id}/{db_id}.sqlite`
-- BIRD: `bird_data/dev_databases/{db_id}/{db_id}.sqlite`
-
----
-
 ## 📚 相关资源
 
 - **[Spider 官网](https://yale-lily.github.io/spider)** - Spider Text-to-SQL 数据集
@@ -435,7 +419,6 @@ A: 是的，系统需要在真实数据库上执行 SQL 进行验证。确保：
 - **LangGraph 学习**：学习如何设计状态机驱动的智能体
 - **生产应用**：可靠的 Text-to-SQL 系统基础
 
-### 未来扩展
 
 ---
 
@@ -446,10 +429,5 @@ MIT License
 ---
 
 ## TODOLIST
-- 预处理的检索值工具还可以优化
-- 验证、修订模块仍需要大量优化（执行、语法、语义等多维度），否则准确率上不去
-- 错误处理：当最终没有修订对时或程序跑崩了输出空行或其他。
 - 配置fast llm 和 main llm  -->节省token
-- 记录日志
-- 统计token消耗
 - 中文提示词转英文

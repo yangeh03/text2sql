@@ -4,7 +4,8 @@
 1. get_database_schema - 获取完整数据库模式
 2. schema_linker - 模式链接，筛选相关表（基于LLM）
 3. content_retriever - 检索示例值（基于LLM）
-4. sql_executor - 执行SQL查询
+4. semantic_validator - SQL语义验证（SQL→Text反向翻译）
+5. sql_executor - 执行SQL查询
 """
 from __future__ import annotations
 import json
@@ -249,7 +250,8 @@ def content_retriever(question: str, relevant_schema: str, db_id: str,
                 
                 if text_col:
                     cursor.execute(f"SELECT DISTINCT {text_col} FROM {table} LIMIT 5")
-                    values = [str(row[0]) for row in cursor.fetchall() if row[0]]
+                    # 确保所有值都转换为字符串
+                    values = [str(row[0]) for row in cursor.fetchall() if row[0] is not None]
                     retrieved_values.extend(values)
             except Exception:
                 continue
@@ -258,6 +260,8 @@ def content_retriever(question: str, relevant_schema: str, db_id: str,
         
         # 合并 LLM 识别的关键值和数据库检索的值
         all_values = key_values + retrieved_values
+        # 确保所有值都是字符串类型
+        all_values = [str(v) for v in all_values]
         unique_values = list(dict.fromkeys(all_values))  # 去重但保持顺序
         
         return {
@@ -340,4 +344,72 @@ def sql_executor(db_id: str, sql_query: str,
         return {
             "status": "error",
             "error": f"执行失败: {str(e)}"
+        }
+
+
+def semantic_validator(question: str, sql_draft: str, relevant_schema: str) -> Dict[str, Any]:
+    """
+    Tool 5: SQL语义验证（SQL→Text反向翻译 + 语义一致性判断）
+    
+    基于GBV-SQL论文思想，通过反向翻译检查SQL语义是否与问题一致
+    
+    输入：question - 自然语言问题, sql_draft - 生成的SQL, relevant_schema - 相关模式
+    输出：{ status: "ok", explanation: str, semantic_match: bool, issues: list }
+    """
+    try:
+        # 导入LLM和提示词
+        from .llm import chat
+        from .prompts import SEMANTIC_VALIDATE_PROMPT, SYSTEM_PROMPT
+        
+        # 构建语义验证提示
+        prompt = SEMANTIC_VALIDATE_PROMPT.format(
+            question=question,
+            relevant_schema=relevant_schema,
+            sql_draft=sql_draft
+        )
+        
+        messages = [
+            {"role": "system", "content": SYSTEM_PROMPT},
+            {"role": "user", "content": prompt}
+        ]
+        
+        # 调用LLM进行语义验证
+        response = chat(messages=messages, tools=None, temperature=0.1)
+        content = response.get("content", "").strip()
+        
+        # 清理JSON（移除markdown标记）
+        if content.startswith("```json"):
+            content = content[7:]
+        if content.startswith("```"):
+            content = content[3:]
+        if content.endswith("```"):
+            content = content[:-3]
+        content = content.strip()
+        
+        # 解析语义验证结果
+        try:
+            validation_result = json.loads(content)
+            return {
+                "status": "ok",
+                "explanation": validation_result.get("explanation", ""),
+                "semantic_match": validation_result.get("semantic_match", True),
+                "issues": validation_result.get("issues", [])
+            }
+        except (json.JSONDecodeError, ValueError) as e:
+            # 解析失败，假设语义一致
+            return {
+                "status": "ok",
+                "explanation": content[:200] if content else "",
+                "semantic_match": True,
+                "issues": [],
+                "parse_error": f"JSON解析失败: {str(e)}"
+            }
+    
+    except Exception as e:
+        # 验证失败，降级为通过
+        return {
+            "status": "error",
+            "error": f"语义验证失败: {str(e)}",
+            "semantic_match": True,
+            "issues": []
         }

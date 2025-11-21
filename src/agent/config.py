@@ -23,22 +23,7 @@ class Settings:
     provider: str = os.getenv("PROVIDER", "ollama")  # ollama | openai_compatible
     api_key: str = os.getenv("OPENAI_API_KEY", "ollama")
     base_url: str = os.getenv("OPENAI_BASE_URL", "http://localhost:11434/v1")
-    model: str = os.getenv("MODEL_NAME", "llama3.1")
-
-    # ablations / modules
-    enable_reflection: bool = _to_bool(os.getenv("ENABLE_REFLECTION"), False)
-    enable_validation: bool = _to_bool(os.getenv("ENABLE_VALIDATION"), False)
-    enable_memory: bool = _to_bool(os.getenv("ENABLE_MEMORY"), False)
-
-    # 语义验证（反向翻译）相关开关与阈值
-    # ENABLE_SEMANTIC_VALIDATE: 是否在执行验证前进行“SQL→自然语言反向翻译 + 语义一致性判定”
-    # SEMANTIC_SCORE_THRESHOLD: 语义判定通过的分数阈值（0~1），仅供实现时参考（当前由 LLM 判定返回 pass/score）
-    # SEMANTIC_GATE_MODE: 语义闸门模式
-    #   - before_exec: 通过后继续走 validate_sql（默认，不改变原有流程）
-    #   - finalize_on_pass: 通过后直接 finalize（课堂 Demo/快速模式，可选）
-    enable_semantic_validate: bool = _to_bool(os.getenv("ENABLE_SEMANTIC_VALIDATE"), False)
-    semantic_score_threshold: float = float(os.getenv("SEMANTIC_SCORE_THRESHOLD", "0.7"))
-    semantic_gate_mode: str = os.getenv("SEMANTIC_GATE_MODE", "before_exec")
+    model: str = os.getenv("MODEL_NAME", "qwen3:8b")
 
     # resource/safety
     max_tokens: int = int(os.getenv("MAX_TOKENS", "1024"))
@@ -62,19 +47,16 @@ class EvalConfig:
     dataset_type: str = "spider"
     
     # 数据文件路径
-    # data_file: str = "spider_data/train_spider.json"
     data_file: str = "spider_data/test.json"
     # Schema文件路径
-    # schema_file: str = "spider_data/tables.json"
     schema_file: str = "spider_data/test_tables.json"
     # 输出SQL文件路径
-    output_file: str = "outputs/predictions.sql"
+    output_file: str = "outputs/spider_test_predictions.sql"
     # 数据库文件目录路径
-    # database_dir: str = "spider_data/database"
     database_dir: str = "spider_data/test_database"
     
     # 最多处理的样本数（None表示全部）
-    max_samples: int | None = None
+    max_samples: int | None = 1
     # 最大修订次数
     max_revisions: int = 3
 
