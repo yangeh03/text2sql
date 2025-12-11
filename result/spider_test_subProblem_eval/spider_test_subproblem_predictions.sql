@@ -13,15 +13,15 @@ SELECT Name FROM player ORDER BY Earnings DESC LIMIT 1
 SELECT DISTINCT Country FROM player WHERE Earnings > 1200000;
 SELECT Country FROM player WHERE Earnings > 1200000;
 SELECT Country FROM player WHERE Wins_count > 2 ORDER BY Earnings DESC LIMIT 1;
-SELECT Country FROM player WHERE Wins_count > 2 ORDER BY Wins_count DESC LIMIT 1;
+SELECT Country FROM player WHERE Wins_count > 2 ORDER BY Earnings DESC LIMIT 1;
 SELECT player.Name, club.Name FROM player JOIN club ON player.Club_ID = club.Club_ID WHERE club.Name IN ('Arsenal', 'Aston Villa', 'Blackburn Rovers', 'Bolton Wanderers', 'Chelsea') OR player.Name IN ('Nick Price', 'Paul Azinger', 'Greg Norman', 'Jim Gallagher', 'Jr.', 'David Frost');
 SELECT player.Name, club.Name FROM player JOIN club ON player.Club_ID = club.Club_ID WHERE club.Name IN ('Arsenal', 'Aston Villa', 'Blackburn Rovers', 'Bolton Wanderers', 'Chelsea') OR player.Name IN ('Nick Price', 'Paul Azinger', 'Greg Norman');
 SELECT DISTINCT club.Name FROM club JOIN player ON club.Club_ID = player.Club_ID WHERE player.Wins_count > 2;
 SELECT DISTINCT club.Name FROM club JOIN player ON club.Club_ID = player.Club_ID WHERE player.Wins_count > 2;
 SELECT player.Name FROM player INNER JOIN club ON player.Club_ID = club.Club_ID WHERE club.Manager = 'Sam Allardyce';
 SELECT player.Name FROM player JOIN club ON player.Club_ID = club.Club_ID WHERE club.Manager = 'Sam Allardyce';
-SELECT club.Name FROM club JOIN player ON club.Club_ID = player.Club_ID ORDER BY player.Earnings DESC;
-SELECT club.Name, AVG(player.Earnings) AS avg_earnings FROM club JOIN player ON club.Club_ID = player.Club_ID GROUP BY club.Club_ID ORDER BY avg_earnings DESC;
+SELECT T1.Name FROM club AS T1 JOIN player AS T2 ON T1.Club_ID = T2.Club_ID GROUP BY T1.Club_ID ORDER BY avg(T2.Earnings) DESC;
+SELECT T1.Name FROM club AS T1 JOIN player AS T2 ON T1.Club_ID = T2.Club_ID GROUP BY T1.Club_ID ORDER BY avg(T2.Earnings) DESC;
 SELECT Manufacturer, COUNT(Club_ID) AS clubs FROM club GROUP BY Manufacturer;
 SELECT Manufacturer, COUNT(*) FROM club GROUP BY Manufacturer;
 SELECT Manufacturer, COUNT(*) AS count FROM club GROUP BY Manufacturer ORDER BY count DESC LIMIT 1;
@@ -32,38 +32,38 @@ SELECT Country FROM player GROUP BY Country HAVING COUNT(Player_ID) > 1;
 SELECT Country FROM player GROUP BY Country HAVING COUNT(*) > 1;
 SELECT Name FROM club WHERE Club_ID NOT IN (SELECT DISTINCT Club_ID FROM player);
 SELECT Name FROM club WHERE Club_ID NOT IN (SELECT DISTINCT Club_ID FROM player);
-SELECT Country FROM player WHERE Earnings > 1400000 OR Earnings < 1100000;
+SELECT Country FROM player WHERE Earnings > 1400000 INTERSECT SELECT Country FROM player WHERE Earnings < 1100000;
 SELECT Country FROM player WHERE Earnings > 1400000 INTERSECT SELECT Country FROM player WHERE Earnings < 1100000;
 SELECT COUNT(DISTINCT Country) FROM player;
 SELECT COUNT(DISTINCT Country) FROM player;
-SELECT Earnings FROM player WHERE Country = 'Australia' OR Country = 'Zimbabwe'
-SELECT Earnings FROM player WHERE Country IN ('Australia', 'Zimbabwe')
+SELECT Earnings FROM player WHERE Country = "Australia" OR Country = "Zimbabwe"
+SELECT Earnings FROM player WHERE Country = "Australia" OR Country = "Zimbabwe"
 SELECT Customers.customer_id, Customers.customer_first_name, Customers.customer_last_name FROM Customers JOIN Orders ON Customers.customer_id = Orders.customer_id JOIN Order_Items ON Orders.order_id = Order_Items.order_id GROUP BY Customers.customer_id HAVING COUNT(Orders.order_id) > 2 AND COUNT(Order_Items.order_item_id) >= 3;
 SELECT Customers.customer_id, Customers.customer_first_name, Customers.customer_last_name FROM Customers JOIN Orders ON Customers.customer_id = Orders.customer_id JOIN Order_Items ON Orders.order_id = Order_Items.order_id GROUP BY Customers.customer_id HAVING COUNT(Orders.order_id) > 2 AND SUM(CASE WHEN Order_Items.order_item_status_code = 'Delivered' THEN 1 ELSE 0 END) >= 3;
-SELECT Orders.order_id, Orders.order_status_code, COUNT(Order_Items.product_id) AS product_count FROM Orders JOIN Order_Items ON Orders.order_id = Order_Items.order_id GROUP BY Orders.order_id, Orders.order_status_code;
-SELECT Orders.order_id, COUNT(Order_Items.order_item_id) AS product_count, Orders.order_status_code FROM Orders JOIN Order_Items ON Orders.order_id = Order_Items.order_id GROUP BY Orders.order_id;
+SELECT T1.order_id, T1.order_status_code, count(*) FROM Orders AS T1 JOIN Order_items AS T2 ON T1.order_id = T2.order_id GROUP BY T1.order_id;
+SELECT T1.order_id, T1.order_status_code, count(*) FROM Orders AS T1 JOIN Order_items AS T2 ON T1.order_id = T2.order_id GROUP BY T1.order_id;
 SELECT DISTINCT date_order_placed FROM Orders WHERE date_order_placed = (SELECT MIN(date_order_placed) FROM Orders) OR order_id IN (SELECT order_id FROM Order_Items GROUP BY order_id HAVING COUNT(*) > 1);
 SELECT MIN(date_order_placed) AS earliest_order_date FROM Orders WHERE order_status_code IN ('Cancelled', 'Part Completed', 'Delivered', 'Out of Stock') GROUP BY order_id HAVING COUNT(*) > 1 UNION SELECT date_order_placed FROM Orders WHERE order_id IN (SELECT order_id FROM Order_Items GROUP BY order_id HAVING COUNT(*) > 1) AND order_status_code IN ('Cancelled', 'Part Completed', 'Delivered', 'Out of Stock') ORDER BY date_order_placed;
-SELECT customer_first_name, customer_middle_initial, customer_last_name FROM Customers WHERE customer_id NOT IN (SELECT customer_id FROM Orders);
-SELECT customer_first_name, customer_middle_initial, customer_last_name FROM Customers LEFT JOIN Orders ON Customers.customer_id = Orders.customer_id WHERE Orders.order_id IS NULL;
+SELECT customer_first_name, customer_middle_initial, customer_last_name FROM Customers EXCEPT SELECT T1.customer_first_name, T1.customer_middle_initial, T1.customer_last_name FROM Customers AS T1 JOIN Orders AS T2 ON T1.customer_id = T2.customer_id;
+SELECT customer_first_name, customer_middle_initial, customer_last_name FROM Customers EXCEPT SELECT T1.customer_first_name, T1.customer_middle_initial, T1.customer_last_name FROM Customers AS T1 JOIN Orders AS T2 ON T1.customer_id = T2.customer_id;
 SELECT product_id, product_name, product_price, product_color FROM Products WHERE product_id NOT IN (SELECT product_id FROM Order_Items WHERE order_item_status_code = 'Cancelled' OR order_item_status_code = 'Part Completed' OR order_item_status_code = 'Delivered' GROUP BY product_id HAVING COUNT(*) >= 2) ORDER BY product_id;
 SELECT product_id, product_name, product_price, product_color FROM Products WHERE product_id NOT IN (SELECT DISTINCT product_id FROM Order_Items WHERE order_id IN (SELECT order_id FROM Orders WHERE order_status_code = 'Cancelled' OR order_status_code = 'Part Completed' OR order_status_code = 'Delivered')) AND product_id IN (SELECT product_id FROM Order_Items);
 SELECT order_id, date_order_placed FROM Orders WHERE order_id IN (SELECT order_id FROM Order_Items GROUP BY order_id HAVING COUNT(*) >= 2);
 SELECT Orders.order_id, Orders.date_order_placed FROM Orders JOIN Order_Items ON Orders.order_id = Order_Items.order_id GROUP BY Orders.order_id HAVING COUNT(*) >= 2;
 SELECT Products.product_id, Products.product_name, Products.product_price FROM Products JOIN Order_Items ON Products.product_id = Order_Items.product_id GROUP BY Products.product_id ORDER BY COUNT(Order_Items.order_id) DESC LIMIT 1;
 SELECT Products.product_id, Products.product_name, Products.product_price FROM Products JOIN Order_Items ON Products.product_id = Order_Items.product_id WHERE Order_Items.order_item_status_code = 'Delivered' GROUP BY Products.product_id ORDER BY COUNT(Order_Items.order_item_id) DESC;
-SELECT order_id, SUM(product_price) AS total_price FROM Order_Items JOIN Products ON Order_Items.product_id = Products.product_id WHERE product_name IN ('Dell monitor', 'Dell keyboard', 'iPhone6s', 'iWatch', 'Lenovo keyboard') AND order_item_status_code IN ('Cancelled', 'Part Completed', 'Delivered') GROUP BY order_id ORDER BY total_price ASC LIMIT 1;
-SELECT Orders.order_id, SUM(Products.product_price) AS total_cost FROM Orders JOIN Order_Items ON Orders.order_id = Order_Items.order_id JOIN Products ON Order_Items.product_id = Products.product_id WHERE Orders.order_status_code IN ('Cancelled', 'Part Completed', 'Delivered') GROUP BY Orders.order_id ORDER BY total_cost ASC LIMIT 1;
+SELECT T1.order_id, sum(T2.product_price) FROM Order_items AS T1 JOIN Products AS T2 ON T1.product_id = T2.product_id GROUP BY T1.order_id ORDER BY sum(T2.product_price) ASC LIMIT 1;
+SELECT T1.order_id, sum(T2.product_price) FROM Order_items AS T1 JOIN Products AS T2 ON T1.product_id = T2.product_id GROUP BY T1.order_id ORDER BY sum(T2.product_price) ASC LIMIT 1;
 SELECT payment_method_code FROM Customer_Payment_Methods GROUP BY payment_method_code ORDER BY COUNT(*) DESC LIMIT 1;
 SELECT payment_method_code FROM Customer_Payment_Methods GROUP BY payment_method_code ORDER BY COUNT(*) DESC LIMIT 1;
 SELECT Customers.gender_code, COUNT(Order_Items.order_item_id) FROM Customers JOIN Orders ON Customers.customer_id = Orders.customer_id JOIN Order_Items ON Orders.order_id = Order_Items.order_id GROUP BY Customers.gender_code;
 SELECT Customers.gender_code, COUNT(Order_Items.order_item_id) FROM Customers JOIN Orders ON Customers.customer_id = Orders.customer_id JOIN Order_Items ON Orders.order_id = Order_Items.order_id GROUP BY Customers.gender_code;
-SELECT COUNT(*) AS order_count, Customers.gender_code FROM Orders JOIN Customers ON Orders.customer_id = Customers.customer_id GROUP BY Customers.gender_code;
-SELECT Customers.gender_code, COUNT(Orders.order_id) FROM Customers JOIN Orders ON Customers.customer_id = Orders.customer_id GROUP BY Customers.gender_code;
+SELECT T1.gender_code, count(*) FROM Customers AS T1 JOIN Orders AS T2 ON T1.customer_id = T2.customer_id GROUP BY T1.gender_code;
+SELECT T1.gender_code, count(*) FROM Customers AS T1 JOIN Orders AS T2 ON T1.customer_id = T2.customer_id GROUP BY T1.gender_code;
 SELECT Customers.customer_first_name, Customers.customer_middle_initial, Customers.customer_last_name, Customer_Payment_Methods.payment_method_code FROM Customers JOIN Customer_Payment_Methods ON Customers.customer_id = Customer_Payment_Methods.customer_id;
 SELECT Customers.customer_first_name, Customers.customer_middle_initial, Customers.customer_last_name, Customer_Payment_Methods.payment_method_code FROM Customers LEFT JOIN Customer_Payment_Methods ON Customers.customer_id = Customer_Payment_Methods.customer_id;
-SELECT Invoices.invoice_status_code, Invoices.invoice_date, Shipments.shipment_date FROM Invoices JOIN Shipments ON Invoices.invoice_number = Shipments.invoice_number;
-SELECT Invoices.invoice_status_code, Invoices.invoice_date, Shipments.shipment_date FROM Invoices JOIN Shipments ON Invoices.invoice_number = Shipments.invoice_number WHERE Invoices.invoice_number IN (6900, 3499, 5617, 6074, 3848) UNION SELECT Invoices.invoice_status_code, Invoices.invoice_date, NULL AS shipment_date FROM Invoices WHERE Invoices.invoice_number NOT IN (SELECT Shipments.invoice_number FROM Shipments WHERE Shipments.invoice_number IN (6900, 3499, 5617, 6074, 3848));
+SELECT T1.invoice_status_code, T1.invoice_date, T2.shipment_date FROM Invoices AS T1 JOIN Shipments AS T2 ON T1.invoice_number = T2.invoice_number;
+SELECT T1.invoice_status_code, T1.invoice_date, T2.shipment_date FROM Invoices AS T1 JOIN Shipments AS T2 ON T1.invoice_number = T2.invoice_number;
 SELECT Products.product_name, Shipments.shipment_date FROM Products JOIN Order_Items ON Products.product_id = Order_Items.product_id JOIN Shipments ON Order_Items.order_id = Shipments.order_id;
 SELECT DISTINCT Products.product_name, Shipments.shipment_date FROM Products JOIN Shipments ON Products.product_id = Shipments.order_id WHERE Products.product_name IN ('Dell monitor', 'Dell keyboard', 'iPhone6s', 'iWatch', 'Lenovo keyboard');
 SELECT Order_Items.order_item_status_code, Shipments.shipment_tracking_number FROM Order_Items JOIN Shipments ON Order_Items.order_id = Shipments.order_id WHERE Order_Items.order_item_status_code IN ('Delivered', 'Out of Stock') AND Shipments.shipment_tracking_number IN ('6900', '3499', '5617', '6074', '3848');
@@ -74,12 +74,12 @@ SELECT DISTINCT p.product_name, p.product_price, p.product_description FROM Prod
 SELECT DISTINCT Products.product_name, Products.product_price, Products.product_description FROM Products JOIN Order_Items ON Products.product_id = Order_Items.product_id JOIN Orders ON Order_Items.order_id = Orders.order_id JOIN Customers ON Orders.customer_id = Customers.customer_id WHERE LOWER(Customers.gender_code) = 'female'
 SELECT invoice_status_code FROM Invoices WHERE invoice_number IN (SELECT invoice_number FROM Shipments WHERE order_id NOT IN (SELECT order_id FROM Orders WHERE order_status_code = 'Shipped'))
 SELECT invoice_status_code FROM Invoices WHERE invoice_number IN (SELECT invoice_number FROM Shipments WHERE order_id NOT IN (SELECT order_id FROM Orders WHERE order_status_code = 'Shipped'))
-SELECT Orders.order_id, Orders.date_order_placed, SUM(Products.product_price) AS total_cost FROM Orders JOIN Order_Items ON Orders.order_id = Order_Items.order_id JOIN Products ON Order_Items.product_id = Products.product_id WHERE Products.product_name IN ('Dell monitor', 'Dell keyboard', 'iPhone6s', 'iWatch', 'Lenovo keyboard') AND Orders.order_status_code IN ('Cancelled', 'Part Completed', 'Delivered') GROUP BY Orders.order_id, Orders.date_order_placed;
+SELECT T1.order_id, T1.date_order_placed, sum(T3.product_price) FROM Orders AS T1 JOIN Order_items AS T2 ON T1.order_id = T2.order_id JOIN Products AS T3 ON T2.product_id = T3.product_id GROUP BY T1.order_id;
 SELECT Orders.order_id, Orders.date_order_placed, Invoices.invoice_number, Invoices.invoice_date, Invoices.invoice_status_code FROM Orders JOIN Invoices ON Orders.order_id = Invoices.invoice_number;
 SELECT COUNT(DISTINCT Orders.customer_id) FROM Orders JOIN Customers ON Orders.customer_id = Customers.customer_id;
 SELECT COUNT(DISTINCT Orders.customer_id) FROM Orders JOIN Customers ON Orders.customer_id = Customers.customer_id;
-SELECT COUNT(DISTINCT order_status_code) FROM Orders;
-SELECT COUNT(DISTINCT order_item_status_code) FROM Order_Items;
+SELECT COUNT(DISTINCT order_item_status_code) FROM Order_items;
+SELECT COUNT(DISTINCT order_item_status_code) FROM Order_items;
 SELECT COUNT(DISTINCT payment_method_code) FROM Customer_Payment_Methods;
 SELECT COUNT(DISTINCT payment_method_code) FROM Customer_Payment_Methods;
 SELECT login_name, login_password FROM Customers WHERE phone_number LIKE '+12%';
@@ -88,10 +88,10 @@ SELECT product_size FROM Products WHERE product_name LIKE '%Dell%';
 SELECT product_size FROM Products WHERE product_name LIKE '%Dell%';
 SELECT product_price, product_size FROM Products WHERE product_price > (SELECT AVG(product_price) FROM Products)
 SELECT product_price, product_size FROM Products WHERE product_price > (SELECT AVG(product_price) FROM Products)
-SELECT COUNT(DISTINCT p.product_id) FROM Products p LEFT JOIN Order_Items oi ON p.product_id = oi.product_id WHERE oi.order_item_id IS NULL;
+SELECT count(*) FROM Products WHERE product_id NOT IN (SELECT product_id FROM Order_items);
 SELECT COUNT(*) FROM Products WHERE product_id NOT IN (SELECT product_id FROM Order_Items)
 SELECT COUNT(*) FROM Customers WHERE customer_id NOT IN (SELECT customer_id FROM Customer_Payment_Methods);
-SELECT COUNT(*) FROM Customers LEFT JOIN Customer_Payment_Methods ON Customers.customer_id = Customer_Payment_Methods.customer_id WHERE Customer_Payment_Methods.payment_method_code IS NULL;
+SELECT count(*) FROM Customers WHERE customer_id NOT IN (SELECT customer_id FROM Customer_Payment_Methods);
 SELECT order_status_code, date_order_placed FROM Orders;
 SELECT order_status_code, date_order_placed FROM Orders;
 SELECT address_line_1, town_city, county FROM Customers WHERE country = 'USA';
@@ -112,24 +112,24 @@ SELECT order_status_code FROM Orders GROUP BY order_status_code ORDER BY COUNT(*
 SELECT order_status_code FROM Orders GROUP BY order_status_code ORDER BY COUNT(*) ASC LIMIT 1;
 SELECT Products.product_id, Products.product_description FROM Products JOIN Order_Items ON Products.product_id = Order_Items.product_id GROUP BY Products.product_id HAVING COUNT(*) > 3;
 SELECT Products.product_id, Products.product_description FROM Products JOIN Order_Items ON Products.product_id = Order_Items.product_id GROUP BY Products.product_id HAVING COUNT(*) > 3;
-SELECT Invoices.invoice_date, Invoices.invoice_number FROM Invoices JOIN Shipments ON Invoices.invoice_number = Shipments.invoice_number GROUP BY Invoices.invoice_number HAVING COUNT(*) >= 2;
+SELECT T1.invoice_date, T1.invoice_number FROM Invoices AS T1 JOIN Shipments AS T2 ON T1.invoice_number = T2.invoice_number GROUP BY T1.invoice_number HAVING count(*) >= 2;
 SELECT invoice_number, invoice_date FROM Invoices WHERE invoice_number IN (SELECT invoice_number FROM Shipments GROUP BY invoice_number HAVING COUNT(*) >= 2) ORDER BY invoice_date;
 SELECT shipment_tracking_number, shipment_date FROM Shipments;
 SELECT shipment_tracking_number, shipment_date FROM Shipments;
 SELECT product_color, product_description, product_size FROM Products WHERE product_price < (SELECT MAX(product_price) FROM Products);
 SELECT product_color, product_description, product_size FROM Products WHERE product_price < (SELECT MAX(product_price) FROM Products)
 SELECT Name FROM director WHERE Age > (SELECT AVG(Age) FROM director)
-SELECT Name FROM director ORDER BY Age ASC LIMIT 1;
+SELECT name FROM director ORDER BY age DESC LIMIT 1;
 SELECT COUNT(*) FROM channel WHERE Internet LIKE '%bbc%'
 SELECT COUNT(DISTINCT Digital_terrestrial_channel) FROM channel;
 SELECT Title FROM program ORDER BY Start_Year DESC;
-SELECT Name, COUNT(*) as num_programs FROM director JOIN program ON director.Director_ID = program.Director_ID GROUP BY Name ORDER BY num_programs DESC LIMIT 1;
-SELECT d.Name, d.Age FROM director d JOIN program p ON d.Director_ID = p.Director_ID GROUP BY d.Director_ID ORDER BY COUNT(p.Program_ID) DESC LIMIT 1;
+SELECT T2.name FROM program AS T1 JOIN director AS T2 ON T1.director_id = T2.director_id GROUP BY T1.director_id ORDER BY count(*) DESC LIMIT 1;
+SELECT T2.name, T2.age FROM program AS T1 JOIN director AS T2 ON T1.director_id = T2.director_id GROUP BY T1.director_id ORDER BY count(*) DESC LIMIT 1;
 SELECT Title FROM program ORDER BY Start_Year DESC LIMIT 1;
 SELECT Name, Internet FROM channel WHERE Channel_ID IN (SELECT Channel_ID FROM program GROUP BY Channel_ID HAVING COUNT(Program_ID) > 1)
-SELECT channel.Name, COUNT(program.Program_ID) AS Number_of_Programs FROM channel JOIN program ON channel.Channel_ID = program.Channel_ID GROUP BY channel.Channel_ID;
+SELECT T1.name, count(*) FROM channel AS T1 JOIN program AS T2 ON T1.channel_id = T2.channel_id GROUP BY T1.channel_id;
 SELECT COUNT(*) FROM channel WHERE Channel_ID NOT IN (SELECT DISTINCT Channel_ID FROM program);
-SELECT d.Name FROM director d JOIN program p ON d.Director_ID = p.Director_ID WHERE p.Title = 'Dracula'
+SELECT T2.name FROM program AS T1 JOIN director AS T2 ON T1.director_id = T2.director_id WHERE T1.title = 'Dracula';
 SELECT c.Name, c.Internet FROM channel c JOIN director_admin da ON c.Channel_ID = da.Channel_ID GROUP BY c.Channel_ID ORDER BY COUNT(DISTINCT da.Director_ID) DESC LIMIT 1;
 SELECT Name FROM director WHERE Age BETWEEN 30 AND 60;
 SELECT 1;  -- ERROR: Request timed out.
@@ -159,8 +159,8 @@ SELECT MAX(Power), AVG(Power) FROM vehicle WHERE Builder = 'Zhuzhou';
 SELECT MAX(Power) AS Max_Power, AVG(Power) AS Avg_Power FROM vehicle WHERE Builder = 'Zhuzhou';
 SELECT v.Vehicle_ID FROM vehicle_driver vd JOIN vehicle v ON vd.Vehicle_ID = v.Vehicle_ID GROUP BY v.Vehicle_ID ORDER BY COUNT(*) ASC LIMIT 1;
 SELECT Vehicle_ID FROM vehicle_driver GROUP BY Vehicle_ID ORDER BY COUNT(Driver_ID) ASC LIMIT 1;
-SELECT Model,Top_Speed,Power FROM vehicle WHERE Build_Year='1996'
-SELECT Top_Speed, Power FROM vehicle WHERE Build_Year = '1996'
+SELECT top_speed, power FROM vehicle WHERE build_year = 1996;
+SELECT top_speed, power FROM vehicle WHERE build_year = 1996
 SELECT Build_Year, Model, Builder FROM vehicle;
 SELECT Build_Year, Model, Builder FROM vehicle;
 SELECT COUNT(DISTINCT vehicle_driver.Driver_ID) FROM vehicle_driver JOIN vehicle ON vehicle_driver.Vehicle_ID = vehicle.Vehicle_ID WHERE vehicle.Build_Year = '2012';
@@ -195,8 +195,8 @@ SELECT COUNT(*) FROM Exams;
 SELECT COUNT(*) FROM Exams
 SELECT DISTINCT Subject_Code FROM Exams ORDER BY Subject_Code ASC;
 SELECT DISTINCT Subject_Code FROM Exams ORDER BY Subject_Code;
-SELECT Exam_Name, Exam_Date FROM Exams WHERE Subject_Code != 'Database' AND Subject_Code IN ('Art History', 'English', 'Data Structure')
-SELECT Exam_Date, Exam_Name FROM Exams WHERE Subject_Code != 'Database' AND Subject_Code IN ('Art History', 'English', 'Data Structure')
+SELECT Exam_Date, Exam_Name FROM Exams WHERE Subject_Code != 'Database';
+SELECT Exam_Date, Exam_Name FROM Exams WHERE Subject_Code != 'Database'
 SELECT Exam_Date FROM Exams WHERE Subject_Code LIKE '%data%' ORDER BY Exam_Date DESC;
 SELECT Exam_Date FROM Exams WHERE Subject_Code LIKE '%data%' ORDER BY Exam_Date DESC;
 SELECT Q1.Type_of_Question_Code, COUNT(Q2.Question_ID) AS Count FROM Questions Q1 JOIN Questions_in_Exams Q2 ON Q1.Question_ID = Q2.Question_ID GROUP BY Q1.Type_of_Question_Code;

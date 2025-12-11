@@ -488,4 +488,47 @@ medium gold: SELECT order_status_code ,  count(*) FROM Customer_orders GROUP BY 
 eval_err_num:112
 hard pred: SELECT order_status_code, COUNT(*) as count FROM Customer_Orders GROUP BY order_status_code ORDER BY count DESC LIMIT 1
 hard gold: SELECT order_status_code FROM Customer_orders GROUP BY order_status_code ORDER BY count(*) DESC LIMIT 1
+
+
+                     easy                 medium               hard                 extra                all                 
+count                78                   111                  77                   34                   300                 
+=====================   EXECUTION ACCURACY     =====================
+execution            0.885                0.541                0.506                0.294                0.593               
+
+====================== EXACT MATCHING ACCURACY =====================
+exact match          0.872                0.550                0.455                0.294                0.580               
+
+---------------------PARTIAL MATCHING ACCURACY----------------------
+select               0.972                0.984                0.976                1.000                0.979               
+select(no AGG)       0.972                0.984                0.976                1.000                0.979               
+where                1.000                1.000                0.792                0.800                0.912               
+where(no OP)         1.000                1.000                0.875                0.900                0.950               
+group(no Having)     0.900                1.000                0.833                1.000                0.889               
+group                0.900                1.000                0.833                1.000                0.889               
+order                1.000                1.000                1.000                1.000                1.000               
+and/or               1.000                0.964                1.000                1.000                0.987               
+IUEN                 0.000                0.000                1.000                1.000                1.000               
+keywords             0.975                1.000                0.895                0.917                0.953               
+---------------------- PARTIAL MATCHING RECALL ----------------------
+select               0.897                0.550                0.532                0.353                0.613               
+select(no AGG)       0.897                0.550                0.532                0.353                0.613               
+where                0.900                0.757                0.543                0.400                0.652               
+where(no OP)         0.900                0.757                0.600                0.450                0.679               
+group(no Having)     1.000                0.083                0.323                0.182                0.276               
+group                1.000                0.083                0.323                0.182                0.276               
+order                1.000                0.714                0.571                0.111                0.614               
+and/or               1.000                1.000                0.974                1.000                0.993               
+IUEN                 0.000                0.000                0.250                0.125                0.188               
+keywords             0.951                0.470                0.479                0.324                0.537               
+---------------------- PARTIAL MATCHING F1 --------------------------
+select               0.933                0.705                0.689                0.522                0.754               
+select(no AGG)       0.933                0.705                0.689                0.522                0.754               
+where                0.947                0.862                0.644                0.533                0.760               
+where(no OP)         0.947                0.862                0.712                0.600                0.792               
+group(no Having)     0.947                0.154                0.465                0.308                0.421               
+group                0.947                0.154                0.465                0.308                0.421               
+order                1.000                0.833                0.727                0.200                0.761               
+and/or               1.000                0.982                0.987                1.000                0.990               
+IUEN                 1.000                1.000                0.400                0.222                0.316               
+keywords             0.963                0.639                0.624                0.478                0.687
 ![spider_test_baseline_eval](spider_test_backtranslate_eval.png)

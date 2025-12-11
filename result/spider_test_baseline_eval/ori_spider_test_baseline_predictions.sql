@@ -73,7 +73,7 @@ SELECT Products.product_name, Products.product_color FROM Products JOIN Order_It
 SELECT DISTINCT p.product_name, p.product_price, p.product_description FROM Products p JOIN Order_Items oi ON p.product_id = oi.product_id JOIN Orders o ON oi.order_id = o.order_id JOIN Customers c ON o.customer_id = c.customer_id WHERE c.gender_code = 'Female';
 SELECT DISTINCT Products.product_name, Products.product_price, Products.product_description FROM Products JOIN Order_Items ON Products.product_id = Order_Items.product_id JOIN Orders ON Order_Items.order_id = Orders.order_id JOIN Customers ON Orders.customer_id = Customers.customer_id WHERE LOWER(Customers.gender_code) = 'female'
 SELECT invoice_status_code FROM Invoices WHERE invoice_number IN (SELECT invoice_number FROM Shipments WHERE order_id NOT IN (SELECT order_id FROM Orders WHERE order_status_code = 'Shipped'))
-SELECT invoice_status_code FROM Invoices WHERE invoice_number IN (SELECT invoice_number FROM Shipments WHERE order_id NOT IN (SELECT order_id FROM Orders WHERE order_status_code = 'Shipped'))
+SELECT 1;  -- ERROR: Request timed out.
 SELECT Orders.order_id, Orders.date_order_placed, SUM(Products.product_price) AS total_cost FROM Orders JOIN Order_Items ON Orders.order_id = Order_Items.order_id JOIN Products ON Order_Items.product_id = Products.product_id WHERE Products.product_name IN ('Dell monitor', 'Dell keyboard', 'iPhone6s', 'iWatch', 'Lenovo keyboard') AND Orders.order_status_code IN ('Cancelled', 'Part Completed', 'Delivered') GROUP BY Orders.order_id, Orders.date_order_placed;
 SELECT Orders.order_id, Orders.date_order_placed, Invoices.invoice_number, Invoices.invoice_date, Invoices.invoice_status_code FROM Orders JOIN Invoices ON Orders.order_id = Invoices.invoice_number;
 SELECT COUNT(DISTINCT Orders.customer_id) FROM Orders JOIN Customers ON Orders.customer_id = Customers.customer_id;
@@ -225,8 +225,8 @@ SELECT Last_Name FROM Students WHERE Gender_MFU IN ('F','M')
 SELECT Last_Name FROM Students WHERE Gender_MFU IN ('F', 'M')
 SELECT First_Name FROM Students WHERE Student_ID NOT IN (SELECT Student_ID FROM Student_Answers)
 SELECT First_Name FROM Students LEFT JOIN Student_Answers ON Students.Student_ID = Student_Answers.Student_ID WHERE Student_Answers.Student_ID IS NULL;
-SELECT Student_Answer_Text FROM Student_Answers WHERE Comments  =  "Normal" INTERSECT SELECT Student_Answer_Text FROM Student_Answers WHERE Comments  =  "Absent"	
-SELECT Student_Answer_Text FROM Student_Answers WHERE Comments  =  "Normal" INTERSECT SELECT Student_Answer_Text FROM Student_Answers WHERE Comments  =  "Absent"	
+SELECT 1;  -- ERROR: Request timed out.
+SELECT 1;  -- ERROR: Request timed out.
 SELECT Type_of_Question_Code FROM Questions GROUP BY Type_of_Question_Code HAVING COUNT(*) >= 3;
 SELECT Type_of_Question_Code FROM Questions GROUP BY Type_of_Question_Code HAVING COUNT(*) >= 3;
 SELECT * FROM Students;
