@@ -1,8 +1,8 @@
 # -*- coding: utf-8 -*-
 """
-LLM 客户端统一封装：
-- 使用 OpenAI 官方 SDK，但通过 base_url 适配本地 Ollama 或任何 OpenAI 兼容服务（如部分 ModelScope/DashScope 网关）。
-- 暴露 chat() 调用，支持工具调用（function calling）消息格式。
+Unified LLM client wrapper:
+- Uses the official OpenAI SDK but adapts to local Ollama or any OpenAI-compatible service via base_url (e.g., some ModelScope/DashScope gateways).
+- Exposes a chat() helper that supports tool-calling (function calling) message formats.
 """
 from __future__ import annotations
 from typing import Any, Dict, List
@@ -27,6 +27,6 @@ def chat(messages: List[Dict[str, Any]], tools: List[Dict[str, Any]] | None = No
         max_tokens=SETTINGS.max_tokens,
         timeout=SETTINGS.request_timeout,
     )
-    # 返回第一条候选
+    # Return the first candidate
     msg = resp.choices[0].message
     return msg.model_dump()

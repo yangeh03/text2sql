@@ -1,8 +1,8 @@
 # -*- coding: utf-8 -*-
 """
-配置与消融：
-- 统一从 .env 与 CLI 读取，CLI 覆盖 .env。
-- 主要用于：选择 LLM 后端、开关工具/反思/验证等模块、资源限制。
+Configuration and ablation settings:
+- Unified reading from .env and CLI (CLI overrides .env).
+- Mainly used to choose the LLM backend, toggle tools/reflection/validation modules, and set resource limits.
 """
 from __future__ import annotations
 import os
@@ -38,33 +38,33 @@ SETTINGS = Settings()
 
 
 # ============================================================
-# 评测配置参数
+# Evaluation configuration parameters
 # ============================================================
 @dataclass
 class EvalConfig:
-    """评测配置（支持 Spider 和 BIRD 数据集）"""
-    # 数据集类型：'spider' 或 'bird'（仅用于标识）
+    """Evaluation configuration (supports Spider and BIRD datasets)."""
+    # Dataset type: 'spider' or 'bird' (for identification only)
     dataset_type: str = "spider"
-    
-    # 数据文件路径
+
+    # Data file path
     data_file: str = "spider_data/test.json"
-    # Schema文件路径
+    # Schema file path
     schema_file: str = "spider_data/test_tables.json"
-    # 输出SQL文件路径
+    # Output SQL file path
     output_file: str = "outputs/spider_test_predictions.sql"
-    # 数据库文件目录路径
+    # Database directory path
     database_dir: str = "spider_data/test_database"
-    
-    # 最多处理的样本数（None表示全部）
+
+    # Maximum number of samples to process (None means all)
     max_samples: int | None = 1
-    # 最大修订次数
+    # Maximum number of revisions
     max_revisions: int = 3
 
 
-# 默认配置实例（Spider）
+# Default configuration instance (Spider)
 EVAL_CONFIG = EvalConfig()
 
-# BIRD 数据集配置示例（取消注释以使用）
+# BIRD dataset configuration example (uncomment to use)
 # EVAL_CONFIG = EvalConfig(
 #     dataset_type="bird",
 #     data_file="bird_data/dev.json",

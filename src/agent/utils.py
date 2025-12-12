@@ -1,9 +1,9 @@
 # -*- coding: utf-8 -*-
 """
-工具函数：
-- 加载数据集（支持 Spider 和 BIRD）
-- 加载 schema
-- 其他辅助功能
+Utility functions:
+- Load datasets (supports Spider and BIRD).
+- Load schema information.
+- Other helper functionality.
 """
 from __future__ import annotations
 import json
@@ -12,38 +12,38 @@ from typing import Dict, Any
 
 def load_dataset(data_path: str, dataset_type: str = "spider") -> list:
     """
-    加载数据集（支持 Spider 和 BIRD）
-    
+    Load a dataset (supports Spider and BIRD).
+
     Args:
-        data_path: 数据文件路径
-        dataset_type: 数据集类型，'spider' 或 'bird'
-    
+        data_path: Path to the data file.
+        dataset_type: Dataset type, either 'spider' or 'bird'.
+
     Returns:
-        问题列表
+        List of question items.
     """
     with open(data_path, 'r', encoding='utf-8') as f:
         data = json.load(f)
-    
-    # BIRD 和 Spider 的数据格式基本相同，只是字段名可能略有不同
-    # BIRD 数据集包含额外的 question_id 字段
+
+    # BIRD and Spider formats are mostly the same; some field names differ.
+    # The BIRD dataset additionally contains a question_id field.
     return data
 
 
 def load_schemas(schema_path: str, dataset_type: str = "spider") -> Dict[str, Any]:
     """
-    加载数据库 schema 信息（支持 Spider 和 BIRD）
-    
+    Load database schema information (supports Spider and BIRD).
+
     Args:
-        schema_path: Schema 文件路径
-        dataset_type: 数据集类型，'spider' 或 'bird'
-    
+        schema_path: Path to the schema file.
+        dataset_type: Dataset type, either 'spider' or 'bird'.
+
     Returns:
-        db_id -> schema_info 的映射
+        Mapping from db_id to schema_info.
     """
     with open(schema_path, 'r', encoding='utf-8') as f:
         schemas = json.load(f)
-    
-    # 转换为 db_id -> schema_info 的映射
+
+    # Convert to a mapping from db_id -> schema_info
     schema_dict = {}
     for schema in schemas:
         db_id = schema.get('db_id')

@@ -425,9 +425,3 @@ SQL_HARD_LIMIT_INJECT=true               # 自动添加 LIMIT
 ## 📄 许可证
 
 MIT License
-
----
-
-## TODOLIST
-- 配置fast llm 和 main llm  -->节省token
-- 中文提示词转英文

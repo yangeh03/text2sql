@@ -1,13 +1,13 @@
 # -*- coding: utf-8 -*-
 """
-用 LangGraph 搭建 Text-to-SQL Agent：
-- preprocess: 获取schema、模式链接、检索示例值
-- subproblem: 子问题分解
-- sql_plan: SQL查询计划（COT）
-- generate_sql: 生成SQL草稿
-- validate_sql: 执行SQL并验证
-- correction_plan: 纠错计划（COT）
-- correction_sql: 修正SQL
+Build a Text-to-SQL agent with LangGraph:
+- preprocess: get schema, perform schema linking, retrieve example values
+- subproblem: decompose the question into subproblems
+- sql_plan: SQL query plan (COT)
+- generate_sql: generate SQL draft
+- validate_sql: execute and validate SQL
+- correction_plan: correction plan (COT)
+- correction_sql: corrected SQL
 """
 from __future__ import annotations
 import json
@@ -26,94 +26,94 @@ from .tools import get_database_schema, schema_linker, content_retriever, semant
 
 
 class AgentState(BaseModel):
-    # 输入
+    # Inputs
     question: str
     db_id: str
-    
-    # 数据库模式信息
-    db_schema: str = ""  # 完整的 CREATE TABLE 语句
-    relevant_schema: str = ""  # 模式链接后筛选的相关表和列
-    retrieved_values: List[str] = Field(default_factory=list)  # 示例值
-    
-    # 新增：子问题分解和计划
-    subproblems: str = ""  # 子问题分解结果（JSON格式）
-    sql_plan: str = ""  # SQL查询计划（COT推理 + FINAL_PLAN段）
-    correction_plan: str = ""  # 纠错计划（COT推理 + CORRECTION_PLAN段）
-    
-    # SQL 生成与验证
-    sql_draft: str = ""  # 当前 SQL 草稿
-    sql_nl_explanation: str = ""  # SQL→Text的自然语言解释（反向翻译）
-    semantic_validation: Dict[str, Any] = Field(default_factory=dict)  # 语义验证结果
-    execution_result: Dict[str, Any] = Field(default_factory=dict)  # 执行结果或错误
-    revision_history: List[Dict[str, Any]] = Field(default_factory=list)  # 修订历史
-    correction_history: List[Dict[str, Any]] = Field(default_factory=list)  # 纠错历史（包含错误、计划、修正SQL）
-    final_sql: str = ""  # 最终接受的 SQL
-    
-    # 控制与诊断
-    max_revisions: int = 3  # 最大修订次数
-    messages: List[Dict[str, Any]] = Field(default_factory=list)  # 与 LLM 的消息历史
-    step_trace: List[str] = Field(default_factory=list)  # 步骤日志
-    
-    # 路径配置
-    data_dir: str = "data/database"  # 数据库文件目录
-    
-    # 兼容旧字段（可选，用于迁移）
-    schema_info: Dict[str, Any] = Field(default_factory=dict)  # Spider schema信息（保留用于工具）
+
+    # Database schema information
+    db_schema: str = ""  # Full CREATE TABLE statements.
+    relevant_schema: str = ""  # Relevant tables/columns after schema linking.
+    retrieved_values: List[str] = Field(default_factory=list)  # Example values.
+
+    # New: subproblem decomposition and planning
+    subproblems: str = ""  # Subproblem decomposition result (JSON string).
+    sql_plan: str = ""  # SQL query plan (COT reasoning + FINAL_PLAN section).
+    correction_plan: str = ""  # Correction plan (COT reasoning + CORRECTION_PLAN section).
+
+    # SQL generation and validation
+    sql_draft: str = ""  # Current SQL draft.
+    sql_nl_explanation: str = ""  # SQL→Text natural language explanation (back-translation).
+    semantic_validation: Dict[str, Any] = Field(default_factory=dict)  # Semantic validation result.
+    execution_result: Dict[str, Any] = Field(default_factory=dict)  # Execution result or error.
+    revision_history: List[Dict[str, Any]] = Field(default_factory=list)  # Revision history.
+    correction_history: List[Dict[str, Any]] = Field(default_factory=list)  # Correction history (error, plan, corrected SQL).
+    final_sql: str = ""  # Final accepted SQL.
+
+    # Control and diagnostics
+    max_revisions: int = 3  # Maximum number of revisions.
+    messages: List[Dict[str, Any]] = Field(default_factory=list)  # Message history with the LLM.
+    step_trace: List[str] = Field(default_factory=list)  # Step-level trace.
+
+    # Paths
+    data_dir: str = "data/database"  # Directory of database files.
+
+    # Backwards-compatible field (kept for tools/migration)
+    schema_info: Dict[str, Any] = Field(default_factory=dict)  # Spider schema info.
 
 
 
 
 def preprocess_node(state: AgentState) -> AgentState:
-    """预处理阶段：获取schema、模式链接、检索示例值"""
+    """Preprocessing: get schema, perform schema linking, retrieve example values."""
     if True:
-        print("\n📋 预处理阶段 - Preprocess")
-    
-    # Step 1: 获取完整数据库模式
+        print("\n📋 Preprocessing stage - Preprocess")
+
+    # Step 1: get full database schema
     if True:
-        print("  🔧 获取数据库模式...")
+        print("  🔧 Getting database schema...")
     result = get_database_schema(state.db_id, state.schema_info)
     if result["status"] == "ok":
         state.db_schema = result["db_schema"]
         if True:
-            print(f"  ✓ 成功获取 {result.get('table_count', 0)} 个表的模式")
+            print(f"  ✓ Successfully retrieved schema for {result.get('table_count', 0)} tables")
     else:
         state.step_trace.append(f"Error: {result.get('error')}")
         return state
     
-    # Step 2: 模式链接
+    # Step 2: schema linking
     if True:
-        print("  🔧 模式链接，筛选相关表...")
+        print("  🔧 Performing schema linking to select relevant tables...")
     result = schema_linker(state.question, state.db_schema, state.schema_info)
     if result["status"] == "ok":
         state.relevant_schema = result["relevant_schema"]
         if True:
-            print(f"  ✓ 筛选出相关表: {result.get('relevant_tables', [])}")
-            print(f"  理由: {result.get('rationale', '')}")
-    
-    # Step 3: 检索示例值
+            print(f"  ✓ Selected relevant tables: {result.get('relevant_tables', [])}")
+            print(f"  Rationale: {result.get('rationale', '')}")
+
+    # Step 3: retrieve example values
     if True:
-        print("  🔧 检索示例值...")
+        print("  🔧 Retrieving example values...")
     result = content_retriever(state.question, state.relevant_schema, state.db_id, data_dir=state.data_dir)
     if result["status"] == "ok":
         state.retrieved_values = result["retrieved_values"]
         if True:
-            print(f"  ✓ 检索到 {len(state.retrieved_values)} 个示例值")
+            print(f"  ✓ Retrieved {len(state.retrieved_values)} example values")
             if state.retrieved_values:
-                print(f"  示例: {state.retrieved_values[:3]}")
+                print(f"  Examples: {state.retrieved_values[:3]}")
 
-    # Step 4:额外信息获取（Additional Info via RAG）
-    # 检示例、领域知识、公式/格式提示，辅助 NL→SQL 对齐（可拓展）
-    
+    # Step 4: additional info (via RAG or other mechanisms)
+    # Domain knowledge, formulas/format hints to assist NL→SQL alignment (extensible).
+
     state.step_trace.append("preprocess_completed")
     return state
 
 
 def subproblem_node(state: AgentState) -> AgentState:
-    """子问题分解阶段：将自然语言问题分解为SQL子问题"""
+    """Subproblem decomposition: break the question into SQL-friendly subproblems."""
     if True:
-        print("\n🔍 子问题分解阶段 - Subproblem Decomposition")
-    
-    # 构建子问题分解提示
+        print("\n🔍 Subproblem decomposition stage - Subproblem Decomposition")
+
+    # Build subproblem decomposition prompt
     prompt = SUBPROBLEM_PROMPT.format(
         question=state.question,
         relevant_schema=state.relevant_schema or state.db_schema
@@ -124,11 +124,11 @@ def subproblem_node(state: AgentState) -> AgentState:
         {"role": "user", "content": prompt}
     ]
     
-    # 调用LLM分解子问题
+    # Call LLM to decompose into subproblems
     resp = chat(messages=messages, tools=None, temperature=0.1)
     content = resp.get("content", "").strip()
     
-    # 清理JSON（移除markdown标记）
+    # Clean JSON output (remove markdown markers)
     if content.startswith("```json"):
         content = content[7:]
     if content.startswith("```"):
@@ -139,15 +139,15 @@ def subproblem_node(state: AgentState) -> AgentState:
     
     state.subproblems = content
     state.step_trace.append(f"subproblems_identified")
-    
+
     if True:
-        print(f"  ✓ 子问题分解完成")
-        # 尝试解析并显示子问题
+        print(f"  ✓ Subproblem decomposition completed")
+        # Try to parse and show subproblem count
         try:
             import json
             subprob_data = json.loads(content)
             if "subproblems" in subprob_data:
-                print(f"  识别到 {len(subprob_data['subproblems'])} 个子问题")
+                print(f"  Identified {len(subprob_data['subproblems'])} subproblems")
         except:
             pass
     
@@ -155,16 +155,16 @@ def subproblem_node(state: AgentState) -> AgentState:
 
 
 def sql_plan_node(state: AgentState) -> AgentState:
-    """SQL计划阶段：使用COT生成查询计划"""
+    """SQL planning stage: use COT to generate a query plan."""
     if True:
-        print("\n📝 SQL计划阶段 - SQL Plan (COT)")
-    
-    # 构建SQL计划提示
+        print("\n📝 SQL planning stage - SQL Plan (COT)")
+
+    # Build SQL plan prompt
     prompt = SQL_PLAN_PROMPT.format(
         question=state.question,
         relevant_schema=state.relevant_schema or state.db_schema,
-        retrieved_values=", ".join(state.retrieved_values) if state.retrieved_values else "无",
-        subproblems=state.subproblems or "无"
+        retrieved_values=", ".join(state.retrieved_values) if state.retrieved_values else "none",
+        subproblems=state.subproblems or "none"
     )
     
     messages = [
@@ -172,50 +172,50 @@ def sql_plan_node(state: AgentState) -> AgentState:
         {"role": "user", "content": prompt}
     ]
     
-    # 调用LLM生成计划
+    # Call LLM to generate the plan
     resp = chat(messages=messages, tools=None, temperature=0.1)
     plan = resp.get("content", "").strip()
     
     state.sql_plan = plan
     state.step_trace.append(f"sql_plan_created")
-    
+
     if True:
-        print(f"  ✓ SQL计划生成完成")
-        # 提取并显示FINAL_PLAN段
+        print(f"  ✓ SQL plan generated")
+        # Extract and display FINAL_PLAN section
         if "FINAL_PLAN:" in plan:
             final_plan_start = plan.index("FINAL_PLAN:")
             final_plan = plan[final_plan_start:final_plan_start+200]
-            print(f"  计划摘要: {final_plan[:150]}...")
+            print(f"  Plan summary: {final_plan[:150]}...")
     
     return state
 
 
 def generate_sql_node(state: AgentState) -> AgentState:
-    """SQL生成阶段：基于计划和预处理结果生成SQL"""
+    """SQL generation stage: generate SQL based on plan and preprocessing."""
     if True:
-        print("\n🔨 SQL生成阶段 - Generate SQL")
-    
-    # 构建生成提示（现在基于SQL计划）
+        print("\n🔨 SQL generation stage - Generate SQL")
+
+    # Build generation prompt (now based on the SQL plan)
     prompt = GENERATE_SQL_PROMPT.format(
         question=state.question,
         relevant_schema=state.relevant_schema or state.db_schema,
-        retrieved_values=", ".join(state.retrieved_values) if state.retrieved_values else "无"
+        retrieved_values=", ".join(state.retrieved_values) if state.retrieved_values else "none"
     )
     
-    # 如果有SQL计划，将其添加到提示中
+    # If there is a SQL plan, prepend it to the prompt
     if state.sql_plan:
-        prompt = f"SQL查询计划：\n{state.sql_plan}\n\n{prompt}"
+        prompt = f"SQL query plan:\n{state.sql_plan}\n\n{prompt}"
     
     messages = [
         {"role": "system", "content": SYSTEM_PROMPT},
         {"role": "user", "content": prompt}
     ]
     
-    # 调用LLM生成SQL
+    # Call LLM to generate SQL
     resp = chat(messages=messages, tools=None, temperature=0.1)
     sql = resp.get("content", "").strip()
     
-    # 清理SQL（移除markdown代码块标记）
+    # Clean SQL (strip markdown code fences)
     if sql.startswith("```sql"):
         sql = sql[6:]
     if sql.startswith("```"):
@@ -226,25 +226,25 @@ def generate_sql_node(state: AgentState) -> AgentState:
     
     state.sql_draft = sql
     state.step_trace.append(f"sql_generated: {sql[:100]}")
-    
+
     if True:
-        print(f"  ✓ 生成SQL: {sql}")
+        print(f"  ✓ Generated SQL: {sql}")
     
     return state
 
 
 def validate_sql_node(state: AgentState) -> AgentState:
-    """SQL验证阶段：语义验证 + 执行验证（两阶段验证）"""
+    """SQL validation: semantic validation + execution validation (two phases)."""
     if True:
-        print("\n✅ SQL验证阶段 - Validate SQL")
-    
+        print("\n✅ SQL validation stage - Validate SQL")
+
     if not state.sql_draft:
-        state.execution_result = {"status": "error", "error": "没有SQL可执行"}
+        state.execution_result = {"status": "error", "error": "No SQL to execute"}
         return state
     
-    # ========== 第1阶段：语义验证（工具调用）==========
+    # ========== Phase 1: semantic validation (tool call) ==========
     if True:
-        print("  🔍 语义验证...")
+        print("  🔍 Semantic validation...")
     
     semantic_result = semantic_validator(
         question=state.question,
@@ -252,47 +252,47 @@ def validate_sql_node(state: AgentState) -> AgentState:
         relevant_schema=state.relevant_schema or state.db_schema
     )
     
-    # 处理语义验证结果
+    # Handle semantic validation result
     if semantic_result["status"] == "ok":
         state.sql_nl_explanation = semantic_result.get("explanation", "")
         state.semantic_validation = {
             "semantic_match": semantic_result.get("semantic_match", True),
             "issues": semantic_result.get("issues", [])
         }
-        
+
         if True:
             if state.semantic_validation["semantic_match"]:
-                print(f"  ✓ 语义验证通过")
+                print(f"  ✓ Semantic validation passed")
                 if state.sql_nl_explanation:
-                    print(f"  SQL解释: {state.sql_nl_explanation[:100]}...")
+                    print(f"  SQL explanation: {state.sql_nl_explanation[:100]}...")
             else:
-                print(f"  ✗ 语义验证失败")
+                print(f"  ✗ Semantic validation failed")
                 if state.sql_nl_explanation:
-                    print(f"  SQL解释: {state.sql_nl_explanation[:100]}...")
-                print(f"  发现问题: {len(state.semantic_validation['issues'])} 个")
+                    print(f"  SQL explanation: {state.sql_nl_explanation[:100]}...")
+                print(f"  Issues found: {len(state.semantic_validation['issues'])}")
                 for issue in state.semantic_validation["issues"][:3]:
                     print(f"    - [{issue.get('type', 'unknown')}] {issue.get('description', '')}")
     else:
-        # 语义验证工具调用失败，降级为通过
+        # Semantic validator failed; degrade to pass-through
         if True:
-            print(f"  ⚠️  语义验证工具调用失败，默认通过: {semantic_result.get('error', '')}")
+            print(f"  ⚠️  Semantic validator call failed, defaulting to pass: {semantic_result.get('error', '')}")
         state.semantic_validation = {
             "semantic_match": True,
             "issues": []
         }
-    
+
     state.step_trace.append(f"semantic_validation: {state.semantic_validation['semantic_match']}")
-    
-    # 如果语义验证失败，跳过执行验证，直接进入纠错
+
+    # If semantic validation failed, skip execution and go to correction
     if not state.semantic_validation.get("semantic_match", True):
         if True:
-            print(f"  ⚠️  语义验证失败，跳过执行验证")
+            print(f"  ⚠️  Semantic validation failed, skipping execution")
         state.execution_result = {
             "status": "error",
-            "error": "语义不匹配",
+            "error": "Semantic mismatch",
             "semantic_issues": state.semantic_validation.get("issues", [])
         }
-        # 记录到修订历史
+        # Record into revision history
         state.revision_history.append({
             "sql": state.sql_draft,
             "result": state.execution_result,
@@ -301,62 +301,62 @@ def validate_sql_node(state: AgentState) -> AgentState:
         })
         state.step_trace.append(f"validation: semantic_failed")
         return state
-    
-    # ========== 第2阶段：执行验证 ==========
+
+    # ========== Phase 2: execution validation ==========
     if True:
-        print(f"\n  🔧 执行验证...")
-    
-    # 执行SQL
+        print(f"\n  🔧 Execution validation...")
+
+    # Execute SQL
     result = sql_executor(state.db_id, state.sql_draft, data_dir=state.data_dir)
     state.execution_result = result
-    
-    # 记录到修订历史
+
+    # Record into revision history
     state.revision_history.append({
         "sql": state.sql_draft,
         "result": result,
         "iteration": len(state.revision_history) + 1,
-        "validation_type": "execution"
-    })
-    
+            "validation_type": "execution"
+        })
+
     if True:
         if result["status"] == "ok":
-            print(f"  ✓ 执行成功，返回 {result.get('rowcount', 0)} 行")
+            print(f"  ✓ Execution succeeded, returned {result.get('rowcount', 0)} rows")
         else:
-            print(f"  ✗ 执行失败: {result.get('error', '')}")
-    
+            print(f"  ✗ Execution failed: {result.get('error', '')}")
+
     state.step_trace.append(f"validation: {result['status']}")
     return state
 
 
 def correction_plan_node(state: AgentState) -> AgentState:
-    """纠错计划阶段：使用COT分析错误并生成修正计划"""
+    """Correction-plan stage: use COT to analyze errors and generate a plan."""
     if True:
-        print(f"\n🔧 纠错计划阶段 - Correction Plan (第 {len(state.revision_history)} 次)")
-    
-    error_msg = state.execution_result.get("error", "未知错误")
-    
-    # 构建语义问题字符串
+        print(f"\n🔧 Correction-plan stage - Correction Plan (iteration {len(state.revision_history)})")
+
+    error_msg = state.execution_result.get("error", "Unknown error")
+
+    # Build semantic-issues text
     semantic_issues_text = ""
     if state.semantic_validation.get("issues"):
-        semantic_issues_text = "\n\n**语义验证发现的问题：**\n"
+        semantic_issues_text = "\n\n**Issues found by semantic validation:**\n"
         for issue in state.semantic_validation["issues"]:
             semantic_issues_text += f"- [{issue.get('type', 'unknown')}] {issue.get('description', '')}\n"
         if state.sql_nl_explanation:
-            semantic_issues_text += f"\nSQL的自然语言解释: {state.sql_nl_explanation}\n"
-    
-    # 构建纠错历史记录字符串
+            semantic_issues_text += f"\nNatural language explanation of the SQL: {state.sql_nl_explanation}\n"
+
+    # Build correction-history text
     history_text = ""
     if state.correction_history:
-        history_text = "\n\n**以下是之前的纠错历史（请从中学习，避免重复错误）：**\n"
+        history_text = "\n\n**Previous correction history (learn from it and avoid repeating mistakes):**\n"
         for i, record in enumerate(state.correction_history, 1):
-            history_text += f"\n--- 第 {i} 次纠错 ---\n"
-            history_text += f"错误SQL: {record.get('sql', '')}\n"
-            history_text += f"错误信息: {record.get('error', '')}\n"
-            history_text += f"纠错计划: {record.get('plan', '')[:200]}...\n"
+            history_text += f"\n--- Correction #{i} ---\n"
+            history_text += f"Erroneous SQL: {record.get('sql', '')}\n"
+            history_text += f"Error message: {record.get('error', '')}\n"
+            history_text += f"Correction plan: {record.get('plan', '')[:200]}...\n"
             if record.get('corrected_sql'):
-                history_text += f"修正后SQL: {record.get('corrected_sql', '')}\n"
-    
-    # 构建纠错计划提示
+                history_text += f"Corrected SQL: {record.get('corrected_sql', '')}\n"
+
+    # Build correction-plan prompt
     prompt = CORRECTION_PLAN_PROMPT.format(
         question=state.question,
         relevant_schema=state.relevant_schema or state.db_schema,
@@ -370,35 +370,35 @@ def correction_plan_node(state: AgentState) -> AgentState:
         {"role": "system", "content": SYSTEM_PROMPT},
         {"role": "user", "content": prompt}
     ]
-    
-    # 调用LLM生成纠错计划
+
+    # Call LLM to generate the correction plan
     resp = chat(messages=messages, tools=None, temperature=0.1)
     plan = resp.get("content", "").strip()
     
     state.correction_plan = plan
     state.step_trace.append(f"correction_plan_created")
-    
+
     if True:
-        print(f"  ✓ 纠错计划生成完成")
-        # 提取并显示CORRECTION_PLAN段
+        print(f"  ✓ Correction plan generated")
+        # Extract and display CORRECTION_PLAN section
         if "CORRECTION_PLAN:" in plan:
             correction_plan_start = plan.index("CORRECTION_PLAN:")
             correction_plan = plan[correction_plan_start:correction_plan_start+200]
-            print(f"  计划摘要: {correction_plan[:150]}...")
+            print(f"  Plan summary: {correction_plan[:150]}...")
     
     return state
 
 
 def correction_sql_node(state: AgentState) -> AgentState:
-    """纠错SQL阶段：基于纠错计划生成修正后的SQL"""
+    """Correction-SQL stage: generate corrected SQL based on the correction plan."""
     if True:
-        print(f"\n🔨 纠错SQL阶段 - Correction SQL")
-    
-    # 记录当前纠错历史（在生成新SQL之前）
+        print(f"\n🔨 Correction-SQL stage - Correction SQL")
+
+    # Preserve current correction context (before generating new SQL)
     old_sql = state.sql_draft
-    old_error = state.execution_result.get("error", "未知错误")
-    
-    # 构建纠错SQL提示
+    old_error = state.execution_result.get("error", "Unknown error")
+
+    # Build correction-SQL prompt
     prompt = CORRECTION_SQL_PROMPT.format(
         question=state.question,
         relevant_schema=state.relevant_schema or state.db_schema,
@@ -410,12 +410,12 @@ def correction_sql_node(state: AgentState) -> AgentState:
         {"role": "system", "content": SYSTEM_PROMPT},
         {"role": "user", "content": prompt}
     ]
-    
-    # 调用LLM生成修正后的SQL
+
+    # Call LLM to generate corrected SQL
     resp = chat(messages=messages, tools=None, temperature=0.1)
     sql = resp.get("content", "").strip()
     
-    # 清理SQL
+    # Clean SQL
     if sql.startswith("```sql"):
         sql = sql[6:]
     if sql.startswith("```"):
@@ -424,7 +424,7 @@ def correction_sql_node(state: AgentState) -> AgentState:
         sql = sql[:-3]
     sql = sql.strip()
     
-    # 记录纠错历史
+    # Record correction history
     state.correction_history.append({
         "iteration": len(state.correction_history) + 1,
         "sql": old_sql,
@@ -432,99 +432,101 @@ def correction_sql_node(state: AgentState) -> AgentState:
         "plan": state.correction_plan,
         "corrected_sql": sql
     })
-    
+
     state.sql_draft = sql
     state.step_trace.append(f"sql_corrected: {sql[:100]}")
-    
+
     if True:
-        print(f"  ✓ 修正后SQL: {sql}")
-        print(f"  📝 已记录第 {len(state.correction_history)} 次纠错历史")
+        print(f"  ✓ Corrected SQL: {sql}")
+        print(f"  📝 Recorded {len(state.correction_history)} correction iterations")
     
     return state
 
 
 def decide_next_step(state: AgentState) -> str:
-    """条件路由：决定下一步是修订、结束还是继续"""
+    """Conditional routing: decide whether to revise, finalize, or stop."""
     result = state.execution_result
-    
-    # 检查是否达到最大修订次数
+
+    # Check whether maximum revision count has been reached
     if len(state.revision_history) >= state.max_revisions:
         if True:
-            print(f"\n⚠️  已达到最大修订次数 ({state.max_revisions})，接受当前SQL")
+            print(f"\n⚠️  Reached maximum number of revisions ({state.max_revisions}); accepting current SQL")
         return "finalize"
-    
-    # 如果执行失败，进行修订
+
+    # If execution failed, go to correction
     if result.get("status") == "error":
-        return "correction_plan"  # 修改：从revise改为correction_plan
-    
-    # 如果返回空结果，也尝试修订（但只修订一次）
+        return "correction_plan"  # From previous 'revise' to 'correction_plan'.
+
+    # If result set is empty, try a single correction
     if result.get("status") == "ok" and result.get("rowcount", 0) == 0:
-        # 检查是否已经修订过空结果
+        # Check whether we already revised once for empty result
         if len(state.revision_history) == 1:
             if True:
-                print("\n⚠️  结果为空，尝试修订...")
-            return "correction_plan"  # 修改：从revise改为correction_plan
+                print("\n⚠️  Result is empty, trying a correction...")
+            return "correction_plan"  # From previous 'revise' to 'correction_plan'.
         else:
-            # 已经修订过，接受空结果
+            # Already revised, accept the empty result
             if True:
-                print("\n✓ 接受空结果（可能是正确的）")
+                print("\n✓ Accepting empty result (may be correct)")
             return "finalize"
-    
-    # 如果成功且有数据，接受
+
+    # If execution succeeded and has rows, accept
     if result.get("status") == "ok" and result.get("rowcount", 0) > 0:
         if True:
-            print("\n✅ SQL验证成功，接受结果")
+            print("\n✅ SQL validation succeeded; accepting result")
         return "finalize"
-    
-    # 默认结束
+
+    # Default: finalize
     return "finalize"
 
 
 def finalize_node(state: AgentState) -> AgentState:
-    """最终化节点：设置 final_sql"""
+    """Finalize node: set final_sql from the last draft."""
     state.final_sql = state.sql_draft
     return state
 
 
 def build_graph():
-    """构建LangGraph状态图：
-    preprocess -> subproblem -> sql_plan -> generate_sql -> validate_sql 
-    -> (correction_plan -> correction_sql -> validate_sql)* -> finalize -> end
+    """Build and compile the LangGraph state machine.
+
+    Flow:
+        preprocess -> subproblem -> sql_plan -> generate_sql -> validate_sql
+        -> (correction_plan -> correction_sql -> validate_sql)* -> finalize -> END
     """
     g = StateGraph(AgentState)
-    
-    # 添加节点
+
+    # Add nodes
     g.add_node("preprocess", preprocess_node)
-    g.add_node("subproblem", subproblem_node)  # 新增
-    g.add_node("sql_plan", sql_plan_node)  # 新增
+    g.add_node("subproblem", subproblem_node)
+    g.add_node("sql_plan", sql_plan_node)
     g.add_node("generate_sql", generate_sql_node)
     g.add_node("validate_sql", validate_sql_node)
-    g.add_node("correction_plan", correction_plan_node)  # 新增：替换revise_sql
-    g.add_node("correction_sql", correction_sql_node)  # 新增
+    g.add_node("correction_plan", correction_plan_node)
+    g.add_node("correction_sql", correction_sql_node)
     g.add_node("finalize", finalize_node)
-    
-    # 定义边：主流程
+
+    # Main flow edges
     g.add_edge(START, "preprocess")
-    g.add_edge("preprocess", "subproblem")  # 新增
-    g.add_edge("subproblem", "sql_plan")  # 新增
-    g.add_edge("sql_plan", "generate_sql")  # 修改：从preprocess改为sql_plan
+    g.add_edge("preprocess", "subproblem")
+    g.add_edge("subproblem", "sql_plan")
+    g.add_edge("sql_plan", "generate_sql")
     g.add_edge("generate_sql", "validate_sql")
-    
-    # 条件路由：validate后决定是修订还是结束
+
+    # Conditional routing after validation: either correct or finalize
     g.add_conditional_edges(
         "validate_sql",
         decide_next_step,
         {
-            "correction_plan": "correction_plan",  # 修改：从revise改为correction_plan
+            "correction_plan": "correction_plan",
             "finalize": "finalize"
         }
     )
-    
-    # 修订流程：correction_plan -> correction_sql -> validate
-    g.add_edge("correction_plan", "correction_sql")  # 新增
-    g.add_edge("correction_sql", "validate_sql")  # 修改：从revise_sql改为correction_sql
-    
-    # finalize 后结束
+
+    # Correction loop: correction_plan -> correction_sql -> validate_sql
+    g.add_edge("correction_plan", "correction_sql")
+    g.add_edge("correction_sql", "validate_sql")
+
+    # Finalize then END
     g.add_edge("finalize", END)
-    
+
     return g.compile()
